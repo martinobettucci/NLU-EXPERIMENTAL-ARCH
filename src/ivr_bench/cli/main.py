@@ -15,6 +15,15 @@ from ivr_bench import __version__
 from ivr_bench.domain.catalog import default_catalog
 from ivr_bench.domain.paths import repo_root
 from ivr_bench.domain.schemas import export_schemas
+from ivr_bench.domain.validation import OutputValidator
+from ivr_bench.generators.corpus import (
+    PROFILE_VOLUMES,
+    build_corpus,
+    contamination_report_path,
+    deduplicate,
+    load_split,
+    write_corpus,
+)
 from ivr_bench.generators.practitioners import (
     PROFILE_SIZES,
     generate_practitioners,
@@ -98,7 +107,21 @@ def data_generate(
     profile: str = typer.Option("full", help="Profil de volumes : dev, smoke ou full."),
 ) -> None:
     """Genere les corpus index, train, validation et test."""
-    _pending("M3", "Generation des corpus")
+    if profile not in PROFILE_VOLUMES:
+        typer.secho(
+            f"profil inconnu : {profile}. Attendus : {', '.join(PROFILE_VOLUMES)}.",
+            fg=typer.colors.RED,
+            err=True,
+        )
+        raise typer.Exit(code=2)
+
+    corpus = build_corpus(seed=seed, profile=profile)
+    corpus, report = deduplicate(corpus)
+    write_corpus(corpus, report, seed=seed, profile=profile)
+
+    for split, cases in corpus.items():
+        typer.echo(f"{split:12} {len(cases):6} cas")
+    typer.echo(f"doublons retires : {report['total_removed']}")
 
 
 @data_app.command("validate")
@@ -106,7 +129,47 @@ def data_validate(
     strict: bool = typer.Option(False, "--strict", help="Echoue si un corpus attendu est absent."),
 ) -> None:
     """Valide schemas, manifestes et rapport de contamination."""
-    _pending("M3", "Validation des corpus")
+    splits = ("index", "train", "validation", "contrastive", "test")
+    validator = OutputValidator(default_catalog())
+
+    missing = []
+    problems = 0
+    total = 0
+    for split in splits:
+        try:
+            cases = load_split(split)
+        except FileNotFoundError:
+            missing.append(split)
+            continue
+
+        total += len(cases)
+        for case in cases:
+            # Chaque attendu doit lui-meme franchir la chaine de validation :
+            # un corpus qui contiendrait une cible invalide rendrait la mesure
+            # incomparable entre architectures.
+            outcome = validator.validate(
+                {"name": case.expected.tool_name, "arguments": case.expected.arguments}
+            )
+            if outcome.validity == "invalid":
+                problems += 1
+                if problems <= 5:
+                    typer.secho(f"  {case.id} : {outcome.errors}", fg=typer.colors.RED, err=True)
+        typer.echo(f"{split:12} {len(cases):6} cas valides")
+
+    if not contamination_report_path().is_file():
+        missing.append("rapport de contamination")
+
+    if missing:
+        message = f"absent : {', '.join(missing)}"
+        if strict:
+            typer.secho(message, fg=typer.colors.RED, err=True)
+            raise typer.Exit(code=1)
+        typer.secho(message, fg=typer.colors.YELLOW, err=True)
+
+    if problems:
+        typer.secho(f"{problems} attendus invalides sur {total}", fg=typer.colors.RED, err=True)
+        raise typer.Exit(code=1)
+    typer.echo(f"{total} cas valides au total.")
 
 
 @doctors_app.command("generate")

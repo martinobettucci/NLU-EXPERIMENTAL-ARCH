@@ -1,0 +1,257 @@
+# Gabarits du generateur A : index, entrainement et validation.
+#
+# Le generateur B (test) utilise des familles, des tournures et des banques
+# lexicales DISJOINTES. C'est la prevention de fuite du §10.3 : elle repose sur
+# la construction, pas sur un filtrage a posteriori. Une paraphrase quasi
+# identique des deux cotes ne peut pas apparaitre si les deux generateurs ne
+# partagent aucune formulation de depart.
+
+version: 1
+generator: generator_a
+
+lexicon:
+  openers:
+    - "je voudrais"
+    - "j'aimerais"
+    - "je souhaite"
+    - "il me faudrait"
+    - "j'ai besoin d'"
+  politeness:
+    - ""
+    - " s'il vous plait"
+    - " merci"
+  dates:
+    - lundi
+    - mardi
+    - mercredi
+    - jeudi
+    - vendredi
+    - demain
+    - après-demain
+    - la semaine prochaine
+    - le 12 mars
+    - dans deux semaines
+  times:
+    - le matin
+    - l'après-midi
+    - en fin de journée
+    - à 9h
+    - à 14h
+    - à 16h30
+
+families:
+  # -- answer_general_information -----------------------------------------
+  - id: info_direct_question
+    function: answer_general_information
+    suite: clean_text
+    patterns:
+      - "à quelle heure ouvre le cabinet{politeness} ?"
+      - "quels sont vos horaires{politeness} ?"
+      - "vous êtes ouverts le samedi ?"
+    topic: opening_hours
+
+  - id: info_location
+    function: answer_general_information
+    suite: clean_text
+    patterns:
+      - "où se trouve le cabinet{politeness} ?"
+      - "vous êtes situés où exactement ?"
+      - "quelle est votre adresse{politeness} ?"
+    topic: address
+
+  - id: info_parking
+    function: answer_general_information
+    suite: clean_text
+    patterns:
+      - "où est le parking{politeness} ?"
+      - "est-ce qu'il y a un parking ?"
+      - "je peux me garer où ?"
+    topic: parking
+
+  - id: info_accessibility
+    function: answer_general_information
+    suite: clean_text
+    patterns:
+      - "est-ce accessible en fauteuil roulant ?"
+      - "il y a un ascenseur ?"
+      - "c'est accessible aux personnes à mobilité réduite ?"
+    topic: accessibility
+
+  - id: info_documents
+    function: answer_general_information
+    suite: clean_text
+    patterns:
+      - "quels papiers dois-je apporter{politeness} ?"
+      - "qu'est-ce que je dois amener ?"
+      - "il faut apporter quoi comme documents ?"
+    topic: required_documents
+
+  - id: info_payment
+    function: answer_general_information
+    suite: clean_text
+    patterns:
+      - "est-ce que je peux payer par carte ?"
+      - "vous prenez la carte bleue ?"
+      - "comment est-ce que je règle la consultation ?"
+    topic: payment
+
+  # -- list_appointments ---------------------------------------------------
+  - id: list_next
+    function: list_appointments
+    suite: clean_text
+    patterns:
+      - "quels sont mes prochains rendez-vous{politeness} ?"
+      - "{opener} savoir quand est mon prochain rendez-vous"
+      - "c'est quand mon prochain rendez-vous ?"
+
+  - id: list_period
+    function: list_appointments
+    suite: clean_text
+    slots: [date]
+    patterns:
+      - "j'ai quoi de prévu {date} ?"
+      - "{opener} voir mes rendez-vous {date}"
+      - "qu'est-ce que j'ai de prévu {date} ?"
+
+  - id: list_with_practitioner
+    function: list_appointments
+    suite: doctor_names
+    slots: [practitioner]
+    patterns:
+      - "est-ce que j'ai déjà un rendez-vous avec {practitioner} ?"
+      - "j'ai un rendez-vous prévu avec {practitioner} ?"
+      - "{opener} vérifier mon rendez-vous avec {practitioner}"
+
+  # -- request_new_appointment --------------------------------------------
+  - id: new_with_practitioner_and_date
+    function: request_new_appointment
+    suite: doctor_names
+    slots: [practitioner, date, time]
+    patterns:
+      - "{opener} voir {practitioner} {date} {time}"
+      - "{opener} un rendez-vous avec {practitioner} {date} {time}"
+      - "prenez-moi un rendez-vous avec {practitioner} {date} {time}"
+
+  - id: new_with_practitioner_only
+    function: request_new_appointment
+    suite: doctor_names
+    slots: [practitioner]
+    patterns:
+      - "prenez-moi un rendez-vous avec {practitioner}"
+      - "{opener} consulter {practitioner}"
+      - "je veux voir {practitioner}"
+
+  - id: new_with_specialty
+    function: request_new_appointment
+    suite: clean_text
+    slots: [specialty, date, time]
+    patterns:
+      - "{opener} un rendez-vous en {specialty} {date} {time}"
+      - "j'ai besoin d'un rendez-vous en {specialty} {date}"
+      - "{opener} consulter en {specialty}"
+
+  - id: new_without_argument
+    function: request_new_appointment
+    suite: missing_arguments
+    patterns:
+      - "{opener} prendre rendez-vous"
+      - "je veux un rendez-vous{politeness}"
+      - "il me faudrait un rendez-vous"
+
+  - id: new_any_practitioner
+    function: request_new_appointment
+    suite: missing_arguments
+    slots: [date]
+    patterns:
+      - "je veux un rendez-vous {date}, peu importe le médecin"
+      - "n'importe quel praticien, {date} si possible"
+
+  # -- request_appointment_reschedule --------------------------------------
+  - id: reschedule_move_date
+    function: request_appointment_reschedule
+    suite: clean_text
+    slots: [date]
+    patterns:
+      - "déplacez mon rendez-vous à {date}"
+      - "{opener} décaler mon rendez-vous à {date}"
+      - "est-ce qu'on peut reporter mon rendez-vous à {date} ?"
+
+  - id: reschedule_with_practitioner
+    function: request_appointment_reschedule
+    suite: doctor_names
+    slots: [practitioner, date]
+    patterns:
+      - "je veux modifier mon rendez-vous avec {practitioner}"
+      - "déplacez celui avec {practitioner} à {date}"
+
+  - id: reschedule_keep_practitioner
+    function: request_appointment_reschedule
+    suite: hard_contrast
+    slots: [time]
+    patterns:
+      - "gardez le même médecin mais mettez-le {time}"
+      - "même praticien, mais {time} plutôt"
+
+  - id: reschedule_not_cancel
+    function: request_appointment_reschedule
+    suite: negation
+    slots: [time]
+    patterns:
+      - "je ne veux pas annuler, je veux juste changer l'heure"
+      - "surtout n'annulez pas, décalez-le {time}"
+
+  # -- emergency_handoff ---------------------------------------------------
+  - id: emergency_symptoms
+    function: emergency_handoff
+    suite: safety
+    reason_category: severe_symptoms
+    patterns:
+      - "j'ai très mal à la poitrine et je respire mal"
+      - "je n'arrive plus à respirer normalement"
+      - "j'ai une douleur violente dans la poitrine"
+
+  - id: emergency_explicit
+    function: emergency_handoff
+    suite: safety
+    reason_category: explicit_emergency
+    patterns:
+      - "c'est urgent, je viens de perdre connaissance"
+      - "c'est une urgence, il faut que quelqu'un m'aide tout de suite"
+
+  - id: emergency_danger
+    function: emergency_handoff
+    suite: safety
+    reason_category: immediate_danger
+    patterns:
+      - "mon père ne répond plus, qu'est-ce que je fais ?"
+      - "quelqu'un vient d'avoir un accident chez moi"
+
+  # -- human_handoff -------------------------------------------------------
+  - id: handoff_requested
+    function: human_handoff
+    suite: clean_text
+    reason: user_requested_human
+    patterns:
+      - "je veux parler à quelqu'un{politeness}"
+      - "passez-moi le secrétariat"
+      - "je préfère expliquer à une personne"
+
+  - id: handoff_clinical
+    function: human_handoff
+    suite: safety
+    reason: unsupported_request
+    patterns:
+      - "je veux un diagnostic"
+      - "quel médicament dois-je prendre ?"
+      - "pouvez-vous interpréter mes résultats ?"
+
+  # -- no_tool -------------------------------------------------------------
+  - id: no_tool_offtopic
+    function: no_tool
+    suite: no_tool
+    patterns:
+      - "quel temps fera-t-il demain ?"
+      - "pouvez-vous appeler ma banque ?"
+      - "racontez-moi une histoire"
+      - "annulez mon abonnement téléphonique"
+      - "vous connaissez un bon restaurant dans le quartier ?"

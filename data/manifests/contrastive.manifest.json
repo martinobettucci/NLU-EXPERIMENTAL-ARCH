@@ -1,0 +1,37 @@
+{
+  "split": "contrastive",
+  "profile": "full",
+  "seed": 42,
+  "schema_version": 1,
+  "generator_version": 1,
+  "generated_at": "2026-08-06T21:52:22+00:00",
+  "content_sha256": "841618059e6670faed3791ebaa1176f2bb9a48b3764085472808858f167b96c7",
+  "count": 597,
+  "target_per_function": 100,
+  "by_function": {
+    "list_appointments": 117,
+    "request_new_appointment": 169,
+    "request_appointment_reschedule": 79,
+    "human_handoff": 82,
+    "emergency_handoff": 50,
+    "no_tool": 50,
+    "answer_general_information": 50
+  },
+  "shortfall_by_function": {
+    "answer_general_information": 50,
+    "request_appointment_reschedule": 21,
+    "emergency_handoff": 50,
+    "human_handoff": 18,
+    "no_tool": 50
+  },
+  "by_suite": {
+    "hard_contrast": 597
+  },
+  "by_origin": {
+    "template": 409,
+    "perturbation": 188
+  },
+  "by_generator": {
+    "generator_a": 597
+  }
+}

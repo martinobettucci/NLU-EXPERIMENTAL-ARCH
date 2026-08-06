@@ -112,6 +112,37 @@ def _synthetic_surnames(banks: dict[str, Any], needed: int, taken: set[str]) -> 
     return produced
 
 
+def _test_surnames(
+    selected: list[tuple[str, tuple[str, str, str | None]]], ratio: float
+) -> set[str]:
+    """Noms de famille reserves au test, homophones compris.
+
+    Un groupe d'homophones part en entier du meme cote : garder `Rey` a
+    l'entrainement et `Ray` au test reviendrait a avoir deja entendu le nom.
+    """
+    by_surname: dict[str, str | None] = {}
+    for _, (last_name, _, group) in selected:
+        by_surname[last_name] = group
+
+    groups: dict[str, list[str]] = {}
+    for last_name, group in by_surname.items():
+        groups.setdefault(group or f"solo:{last_name}", []).append(last_name)
+
+    # Ordre stable, independant de l'ordre d'insertion.
+    ordered = sorted(
+        groups.items(),
+        key=lambda item: hashlib.sha256(item[0].encode("utf-8")).hexdigest(),
+    )
+
+    target = int(len(by_surname) * ratio)
+    chosen: set[str] = set()
+    for _, surnames in ordered:
+        if len(chosen) >= target:
+            break
+        chosen.update(surnames)
+    return chosen
+
+
 def generate_practitioners(seed: int = 42, count: int | None = None) -> list[Practitioner]:
     """Produit un catalogue deterministe pour une graine donnee."""
     banks = load_name_banks()
@@ -159,7 +190,12 @@ def generate_practitioners(seed: int = 42, count: int | None = None) -> list[Pra
         offset = rotation + index + len(first_names) // 2 + 1
         selected.append((first_names[offset % len(first_names)], last))
 
-    test_start = total - int(total * TEST_SPLIT_RATIO)
+    # La partition se decide par NOM DE FAMILLE, pas par position. Deux
+    # praticiens homonymes doivent tomber du meme cote : sinon le nom d'un
+    # praticien « de test » aurait deja ete prononce a l'entrainement par son
+    # homonyme, et la partition ne prouverait plus rien.
+    test_surnames = _test_surnames(selected, TEST_SPLIT_RATIO)
+
     practitioners: list[Practitioner] = []
     for index, (first_name, (last_name, category, group)) in enumerate(selected):
         display_name = f"Dr {first_name} {last_name}"
@@ -180,7 +216,7 @@ def generate_practitioners(seed: int = 42, count: int | None = None) -> list[Pra
                 site_id=sites[index % len(sites)],
                 aliases=aliases,
                 phonetic_aliases=phonetic_keys(aliases),
-                split="test" if index >= test_start else "train",
+                split="test" if last_name in test_surnames else "train",
                 name_category=category,
                 homophone_group=group,
             )

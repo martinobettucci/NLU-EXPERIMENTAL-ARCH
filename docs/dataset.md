@@ -26,6 +26,23 @@ apostrophes, noms composés, homophones et paires proches. **La partition de tes
 praticiens absents de l'entraînement** : le routeur doit extraire un nom prononcé, pas
 mémoriser une liste fermée.
 
-## État d'implémentation
+## Composition publiée, pas supposée
 
-Générateurs à venir au jalon M3.
+Chaque manifeste publie la répartition par fonction, par sous-suite, **et par
+origine** — énoncé issu directement d'un gabarit, ou obtenu par déformation.
+Un déficit par rapport à la cible de 300 est publié plutôt que comblé
+silencieusement.
+
+Limite connue de la version actuelle : les fonctions sans emplacement variable
+(informations générales, transferts, hors périmètre) disposent de peu de
+gabarits, si bien que la majorité de leur volume provient des déformations
+plutôt que de formulations distinctes. Le champ `by_origin` du manifeste rend ce
+déséquilibre visible ; l'enrichir demande d'écrire davantage de gabarits, pas de
+changer le moteur.
+
+## Ce que la déduplication fait, et ne fait pas
+
+Un plafond par **noyau sémantique** empêche la même question redite avec une
+autre formule de politesse de remplir l'index. Ce plafond ne s'applique
+volontairement pas aux déformations : une hésitation ou une erreur de
+transcription conserve le sens, et c'est précisément ce qu'on veut mesurer.

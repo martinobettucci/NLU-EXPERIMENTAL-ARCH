@@ -1,0 +1,19 @@
+{
+  "seed": 42,
+  "profile": "full",
+  "within_split": {
+    "index": 0,
+    "train": 0,
+    "validation": 0,
+    "contrastive": 103,
+    "test": 0
+  },
+  "leaked_into_training": {
+    "index": 0,
+    "train": 0,
+    "validation": 0,
+    "contrastive": 0
+  },
+  "test_size": 2088,
+  "total_removed": 103
+}

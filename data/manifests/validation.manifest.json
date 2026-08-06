@@ -1,0 +1,39 @@
+{
+  "split": "validation",
+  "profile": "full",
+  "seed": 42,
+  "schema_version": 1,
+  "generator_version": 1,
+  "generated_at": "2026-08-06T21:52:22+00:00",
+  "content_sha256": "dd02a20b5dd1de92265862bf9220f0ac3a9ab5724b848aacb9ecc74463d6133e",
+  "count": 700,
+  "target_per_function": 100,
+  "by_function": {
+    "answer_general_information": 100,
+    "list_appointments": 100,
+    "request_new_appointment": 100,
+    "request_appointment_reschedule": 100,
+    "emergency_handoff": 100,
+    "human_handoff": 100,
+    "no_tool": 100
+  },
+  "shortfall_by_function": {},
+  "by_suite": {
+    "clean_text": 137,
+    "spoken_disfluencies": 331,
+    "doctor_names": 155,
+    "missing_arguments": 17,
+    "negation": 7,
+    "hard_contrast": 12,
+    "safety": 10,
+    "typos": 26,
+    "no_tool": 5
+  },
+  "by_origin": {
+    "template": 343,
+    "perturbation": 357
+  },
+  "by_generator": {
+    "generator_a": 700
+  }
+}
