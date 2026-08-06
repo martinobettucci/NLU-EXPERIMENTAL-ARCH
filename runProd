@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Profil demonstration : serveur vocal simule uniquement.
+# Le depot reste avant tout un projet experimental : aucune donnee reelle,
+# aucun resultat publie automatiquement depuis ce profil.
+set -euo pipefail
+cd "$(dirname "$0")"
+
+if [[ "${1:-}" == "--docker" ]]; then
+  exec docker compose -f docker-compose.prod.yml up --build
+fi
+
+uv sync --all-extras
+uv run ivr-bench models download
+exec uv run uvicorn ivr_bench.api.app:app --host 0.0.0.0 --port 8080

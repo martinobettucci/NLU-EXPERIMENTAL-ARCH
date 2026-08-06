@@ -1,0 +1,22 @@
+# Profil demonstration : API, backend synthetique, pipeline vocal.
+# Aucune donnee reelle, aucune publication automatique de resultats.
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    environment:
+      IVR_BENCH_PROFILE: prod
+      HF_TOKEN: ${HF_TOKEN:?HF_TOKEN requis pour les modeles sous licence Gemma}
+    volumes:
+      - weights:/cache/weights
+      - huggingface:/cache/huggingface
+    ports:
+      - "8080:8080"
+    entrypoint: ["uv", "run", "uvicorn"]
+    command: ["ivr_bench.api.app:app", "--host", "0.0.0.0", "--port", "8080"]
+    restart: unless-stopped
+
+volumes:
+  weights:
+  huggingface:

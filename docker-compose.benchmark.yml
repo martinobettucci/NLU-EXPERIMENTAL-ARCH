@@ -1,0 +1,36 @@
+# Profil banc d'essai : donnees completes, modeles reels, mesures de ressources.
+# Aucun service GPU : la comparaison porte sur des architectures CPU.
+services:
+  benchmark:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    environment:
+      IVR_BENCH_PROFILE: benchmark
+      IVR_BENCH_DIET_URL: http://diet:5005
+      HF_TOKEN: ${HF_TOKEN:?HF_TOKEN requis pour EmbeddingGemma et FunctionGemma}
+      OMP_NUM_THREADS: ${OMP_NUM_THREADS:-4}
+    volumes:
+      - .:/app
+      - weights:/cache/weights
+      - huggingface:/cache/huggingface
+    depends_on:
+      diet:
+        condition: service_started
+    command: ["benchmark", "all", "--config", "config/benchmark/cpu.yaml"]
+
+  # Isole car Rasa 3.6 exige Python < 3.11.
+  diet:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.diet
+    volumes:
+      - ./data:/diet/data:ro
+      - diet_models:/diet/models
+    ports:
+      - "5005:5005"
+
+volumes:
+  weights:
+  huggingface:
+  diet_models:

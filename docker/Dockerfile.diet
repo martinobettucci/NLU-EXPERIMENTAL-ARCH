@@ -1,0 +1,23 @@
+# Sidecar Rasa DIET.
+#
+# Rasa 3.6 declare requires_python <3.11 : il ne peut pas cohabiter avec
+# l'environnement principal en Python 3.12. Plutot que de degrader DIET en
+# reimplementation maison, on l'isole ici et on le pilote par HTTP, ce qui
+# preserve la comparaison avec le vrai pipeline NLU de Rasa.
+FROM python:3.10-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /diet
+COPY docker/diet-requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src/ivr_bench/routers/diet/sidecar ./sidecar
+
+EXPOSE 5005
+CMD ["python", "-m", "sidecar.server"]

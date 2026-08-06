@@ -1,0 +1,95 @@
+name: Benchmark complet
+
+# Declenchement manuel uniquement.
+#
+# Avertissement methodologique : un runner GitHub heberge est partage et de
+# performance variable. Les mesures de latence, de memoire et de debit produites
+# sur ce type de machine ne doivent pas etre publiees comme des comparaisons
+# materielles stables. Utilisez un runner auto-heberge dedie pour cela, et
+# laissez publish_results a false sinon.
+
+on:
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: Suite a executer
+        default: all
+        type: choice
+        options: [text, audio, e2e, all]
+      architectures:
+        description: Architectures separees par des virgules, ou "all"
+        default: all
+        type: string
+      hardware_profile:
+        description: Profil materiel (fichier de config/benchmark)
+        default: cpu
+        type: string
+      seed_count:
+        description: Nombre de graines
+        default: "5"
+        type: string
+      publish_results:
+        description: Publier les resultats dans le README
+        default: false
+        type: boolean
+
+jobs:
+  benchmark:
+    # Bascule sur 'self-hosted' pour toute mesure de performance publiable.
+    runs-on: ${{ vars.BENCHMARK_RUNNER || 'ubuntu-latest' }}
+    timeout-minutes: 1440
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Cache des poids
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/huggingface
+            weights
+          key: weights-${{ hashFiles('config/**/*.yaml') }}
+
+      - name: Installation
+        run: uv sync --all-extras
+
+      - name: Telechargement explicite des poids
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: uv run ivr-bench models download
+
+      - name: Preparation des donnees et des index
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          uv run ivr-bench doctors generate --seed 42
+          uv run ivr-bench data generate --seed 42
+          uv run ivr-bench data validate --strict
+          uv run ivr-bench index build --config config/benchmark/${{ inputs.hardware_profile }}.yaml
+
+      - name: Campagne
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          uv run ivr-bench benchmark ${{ inputs.suite }} \
+            --architectures ${{ inputs.architectures }} \
+            --config config/benchmark/${{ inputs.hardware_profile }}.yaml \
+            --seed-count ${{ inputs.seed_count }}
+
+      - name: Rapports
+        run: uv run ivr-bench report build
+
+      - name: Publication dans le README
+        if: ${{ inputs.publish_results && vars.BENCHMARK_RUNNER != '' }}
+        run: uv run ivr-bench readme update
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark-${{ inputs.suite }}-${{ inputs.hardware_profile }}
+          path: |
+            results/
+            reports/

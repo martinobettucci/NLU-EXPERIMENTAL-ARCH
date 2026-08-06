@@ -1,0 +1,64 @@
+name: Benchmark court
+
+# Campagne courte a la demande, sur modeles reels et corpus reduit.
+# Elle sert a detecter les regressions fonctionnelles, jamais a publier
+# des chiffres de performance materielle.
+
+on:
+  workflow_dispatch:
+    inputs:
+      architectures:
+        description: Architectures separees par des virgules, ou "all"
+        default: all
+        type: string
+      seed:
+        description: Graine
+        default: "42"
+        type: string
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Cache des poids
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/huggingface
+            weights
+          key: weights-${{ hashFiles('config/**/*.yaml') }}
+
+      - name: Installation
+        run: uv sync --all-extras
+
+      - name: Telechargement explicite des poids
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: uv run ivr-bench models download --profile smoke
+
+      - name: Campagne
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          uv run ivr-bench doctors generate --seed ${{ inputs.seed }} --profile smoke
+          uv run ivr-bench data generate --seed ${{ inputs.seed }} --profile smoke
+          uv run ivr-bench index build --config config/benchmark/smoke.yaml
+          uv run ivr-bench benchmark text \
+            --architectures ${{ inputs.architectures }} \
+            --config config/benchmark/smoke.yaml \
+            --seed ${{ inputs.seed }}
+          uv run ivr-bench report build --no-charts
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-results-${{ inputs.seed }}
+          path: |
+            results/runs/
+            results/tables/

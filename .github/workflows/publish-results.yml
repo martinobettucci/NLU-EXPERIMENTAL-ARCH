@@ -1,0 +1,61 @@
+name: Publication des resultats
+
+# Verifie l'integrite d'une campagne avant de toucher au README.
+# Les runs historiques ne sont jamais ecrases : chaque campagne vit dans son
+# propre results/runs/<run_id>/ et seule la zone generee du README change.
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Identifiant du run a publier
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Installation
+        run: uv sync --extra dev
+
+      - name: Completude et hashes du run
+        run: uv run ivr-bench report verify --run-id ${{ inputs.run_id }}
+
+      - name: Tableaux et graphiques
+        run: uv run ivr-bench report build --run-id ${{ inputs.run_id }}
+
+      - name: Mise a jour de la zone generee du README
+        run: uv run ivr-bench readme update --run-id ${{ inputs.run_id }}
+
+      - name: Commit dedie
+        run: |
+          git config user.name "Martino Bettucci"
+          git config user.email "martino.bettucci@gmail.com"
+          if git diff --quiet; then
+            echo "Aucun changement a publier."
+            exit 0
+          fi
+          git add README.md results reports
+          git commit -m "results: publish run ${{ inputs.run_id }}"
+          git push
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: published-${{ inputs.run_id }}
+          path: |
+            results/latest/
+            results/tables/
+            results/charts/
+            reports/

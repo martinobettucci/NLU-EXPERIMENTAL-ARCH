@@ -1,0 +1,20 @@
+# Profil dev : auto-initialise, corpus minimal, aucun service externe obligatoire.
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    environment:
+      IVR_BENCH_PROFILE: dev
+    volumes:
+      - .:/app
+      - weights:/cache/weights
+      - huggingface:/cache/huggingface
+    ports:
+      - "8000:8000"
+    entrypoint: ["uv", "run", "uvicorn"]
+    command: ["ivr_bench.api.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+volumes:
+  weights:
+  huggingface:

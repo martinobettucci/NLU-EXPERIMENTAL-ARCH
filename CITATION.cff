@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: >-
+  NLU-EXPERIMENTAL-ARCH : banc d'essai de routage d'intentions et d'appel de
+  fonctions pour serveur vocal francophone
+message: >-
+  Si vous utilisez ce banc d'essai, merci de le citer. Les resultats publies ne
+  valent que pour le materiel et les versions declares dans le run correspondant.
+type: software
+authors:
+  - family-names: Bettucci
+    given-names: Martino
+    email: martino.bettucci@gmail.com
+repository-code: https://github.com/martinobettucci/NLU-EXPERIMENTAL-ARCH
+abstract: >-
+  Comparaison reproductible, sur CPU uniquement, d'architectures transformant une
+  demande vocale francophone en appel de fonction metier : regles deterministes,
+  Rasa DIET, Needle, FunctionGemma, retriever semantique et architectures hybrides
+  a preselection de candidats. Le depot couvre la generation des corpus
+  synthetiques, la construction des index, les campagnes texte et audio, les
+  metriques de qualite, de securite et de cout, ainsi que le protocole statistique.
+keywords:
+  - function calling
+  - intent routing
+  - interactive voice response
+  - benchmark
+  - on-device inference
+license: MIT
+version: 0.1.0

@@ -1,0 +1,4 @@
+# Dependances du sidecar DIET, volontairement figees et separees de l'env principal.
+rasa==3.6.21
+fastapi==0.115.6
+uvicorn==0.34.0

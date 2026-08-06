@@ -1,0 +1,45 @@
+name: CI
+
+# Chaine de verification a chaque pull request (§29.1).
+#
+# Les etapes sont activees au fur et a mesure que les jalons les rendent
+# executables : une etape qui invoque une commande inexistante ne prouve rien.
+#   - format, lint, typage, tests           : actif
+#   - validation des corpus                 : jalon M3
+#   - campagne courte sur modeles reels     : jalon M6
+#   - coherence de la zone generee du README: jalon M6
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Style, types et tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Installation
+        run: uv sync --extra dev
+
+      - name: Formatage
+        run: uv run ruff format --check src tests
+
+      - name: Lint
+        run: uv run ruff check src tests
+
+      - name: Typage strict
+        run: uv run mypy
+
+      - name: Tests unitaires, contractuels et de regression
+        run: uv run pytest -m "not models and not slow" --cov --cov-report=term-missing

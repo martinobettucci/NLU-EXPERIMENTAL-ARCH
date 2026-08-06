@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Poids de modeles : recuperes par 'ivr-bench models download', jamais versionnes.
+weights/
+.cache/

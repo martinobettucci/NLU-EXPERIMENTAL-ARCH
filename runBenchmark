@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Profil banc d'essai : donnees completes, modeles reels, mesures de ressources.
+# Tout s'execute sur CPU : c'est la premisse de l'experience, pas une limitation.
+set -euo pipefail
+cd "$(dirname "$0")"
+
+CONFIG="${CONFIG:-config/benchmark/cpu.yaml}"
+SEED="${SEED:-42}"
+
+if [[ "${1:-}" == "--docker" ]]; then
+  exec docker compose -f docker-compose.benchmark.yml up --build
+fi
+
+if [[ -z "${HF_TOKEN:-}" ]]; then
+  echo "HF_TOKEN absent : EmbeddingGemma et FunctionGemma sont sous licence Gemma." >&2
+  echo "Exportez HF_TOKEN avant de lancer la campagne." >&2
+  exit 1
+fi
+
+uv sync --all-extras
+uv run ivr-bench models download
+uv run ivr-bench doctors generate --seed "$SEED"
+uv run ivr-bench data generate --seed "$SEED"
+uv run ivr-bench data validate
+uv run ivr-bench index build --config "$CONFIG"
+uv run ivr-bench benchmark all --config "$CONFIG" --seed "$SEED"
+uv run ivr-bench report build
+uv run ivr-bench readme update
