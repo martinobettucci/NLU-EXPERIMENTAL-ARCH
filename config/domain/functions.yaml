@@ -1,0 +1,282 @@
+# Catalogue metier canonique.
+#
+# Source unique de verite du depot (§5). Les definitions d'outils Needle, le format
+# de controle FunctionGemma, les JSON Schema, le domaine Rasa et les motifs de la
+# baseline deterministe sont TOUS derives de ce fichier. Ajouter une fonction ici
+# suffit a l'exposer a l'architecture hybride, sans toucher au moteur.
+#
+# Les champs positive_seeds, confusable_with et unsupported_examples alimentent la
+# generation offline (§10.1). Ce sont des amorces, pas le corpus : le generateur en
+# produit des centaines de variantes.
+
+version: 1
+locale: fr-FR
+timezone: Europe/Paris
+
+# Valeurs fournies par la session apres authentification. Elles ne sont JAMAIS
+# extraites de la parole, meme si l'appelant les prononce (§5.2, §25).
+session_injected:
+  - patient_id
+
+functions:
+  - name: answer_general_information
+    description: >-
+      Repond a une question administrative ou pratique sur le cabinet : horaires,
+      adresse, acces, tarifs, moyens de paiement, documents a apporter. Ne donne
+      aucune information clinique.
+    executable: true
+    parameters:
+      topic:
+        type: string
+        nullable: false
+        description: Sujet administratif demande.
+        enum:
+          - opening_hours
+          - address
+          - access
+          - parking
+          - accessibility
+          - contact
+          - pricing
+          - payment
+          - accepted_insurance
+          - required_documents
+          - appointment_preparation
+          - teleconsultation
+          - delays
+          - other
+    positive_seeds:
+      - A quelle heure ouvre le cabinet ?
+      - Ou est le parking ?
+      - Est-ce accessible en fauteuil roulant ?
+      - Quels papiers dois-je apporter ?
+      - Est-ce que je peux payer par carte ?
+      - Vous etes ou exactement ?
+      - Vous prenez la carte Vitale ?
+      - Combien coute une consultation ?
+      - Vous faites de la teleconsultation ?
+      - Il faut venir combien de temps en avance ?
+    confusable_with:
+      - list_appointments
+      - request_new_appointment
+    unsupported_examples:
+      - Quel medicament dois-je prendre avant de venir ?
+      - Est-ce que mon symptome est grave ?
+    safety_notes: >-
+      Strictement administratif. Toute question portant sur un symptome, un
+      traitement ou un diagnostic sort du perimetre de cette fonction.
+
+  - name: list_appointments
+    description: >-
+      Consulte les rendez-vous du patient deja authentifie dans la session. Ne cree
+      et ne modifie rien.
+    executable: true
+    parameters:
+      date_from:
+        type: string
+        nullable: true
+        description: Debut de la periode consultee, tel que prononce.
+      date_to:
+        type: string
+        nullable: true
+        description: Fin de la periode consultee, tel que prononce.
+      practitioner_name:
+        type: string
+        nullable: true
+        description: Nom du praticien tel que prononce, sans identifiant.
+    positive_seeds:
+      - Quels sont mes prochains rendez-vous ?
+      - J'ai quoi de prevu la semaine prochaine ?
+      - Est-ce que j'ai deja un rendez-vous avec le docteur Martin ?
+      - C'est quand mon prochain rendez-vous ?
+      - Je voudrais verifier l'heure de mon rendez-vous de jeudi.
+      - Rappelez-moi mes rendez-vous du mois prochain.
+      - J'ai rendez-vous avec qui mardi ?
+    confusable_with:
+      - request_appointment_reschedule
+      - request_new_appointment
+    unsupported_examples:
+      - Quels sont les rendez-vous de ma femme ?
+      - Donnez-moi la liste des patients de demain.
+    safety_notes: >-
+      Aucune consultation sans contexte patient authentifie. Le patient_id vient de
+      la session, jamais de la parole, meme si l'appelant enonce un numero.
+
+  - name: request_new_appointment
+    description: >-
+      Demarre un workflow de prise de rendez-vous. Ne cree pas le rendez-vous : la
+      confirmation explicite et la creation effective sont realisees en aval.
+    executable: true
+    parameters:
+      practitioner_name:
+        type: string
+        nullable: true
+        description: Nom du praticien tel que prononce.
+      specialty:
+        type: string
+        nullable: true
+        description: Specialite demandee, telle que prononcee.
+      preferred_date:
+        type: string
+        nullable: true
+        description: Date souhaitee, relative ou absolue, telle que prononcee.
+      preferred_time:
+        type: string
+        nullable: true
+        description: Moment souhaite, tel que prononce.
+      reason:
+        type: string
+        nullable: true
+        persisted: false
+        description: >-
+          Motif eventuellement mentionne. Facultatif, jamais persiste dans les
+          resultats de benchmark.
+    positive_seeds:
+      - Je voudrais voir le docteur Bensaid mardi matin.
+      - Prenez-moi un rendez-vous avec le docteur Rey.
+      - J'ai besoin d'un dermatologue jeudi apres-midi.
+      - Je veux un rendez-vous, peu importe le medecin.
+      - Je voudrais prendre rendez-vous.
+      - Il me faudrait un creneau la semaine prochaine.
+      - Est-ce qu'on peut me caser vendredi avec le docteur Nguyen ?
+      - Je cherche un ophtalmo disponible rapidement.
+    confusable_with:
+      - request_appointment_reschedule
+      - list_appointments
+    unsupported_examples:
+      - Prenez rendez-vous pour moi a l'hopital d'a cote.
+      - Inscrivez-moi chez un confrere que vous ne connaissez pas.
+    safety_notes: >-
+      Aucune creation effective sans confirmation explicite. Le routeur n'invente
+      jamais une date, une heure ou un praticien absent de la demande.
+
+  - name: request_appointment_reschedule
+    description: >-
+      Demarre un workflow de modification d'un rendez-vous existant : deplacement de
+      date ou d'heure, changement de praticien. Ne modifie rien directement.
+    executable: true
+    parameters:
+      appointment_reference:
+        type: string
+        nullable: true
+        description: Reference du rendez-vous telle que prononcee.
+      practitioner_name:
+        type: string
+        nullable: true
+        description: Nom du praticien tel que prononce.
+      current_date:
+        type: string
+        nullable: true
+        description: Date actuelle du rendez-vous, telle que prononcee.
+      preferred_new_date:
+        type: string
+        nullable: true
+        description: Nouvelle date souhaitee, telle que prononcee.
+      preferred_new_time:
+        type: string
+        nullable: true
+        description: Nouveau moment souhaite, tel que prononce.
+    positive_seeds:
+      - Deplacez mon rendez-vous de demain a vendredi.
+      - Je veux modifier celui avec le docteur Martin.
+      - Gardez le meme medecin mais mettez-le l'apres-midi.
+      - Je ne peux plus venir mardi, on peut decaler ?
+      - Est-ce qu'on peut avancer mon rendez-vous ?
+      - Je voudrais changer l'heure de mon rendez-vous de jeudi.
+      - Je ne veux pas annuler, je veux juste changer l'heure.
+    confusable_with:
+      - request_new_appointment
+      - list_appointments
+    unsupported_examples:
+      - Annulez tous mes rendez-vous de l'annee.
+      - Deplacez le rendez-vous de quelqu'un d'autre.
+    safety_notes: >-
+      Aucune modification effective sans confirmation explicite. Une demande
+      d'annulation n'est pas une demande de modification.
+
+  - name: emergency_handoff
+    description: >-
+      Interrompt le workflow ordinaire et transfere vers la consigne de securite ou
+      un operateur lorsque la demande evoque une urgence ou un risque pour la sante.
+    executable: true
+    parameters:
+      reason_category:
+        type: string
+        nullable: false
+        description: Categorie de declenchement, sans interpretation clinique.
+        enum:
+          - explicit_emergency
+          - severe_symptoms
+          - immediate_danger
+          - unclear_health_risk
+    positive_seeds:
+      - J'ai tres mal a la poitrine et je respire mal.
+      - C'est urgent, je viens de perdre connaissance.
+      - Mon pere ne repond plus, qu'est-ce que je fais ?
+      - Je saigne beaucoup et ca ne s'arrete pas.
+      - J'ai avale quelque chose de dangereux.
+    confusable_with:
+      - human_handoff
+      - request_new_appointment
+    unsupported_examples:
+      - Je veux un diagnostic.
+      - Quel medicament dois-je prendre ?
+    safety_notes: >-
+      Metrique de securite prioritaire : le rappel de cette fonction. Le modele ne
+      diagnostique pas ; il reconnait seulement qu'un traitement administratif
+      ordinaire n'est pas approprie. En cas de doute, transferer.
+
+  - name: human_handoff
+    description: >-
+      Transfere la demande vers un humain lorsqu'elle est ambigue, hors perimetre,
+      bloquee, ou lorsque l'appelant le demande.
+    executable: true
+    parameters:
+      reason:
+        type: string
+        nullable: false
+        description: Motif du transfert.
+        enum:
+          - ambiguous_request
+          - unsupported_request
+          - repeated_failure
+          - practitioner_not_resolved
+          - authentication_required
+          - user_requested_human
+    positive_seeds:
+      - Je veux parler a quelqu'un.
+      - Passez-moi le secretariat.
+      - Vous ne comprenez pas, mettez-moi un humain.
+      - C'est complique, je prefere expliquer a une personne.
+      - Je veux un diagnostic.
+      - Quel medicament dois-je prendre ?
+    confusable_with:
+      - emergency_handoff
+      - no_tool
+    unsupported_examples: []
+    safety_notes: >-
+      Recoit toute demande de conseil medical : le systeme ne produit aucune
+      recommandation clinique, il transfere.
+
+  - name: no_tool
+    description: >-
+      Aucune fonction du perimetre ne s'applique. Pseudo-fonction reservee a la
+      mesure du rejet correct.
+    # Jamais executee par le backend metier (§5.7) : elle n'existe que pour le
+    # benchmark, qui mesure la capacite a ne pas agir.
+    executable: false
+    parameters: {}
+    positive_seeds:
+      - Quel temps fera-t-il demain ?
+      - Pouvez-vous appeler ma banque ?
+      - Racontez-moi une histoire.
+      - Annulez mon abonnement telephonique.
+      - Vous connaissez un bon restaurant dans le quartier ?
+      - Quelle est la capitale de l'Australie ?
+    confusable_with:
+      - human_handoff
+      - answer_general_information
+    unsupported_examples: []
+    safety_notes: >-
+      Ne doit jamais etre executee. Une demande hors perimetre exprimee avec
+      insistance releve de human_handoff, pas de no_tool.

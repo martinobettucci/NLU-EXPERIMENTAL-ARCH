@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "list_appointments",
+  "description": "Consulte les rendez-vous du patient deja authentifie dans la session. Ne cree et ne modifie rien.",
+  "type": "object",
+  "properties": {
+    "date_from": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Debut de la periode consultee, tel que prononce."
+    },
+    "date_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Fin de la periode consultee, tel que prononce."
+    },
+    "practitioner_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Nom du praticien tel que prononce, sans identifiant."
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "human_handoff",
+  "description": "Transfere la demande vers un humain lorsqu'elle est ambigue, hors perimetre, bloquee, ou lorsque l'appelant le demande.",
+  "type": "object",
+  "properties": {
+    "reason": {
+      "type": "string",
+      "description": "Motif du transfert.",
+      "enum": [
+        "ambiguous_request",
+        "unsupported_request",
+        "repeated_failure",
+        "practitioner_not_resolved",
+        "authentication_required",
+        "user_requested_human"
+      ]
+    }
+  },
+  "required": [
+    "reason"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,58 @@
+{
+  "catalog_version": 1,
+  "locale": "fr-FR",
+  "timezone": "Europe/Paris",
+  "session_injected": [
+    "patient_id"
+  ],
+  "functions": [
+    {
+      "name": "answer_general_information",
+      "executable": true,
+      "schema": "answer_general_information.schema.json",
+      "required": [
+        "topic"
+      ]
+    },
+    {
+      "name": "list_appointments",
+      "executable": true,
+      "schema": "list_appointments.schema.json",
+      "required": []
+    },
+    {
+      "name": "request_new_appointment",
+      "executable": true,
+      "schema": "request_new_appointment.schema.json",
+      "required": []
+    },
+    {
+      "name": "request_appointment_reschedule",
+      "executable": true,
+      "schema": "request_appointment_reschedule.schema.json",
+      "required": []
+    },
+    {
+      "name": "emergency_handoff",
+      "executable": true,
+      "schema": "emergency_handoff.schema.json",
+      "required": [
+        "reason_category"
+      ]
+    },
+    {
+      "name": "human_handoff",
+      "executable": true,
+      "schema": "human_handoff.schema.json",
+      "required": [
+        "reason"
+      ]
+    },
+    {
+      "name": "no_tool",
+      "executable": false,
+      "schema": "no_tool.schema.json",
+      "required": []
+    }
+  ]
+}

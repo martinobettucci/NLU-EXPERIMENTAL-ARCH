@@ -1,0 +1,51 @@
+# Contenu administratif servi par answer_general_information.
+#
+# Entierement synthetique : ce cabinet n'existe pas. Aucune adresse, aucun numero
+# et aucun tarif reel ne doit apparaitre ici.
+
+version: 1
+
+site:
+  name: Centre de sante Les Tilleuls
+  city: Villeneuve-sur-Exemple
+
+topics:
+  opening_hours: >-
+    Le centre est ouvert du lundi au vendredi de 8 h 30 a 19 h, et le samedi de
+    9 h a 13 h. Il est ferme les dimanches et jours feries.
+  address: >-
+    Le centre se situe au 12 rue des Tilleuls, a Villeneuve-sur-Exemple.
+  access: >-
+    Le centre est desservi par la ligne de bus 4, arret Les Tilleuls, et se trouve
+    a dix minutes a pied de la gare.
+  parking: >-
+    Un parking gratuit de trente places est disponible derriere le batiment,
+    accessible par la rue des Acacias.
+  accessibility: >-
+    Le centre est accessible aux personnes a mobilite reduite : acces de plain-pied,
+    ascenseur et sanitaires adaptes.
+  contact: >-
+    Vous pouvez joindre le secretariat aux horaires d'ouverture, ou laisser un
+    message qui sera traite le jour ouvre suivant.
+  pricing: >-
+    Les tarifs sont ceux du secteur conventionne et sont affiches en salle
+    d'attente. Le secretariat peut vous les detailler.
+  payment: >-
+    Les paiements par carte bancaire, especes et cheque sont acceptes.
+  accepted_insurance: >-
+    La carte Vitale et la plupart des mutuelles sont prises en charge, avec tiers
+    payant selon les situations.
+  required_documents: >-
+    Pensez a apporter votre carte Vitale, votre attestation de mutuelle et, le cas
+    echeant, votre courrier d'adressage.
+  appointment_preparation: >-
+    Presentez-vous une dizaine de minutes avant l'heure prevue, avec vos documents
+    et vos derniers comptes rendus si vous en avez.
+  teleconsultation: >-
+    La teleconsultation est proposee par certains praticiens du centre, selon le
+    motif. Le secretariat peut vous indiquer les disponibilites.
+  delays: >-
+    Les delais varient selon la specialite. Le secretariat peut vous proposer le
+    premier creneau disponible ou vous placer sur liste d'attente.
+  other: >-
+    Le secretariat peut repondre a votre question aux horaires d'ouverture.

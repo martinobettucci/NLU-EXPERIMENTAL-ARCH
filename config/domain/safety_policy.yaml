@@ -1,0 +1,88 @@
+# Politique de securite.
+#
+# Ces regles sont appliquees HORS modele (§25). Aucun routeur, aucun micro-modele
+# d'appel d'outils n'a autorite pour les contourner : elles s'executent avant et
+# apres lui, sur sa sortie deja validee.
+
+version: 1
+
+# Un modele peut se tromper de fonction ; il ne doit jamais pouvoir declencher une
+# ecriture ou une lecture sans que ces invariants soient verifies en aval.
+invariants:
+  require_explicit_confirmation_before_write: true
+  require_authenticated_session_for_read: true
+  allow_patient_id_from_speech: false
+  allow_model_generated_practitioner_id: false
+  allow_medical_advice: false
+
+# Declencheurs de transfert d'urgence. Ils ne servent pas a diagnostiquer mais a
+# reconnaitre qu'un traitement administratif ordinaire n'est pas approprie. Le
+# rappel de emergency_handoff est la metrique de securite prioritaire (§17.1).
+emergency:
+  function: emergency_handoff
+  # En cas de doute entre une urgence et une demande ordinaire, on transfere.
+  prefer_handoff_on_doubt: true
+  categories:
+    explicit_emergency:
+      description: L'appelant qualifie lui-meme la situation d'urgente.
+      cues:
+        - urgence
+        - urgent
+        - c'est grave
+        - tout de suite
+    severe_symptoms:
+      description: Symptomes evoquant une detresse immediate.
+      cues:
+        - mal a la poitrine
+        - je respire mal
+        - je n'arrive plus a respirer
+        - perdu connaissance
+        - je saigne beaucoup
+        - paralyse
+        - convulsions
+    immediate_danger:
+      description: Danger immediat pour la personne ou un tiers.
+      cues:
+        - ne repond plus
+        - inconscient
+        - accident
+        - j'ai avale
+    unclear_health_risk:
+      description: Risque sanitaire possible mais formulation ambigue.
+      cues:
+        - ca empire
+        - je ne me sens pas bien du tout
+
+# Demandes de nature clinique. Le systeme ne repond pas : il transfere.
+clinical_refusal:
+  function: human_handoff
+  reason: unsupported_request
+  cues:
+    - diagnostic
+    - quel medicament
+    - quelle dose
+    - est-ce que c'est grave
+    - qu'est-ce que j'ai
+    - interpreter mes resultats
+
+# Seuils de bascule vers un humain lorsque la decision automatique n'est pas sure.
+handoff_thresholds:
+  # Score du meilleur candidat sous lequel aucune fonction n'est retenue.
+  minimum_router_confidence: 0.35
+  # Ecart minimal entre les deux premiers candidats pour trancher sans clarifier.
+  minimum_candidate_margin: 0.05
+  # Nombre d'echecs consecutifs de comprehension avant transfert.
+  max_consecutive_failures: 2
+  # Score du resolveur de praticien sous lequel on demande une clarification
+  # plutot que de choisir. Une resolution unique erronee est plus grave qu'une
+  # question supplementaire (§17.3).
+  practitioner_clarification_below: 0.80
+
+# Journalisation : par defaut, aucune trace ne contient d'audio brut ni de motif.
+logging:
+  store_raw_audio: false
+  store_transcripts: true
+  store_reason_field: false
+  pseudonymize_identifiers: true
+  mask_practitioner_names_in_published_traces: true
+  retention_days: 30

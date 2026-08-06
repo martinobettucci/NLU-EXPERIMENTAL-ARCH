@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "no_tool",
+  "description": "Aucune fonction du perimetre ne s'applique. Pseudo-fonction reservee a la mesure du rejet correct.",
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "additionalProperties": false
+}

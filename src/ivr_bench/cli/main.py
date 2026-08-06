@@ -12,6 +12,9 @@ from typing import NoReturn
 import typer
 
 from ivr_bench import __version__
+from ivr_bench.domain.catalog import default_catalog
+from ivr_bench.domain.paths import repo_root
+from ivr_bench.domain.schemas import export_schemas
 
 app = typer.Typer(
     name="ivr-bench",
@@ -30,7 +33,9 @@ benchmark_app = typer.Typer(help="Campagnes de mesure.", no_args_is_help=True)
 report_app = typer.Typer(help="Tableaux, graphiques et rapports.", no_args_is_help=True)
 readme_app = typer.Typer(help="Zone generee du README.", no_args_is_help=True)
 models_app = typer.Typer(help="Telechargement explicite des poids reels.", no_args_is_help=True)
+domain_app = typer.Typer(help="Catalogue metier canonique.", no_args_is_help=True)
 
+app.add_typer(domain_app, name="domain")
 app.add_typer(data_app, name="data")
 app.add_typer(doctors_app, name="doctors")
 app.add_typer(index_app, name="index")
@@ -56,6 +61,30 @@ def _pending(milestone: str, what: str) -> NoReturn:
 def version() -> None:
     """Affiche la version du banc d'essai."""
     typer.echo(__version__)
+
+
+@domain_app.command("show")
+def domain_show() -> None:
+    """Affiche le catalogue metier canonique."""
+    catalog = default_catalog()
+    typer.echo(f"catalogue version {catalog.version} ({catalog.locale}, {catalog.timezone})")
+    for definition in catalog.functions:
+        arguments = ", ".join(definition.parameter_names) or "aucun argument"
+        marker = "" if definition.executable else "  [non executable]"
+        typer.echo(f"  {definition.name}{marker}")
+        typer.echo(f"    arguments : {arguments}")
+        if definition.required_parameters:
+            typer.echo(f"    requis    : {', '.join(definition.required_parameters)}")
+
+
+@domain_app.command("schemas")
+def domain_schemas() -> None:
+    """Regenere les JSON Schema derives du catalogue."""
+    written = export_schemas()
+    root = repo_root()
+    for path in written:
+        typer.echo(str(path.relative_to(root)))
+    typer.echo(f"{len(written)} fichiers ecrits.")
 
 
 @data_app.command("generate")

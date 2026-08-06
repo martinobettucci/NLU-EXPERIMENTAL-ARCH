@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "request_appointment_reschedule",
+  "description": "Demarre un workflow de modification d'un rendez-vous existant : deplacement de date ou d'heure, changement de praticien. Ne modifie rien directement.",
+  "type": "object",
+  "properties": {
+    "appointment_reference": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Reference du rendez-vous telle que prononcee."
+    },
+    "practitioner_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Nom du praticien tel que prononce."
+    },
+    "current_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Date actuelle du rendez-vous, telle que prononcee."
+    },
+    "preferred_new_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Nouvelle date souhaitee, telle que prononcee."
+    },
+    "preferred_new_time": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Nouveau moment souhaite, tel que prononce."
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

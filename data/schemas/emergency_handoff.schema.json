@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "emergency_handoff",
+  "description": "Interrompt le workflow ordinaire et transfere vers la consigne de securite ou un operateur lorsque la demande evoque une urgence ou un risque pour la sante.",
+  "type": "object",
+  "properties": {
+    "reason_category": {
+      "type": "string",
+      "description": "Categorie de declenchement, sans interpretation clinique.",
+      "enum": [
+        "explicit_emergency",
+        "severe_symptoms",
+        "immediate_danger",
+        "unclear_health_risk"
+      ]
+    }
+  },
+  "required": [
+    "reason_category"
+  ],
+  "additionalProperties": false
+}

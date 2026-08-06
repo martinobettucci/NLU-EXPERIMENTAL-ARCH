@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "answer_general_information",
+  "description": "Repond a une question administrative ou pratique sur le cabinet : horaires, adresse, acces, tarifs, moyens de paiement, documents a apporter. Ne donne aucune information clinique.",
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": "string",
+      "description": "Sujet administratif demande.",
+      "enum": [
+        "opening_hours",
+        "address",
+        "access",
+        "parking",
+        "accessibility",
+        "contact",
+        "pricing",
+        "payment",
+        "accepted_insurance",
+        "required_documents",
+        "appointment_preparation",
+        "teleconsultation",
+        "delays",
+        "other"
+      ]
+    }
+  },
+  "required": [
+    "topic"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "request_new_appointment",
+  "description": "Demarre un workflow de prise de rendez-vous. Ne cree pas le rendez-vous : la confirmation explicite et la creation effective sont realisees en aval.",
+  "type": "object",
+  "properties": {
+    "practitioner_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Nom du praticien tel que prononce."
+    },
+    "specialty": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Specialite demandee, telle que prononcee."
+    },
+    "preferred_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Date souhaitee, relative ou absolue, telle que prononcee."
+    },
+    "preferred_time": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Moment souhaite, tel que prononce."
+    },
+    "reason": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Motif eventuellement mentionne. Facultatif, jamais persiste dans les resultats de benchmark."
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}
