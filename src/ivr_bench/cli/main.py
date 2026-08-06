@@ -15,6 +15,11 @@ from ivr_bench import __version__
 from ivr_bench.domain.catalog import default_catalog
 from ivr_bench.domain.paths import repo_root
 from ivr_bench.domain.schemas import export_schemas
+from ivr_bench.generators.practitioners import (
+    PROFILE_SIZES,
+    generate_practitioners,
+    write_catalog,
+)
 
 app = typer.Typer(
     name="ivr-bench",
@@ -110,7 +115,19 @@ def doctors_generate(
     profile: str = typer.Option("full", help="Profil de volumes : dev, smoke ou full."),
 ) -> None:
     """Genere le catalogue synthetique de praticiens."""
-    _pending("M2", "Generation des praticiens")
+    if profile not in PROFILE_SIZES:
+        typer.secho(
+            f"profil inconnu : {profile}. Attendus : {', '.join(PROFILE_SIZES)}.",
+            fg=typer.colors.RED,
+            err=True,
+        )
+        raise typer.Exit(code=2)
+
+    practitioners = generate_practitioners(seed=seed, count=PROFILE_SIZES[profile])
+    catalog_file, manifest_file = write_catalog(practitioners, seed=seed)
+    root = repo_root()
+    typer.echo(f"{len(practitioners)} praticiens ecrits dans {catalog_file.relative_to(root)}")
+    typer.echo(f"manifeste : {manifest_file.relative_to(root)}")
 
 
 @index_app.command("build")

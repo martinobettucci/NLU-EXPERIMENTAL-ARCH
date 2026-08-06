@@ -1,0 +1,64 @@
+{
+  "generator": "practitioners",
+  "generator_version": 1,
+  "seed": 42,
+  "content_sha256": "ad01a331ac28c875b20c1790676ed96b71f6fa8ab8ee352c1432ca81fedb1ef7",
+  "generated_at": "2026-08-06T21:36:03+00:00",
+  "count": 1200,
+  "by_split": {
+    "train": 960,
+    "test": 240
+  },
+  "by_name_category": {
+    "homophone": 30,
+    "french_common": 42,
+    "international": 33,
+    "accented": 15,
+    "apostrophe": 9,
+    "composed": 12,
+    "short": 10,
+    "synthetic": 1049
+  },
+  "by_specialty": {
+    "medecine generale": 60,
+    "cardiologie": 60,
+    "dermatologie": 60,
+    "ophtalmologie": 60,
+    "pediatrie": 60,
+    "gynecologie": 60,
+    "rhumatologie": 60,
+    "endocrinologie": 60,
+    "gastro-enterologie": 60,
+    "pneumologie": 60,
+    "psychiatrie": 60,
+    "orthopedie": 60,
+    "neurologie": 60,
+    "radiologie": 60,
+    "kinesitherapie": 60,
+    "sage-femme": 60,
+    "orthophonie": 60,
+    "podologie": 60,
+    "nutrition": 60,
+    "allergologie": 60
+  },
+  "by_site": {
+    "site_01": 300,
+    "site_02": 300,
+    "site_03": 300,
+    "site_04": 300
+  },
+  "homophone_groups": {
+    "homophone_00": 4,
+    "homophone_01": 2,
+    "homophone_02": 2,
+    "homophone_03": 3,
+    "homophone_04": 4,
+    "homophone_05": 2,
+    "homophone_06": 2,
+    "homophone_07": 2,
+    "homophone_08": 2,
+    "homophone_09": 3,
+    "homophone_10": 2,
+    "homophone_11": 2
+  }
+}

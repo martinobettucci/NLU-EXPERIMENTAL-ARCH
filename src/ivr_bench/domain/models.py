@@ -137,6 +137,31 @@ class FunctionCatalog(BaseModel):
         return tuple(self.get(name) for name in names)
 
 
+class Practitioner(BaseModel):
+    """Praticien synthetique du catalogue (§7).
+
+    `split` isole les praticiens reserves au test : ils n'apparaissent dans aucun
+    enonce d'entrainement, ce qui verifie que le routeur extrait un nom prononce
+    au lieu de memoriser une liste fermee de personnes.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    practitioner_id: str
+    display_name: str
+    first_name: str
+    last_name: str
+    specialty: str
+    site_id: str
+    aliases: tuple[str, ...] = ()
+    phonetic_aliases: tuple[str, ...] = ()
+    split: Literal["train", "test"] = "train"
+    #: Categorie de difficulte du nom : accents, apostrophe, compose, homophone...
+    name_category: str = "french_common"
+    #: Groupe d'homophones auquel ce nom appartient, le cas echeant.
+    homophone_group: str | None = None
+
+
 class ToolCandidate(BaseModel):
     """Une fonction candidate proposee par un retriever, avec son score."""
 

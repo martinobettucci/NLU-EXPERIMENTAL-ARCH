@@ -14,7 +14,6 @@ runner = CliRunner()
 EXPECTED_COMMANDS = [
     ["data", "generate"],
     ["data", "validate"],
-    ["doctors", "generate"],
     ["diet", "train"],
     ["index", "build"],
     ["benchmark", "text"],
@@ -27,13 +26,24 @@ EXPECTED_COMMANDS = [
 ]
 
 
+# Commandes deja implementees : elles doivent apparaitre dans l'arbre et
+# repondre, pas echouer.
+IMPLEMENTED_COMMANDS = [
+    ["doctors", "generate"],
+    ["domain", "show"],
+    ["domain", "schemas"],
+]
+
+
 def test_version_matches_package() -> None:
     result = runner.invoke(app, ["version"])
     assert result.exit_code == 0
     assert result.stdout.strip() == __version__
 
 
-@pytest.mark.parametrize("command", EXPECTED_COMMANDS, ids=lambda c: " ".join(c))
+@pytest.mark.parametrize(
+    "command", [*EXPECTED_COMMANDS, *IMPLEMENTED_COMMANDS], ids=lambda c: " ".join(c)
+)
 def test_command_is_registered(command: list[str]) -> None:
     result = runner.invoke(app, [*command, "--help"])
     assert result.exit_code == 0, f"commande absente : {' '.join(command)}"

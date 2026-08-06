@@ -1,0 +1,289 @@
+# Banques de noms pour la generation du catalogue synthetique de praticiens (§7).
+#
+# Toutes ces personnes sont fictives. Les categories ne sont pas decoratives :
+# chacune correspond a une difficulte que le routeur et le resolveur doivent
+# affronter separement — accents, apostrophes, noms composes, homophones, formes
+# que la reconnaissance vocale abime de maniere previsible.
+
+version: 1
+
+titles:
+  # Formes prononcees d'un meme titre. Le resolveur doit les retirer sans perdre
+  # le nom, et le routeur doit les conserver dans l'argument extrait.
+  spoken:
+    - docteur
+    - docteure
+    - dr
+    - le docteur
+    - la docteure
+    - madame le docteur
+    - monsieur le docteur
+    - professeur
+    - professeure
+    - pr
+  written_prefix: Dr
+
+first_names:
+  - Nadia
+  - Camille
+  - Julien
+  - Sophie
+  - Marc
+  - Elodie
+  - Antoine
+  - Claire
+  - Thomas
+  - Ines
+  - Lucas
+  - Amelie
+  - Pierre
+  - Sarah
+  - Olivier
+  - Manon
+  - Vincent
+  - Laura
+  - Nicolas
+  - Chloe
+  - Hugo
+  - Emma
+  - Mathieu
+  - Alice
+  - Romain
+  - Julie
+  - Sebastien
+  - Celine
+  - Guillaume
+  - Marine
+  - Adrien
+  - Anais
+  - Fabien
+  - Lucie
+  - Damien
+  - Pauline
+  - Jean-Pierre
+  - Marie-Claire
+  - Anne-Sophie
+  - Jean-Luc
+  - Karim
+  - Leila
+  - Mehdi
+  - Fatima
+  - Youssef
+  - Amina
+  - Diego
+  - Paula
+  - Anh
+  - Minh
+
+last_names:
+  french_common:
+    - Martin
+    - Bernard
+    - Dubois
+    - Thomas
+    - Robert
+    - Richard
+    - Durand
+    - Moreau
+    - Simon
+    - Laurent
+    - Lefebvre
+    - Michel
+    - David
+    - Bertrand
+    - Roux
+    - Vincent
+    - Fournier
+    - Morel
+    - Girard
+    - Andre
+    - Mercier
+    - Lambert
+    - Bonnet
+    - Francois
+    - Rousseau
+    - Blanc
+    - Guerin
+    - Muller
+    - Henry
+    - Roussel
+    - Nicolas
+    - Perrin
+    - Morin
+    - Mathieu
+    - Clement
+    - Gauthier
+    - Dumont
+    - Lopez
+    - Fontaine
+    - Chevalier
+
+  international:
+    - Nguyen
+    - Diallo
+    - Traore
+    - Kowalski
+    - Rossi
+    - Silva
+    - Santos
+    - Yilmaz
+    - Popescu
+    - Novak
+    - Ivanov
+    - Wang
+    - Chen
+    - Kim
+    - Okafor
+    - Haddad
+    - Khalil
+    - Mensah
+    - Osei
+    - Ferreira
+    - Costa
+    - Bianchi
+    - Romano
+    - Schneider
+    - Weber
+    - Fischer
+    - Jansen
+    - Andersson
+    - Karlsson
+    - Alonso
+
+  accented:
+    - Bensaïd
+    - Lévy
+    - Rémy
+    - Séguin
+    - Bézier
+    - Chénier
+    - Gómez
+    - Müller
+    - Hervé
+    - Périer
+    - Bérenger
+    - Cézanne
+    - Écrivain
+    - Noël
+    - Raphaël
+
+  apostrophe:
+    - D'Angelo
+    - D'Amico
+    - O'Brien
+    - N'Diaye
+    - D'Souza
+    - L'Hermitte
+    - D'Alessandro
+    - O'Connor
+
+  composed:
+    - Le Goff
+    - Le Guen
+    - Le Bihan
+    - Saint-Martin
+    - Dupont-Moretti
+    - Ben Saïd
+    - Van Damme
+    - De La Fontaine
+    - Roche-Dubois
+    - Da Silva
+    - Vander Elst
+    - Marie-Jeanne
+
+  short:
+    - Rey
+    - Roy
+    - Fol
+    - Bec
+    - Hue
+    - Cot
+    - Gay
+    - Bon
+    - Fay
+    - Nau
+
+# Groupes que la reconnaissance vocale et l'oreille confondent. Toutes les
+# variantes d'un groupe existent dans le catalogue : c'est ce qui rend
+# l'ambiguite reelle plutot que theorique, et ce qui permet de mesurer si le
+# resolveur demande une clarification au lieu de trancher au hasard.
+homophone_groups:
+  - [Rey, Ray, Reï]
+  - [Dupont, Dupond]
+  - [Leroy, Leroi]
+  - [Renaud, Renault, Renaut]
+  - [Bensaïd, Ben Saïd, Ben Said]
+  - [Chauvin, Chovin]
+  - [Meunier, Munier]
+  - [Petit, Petitt]
+  - [Bernard, Bernart]
+  - [Legrand, Le Grand]
+  - [Marchand, Marchant]
+  - [Vidal, Vidale]
+
+# Noms dont la transcription automatique derape de facon previsible. Le champ
+# sert a construire la sous-suite doctor_names, pas a entrainer le resolveur.
+asr_prone:
+  - Nguyen
+  - Bensaïd
+  - D'Angelo
+  - Le Goff
+  - Yilmaz
+  - N'Diaye
+  - Kowalski
+  - Séguin
+  - L'Hermitte
+  - Vander Elst
+
+# Fragments servant a synthetiser des noms de famille supplementaires.
+#
+# Les listes curatives ci-dessus portent les difficultes voulues, mais elles ne
+# suffisent pas a remplir un catalogue de 1 200 praticiens sans repeter chaque
+# nom des dizaines de fois. Or un catalogue ou tous les noms sont partages rend
+# toute demande ambigue et la mesure de detection d'ambiguite perd son sens.
+# Ces fragments produisent donc des noms distincts et plausibles ; l'ambiguite
+# reste concentree la ou elle est choisie.
+synthetic_surname_parts:
+  prefixes:
+    [Val, Mar, Bel, Cour, Fer, Gran, Roch, Vau, Char, Del, Ser, Mont, Beau, Lav,
+     Bour, Trem, Nog, Aub, Cast, Fren, Gard, Hal, Jol, Lam, Mer, Nev, Orl, Pav,
+     Quen, Riv, Sab, Tour, Ver, Vil, Bref, Cham, Dour, Estr, Fauv, Gonz, Herv,
+     Isam, Jard, Kerv, Loub]
+  # Toutes les valeurs sont citees : en YAML 1.1, 'on', 'no' et 'y' seraient
+  # sinon interpretes comme des booleens.
+  suffixes:
+    ["bert", "mont", "court", "ville", "gnac", "reau", "teau", "ard", "ange",
+     "ier", "eau", "in", "ot", "el", "ay", "ac", "on", "et", "is", "oux",
+     "ol", "ans", "ec", "ieu", "af", "ust", "oy", "iel"]
+
+specialties:
+  - medecine generale
+  - cardiologie
+  - dermatologie
+  - ophtalmologie
+  - pediatrie
+  - gynecologie
+  - rhumatologie
+  - endocrinologie
+  - gastro-enterologie
+  - pneumologie
+  - psychiatrie
+  - orthopedie
+  - neurologie
+  - radiologie
+  - kinesitherapie
+  - sage-femme
+  - orthophonie
+  - podologie
+  - nutrition
+  - allergologie
+
+sites:
+  - id: site_01
+    name: Centre de sante Les Tilleuls
+  - id: site_02
+    name: Cabinet des Acacias
+  - id: site_03
+    name: Maison medicale du Parc
+  - id: site_04
+    name: Pole sante Riviere
