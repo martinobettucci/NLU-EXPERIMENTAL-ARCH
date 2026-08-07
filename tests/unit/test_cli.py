@@ -18,7 +18,6 @@ EXPECTED_COMMANDS = [
     ["benchmark", "e2e"],
     ["benchmark", "all"],
     ["report", "build"],
-    ["readme", "update"],
     ["reproduce"],
 ]
 
@@ -26,6 +25,8 @@ EXPECTED_COMMANDS = [
 # Commandes deja implementees : elles doivent apparaitre dans l'arbre et
 # repondre, pas echouer.
 IMPLEMENTED_COMMANDS = [
+    ["readme", "update"],
+    ["readme", "check"],
     ["doctors", "generate"],
     ["index", "build"],
     ["models", "download"],

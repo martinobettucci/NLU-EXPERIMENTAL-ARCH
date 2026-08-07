@@ -6,6 +6,7 @@ absent du registre serait invisible pour le banc d'essai.
 
 from ivr_bench.routers import rules  # noqa: F401
 from ivr_bench.routers.base import Router
+from ivr_bench.routers.functiongemma import router as functiongemma_router  # noqa: F401
 from ivr_bench.routers.hybrid import embedding_only  # noqa: F401
 from ivr_bench.routers.needle import router as needle_router  # noqa: F401
 from ivr_bench.routers.registry import available, create, register

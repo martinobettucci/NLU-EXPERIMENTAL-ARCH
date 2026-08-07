@@ -20,7 +20,7 @@ from ivr_bench.routers.base import Router
 # Les architectures adossees a un index ou a des poids sont marquees : elles ne
 # tournent que lorsque les artefacts reels sont presents, jamais sur substitut.
 ROUTERS_WITHOUT_WEIGHTS = ["rules"]
-ROUTERS_WITH_WEIGHTS = ["embedding_only"]
+ROUTERS_WITH_WEIGHTS = ["embedding_only", "needle_full", "functiongemma_zero_shot"]
 
 UTTERANCES = [
     "je voudrais un rendez-vous avec le docteur Rey mardi matin",

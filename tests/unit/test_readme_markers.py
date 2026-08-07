@@ -50,7 +50,9 @@ def test_generated_zone_reports_unmeasured_cells_explicitly(readme_text: str) ->
         for cell in cells:
             if cell == "non exécuté":
                 continue
-            assert re.fullmatch(r"[\d.,]+\s*\S*", cell), (
+            # Formes admises : un pourcentage, une duree, un effectif, ou un
+            # effectif sur son total quand la couverture est partielle.
+            assert re.fullmatch(r"[\d.,]+\s*(%|ms|s)?|\d+ / \d+", cell), (
                 f"cellule inattendue dans la zone generee : {cell!r}. "
                 "Une metrique absente doit afficher 'non exécuté'."
             )

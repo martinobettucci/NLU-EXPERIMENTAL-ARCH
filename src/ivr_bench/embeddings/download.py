@@ -28,6 +28,7 @@ PROFILE_MODELS: dict[str, tuple[str, ...]] = {
         "google/embeddinggemma-300m",
         "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
         "Cactus-Compute/needle",
+        "google/functiongemma-270m-it",
     ),
 }
 
@@ -35,6 +36,13 @@ PROFILE_MODELS: dict[str, tuple[str, ...]] = {
 # variantes quantifiees alourdiraient le cache sans servir la campagne.
 _ALLOW_PATTERNS: dict[str, list[str]] = {
     "Cactus-Compute/needle": ["needle.pkl", "tokenizer*", "*.model", "*.json", "*.vocab"],
+    # Les variantes embarquees (LiteRT, ONNX) ne servent pas la campagne CPU.
+    "google/functiongemma-270m-it": [
+        "*.safetensors",
+        "*.json",
+        "*.jinja",
+        "tokenizer.model",
+    ],
 }
 
 # Modeles sous licence Gemma : leur telechargement exige un jeton acceptant la
