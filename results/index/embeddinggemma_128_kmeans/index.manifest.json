@@ -1,0 +1,10 @@
+{
+  "encoder": "embeddinggemma_128",
+  "dimension": 128,
+  "strategy": "kmeans",
+  "prototypes_per_function": 8,
+  "seed": 42,
+  "source_cases": 2100,
+  "built_at": "2026-08-07T03:16:02+00:00",
+  "content_sha256": "6aefb9ae06b489f397b8a6b4b825d0d02f8a00ad9a5363c0cf4256eac94a2129"
+}

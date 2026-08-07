@@ -217,12 +217,24 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Poids de modeles : recuperes par 'ivr-bench models download', jamais versionnes.
+# Regle : ce que nos scripts calculent est versionne, ce qui se retelecharge ne
+# l'est pas. Une machine ephemere ne doit pas refaire un calcul qu'elle a deja
+# fait ; elle peut refaire un telechargement.
+#
+# Restent donc dehors les seuls poids publics, 2,1 Go recuperes par
+# 'ivr-bench models download'. Ils ne se versionneraient de toute facon pas :
+# un blob d'EmbeddingGemma pese 1,1 Go, dix fois la limite par fichier de
+# GitHub.
 weights/
 .cache/
 
-# Index semantiques : reconstruits par 'ivr-bench index build', pas versionnes.
-results/index/
+# Sont versiones, eux : data/generated (corpus), data/diet (modele Rasa
+# entraine, 7 min de CPU), data/public (jeux publics, empreintes figees) et
+# results/index (index semantique, plusieurs minutes d'encodage).
+
+# Le journal de rejeu est reecrit a chaque sequence et ne coute rien a
+# reproduire : le conserver n'epargnerait aucun calcul.
+results/remeasure.log
 
 # results/runs/ EST versionne. Le README affirme que chaque chiffre publie se
 # retrace jusqu'a un run ; sur une machine ephemere, un run non commite disparait
@@ -230,5 +242,3 @@ results/index/
 # Le verrou de campagne, lui, decrit l'etat d'une machine, pas un resultat.
 results/runs/.campaign.lock
 
-# Journal de rejeu, regenere a chaque campagne.
-results/remeasure.log
