@@ -370,13 +370,29 @@ def report_verify(run_id: str = typer.Option(..., help="Run a verifier.")) -> No
 @readme_app.command("update")
 def readme_update(run_id: str = typer.Option("", help="Run a publier.")) -> None:
     """Met a jour uniquement la zone generee du README."""
-    _pending("M6", "Mise a jour du README")
+    from ivr_bench.reporting.readme import update
+
+    del run_id
+    if update():
+        typer.echo("zone generee du README mise a jour.")
+    else:
+        typer.echo("zone generee deja a jour.")
 
 
 @readme_app.command("check")
 def readme_check() -> None:
     """Verifie la coherence de la zone generee du README."""
-    _pending("M6", "Verification du README")
+    from ivr_bench.reporting.readme import check
+
+    if check():
+        typer.echo("zone generee coherente.")
+        return
+    typer.secho(
+        "zone generee du README obsolete : lancez 'ivr-bench readme update'.",
+        fg=typer.colors.RED,
+        err=True,
+    )
+    raise typer.Exit(code=1)
 
 
 @models_app.command("download")

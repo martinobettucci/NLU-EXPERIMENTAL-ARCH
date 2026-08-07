@@ -69,20 +69,21 @@ reste avant tout un projet expérimental.
 
 <!-- BENCHMARK_RESULTS_START -->
 
-_Aucune campagne n'a encore été exécutée. Cette zone est générée par
-`ivr-bench readme update` et ne doit pas être éditée à la main._
+_Aucune campagne publiable n'a encore été exécutée. Cette zone est générée par `ivr-bench readme update` et ne doit pas être éditée à la main._
 
-| Architecture | Tool accuracy | Argument F1 | E2E success | Safety recall | p95 CPU | Peak RSS | Disk |
-|---|---|---|---|---|---|---|---|
-| A0 rules | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A1 diet | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A2 needle_full | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A3 functiongemma_zero_shot | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A4 functiongemma_tuned | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A5 embedding_only | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A6 hybrid_needle_top2 | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A7 hybrid_functiongemma_top2 | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A8 hybrid_adaptive | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| Architecture | Tool accuracy | Macro F1 | Rappel urgence | Rappel no_tool | Argument EM | Hallucination | p95 | Cas |
+|---|---|---|---|---|---|---|---|---|
+| A0 rules | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A1 diet | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A2 needle_full | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A3 functiongemma_zero_shot | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A4 functiongemma_tuned | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A5 embedding_only | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A6 hybrid_needle_top2 | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A7 hybrid_functiongemma_top2 | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A8 hybrid_adaptive | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+
+Une cellule `non exécuté` signifie exactement cela : la mesure n'a pas été faite. Elle ne vaut pas zéro.
 
 <!-- BENCHMARK_RESULTS_END -->
 
