@@ -21,6 +21,24 @@ pessimiste et n'est pas comparable aux débits annoncés par l'auteur du modèle
 Elles signifient exactement cela : la mesure n'a pas été faite. Elles ne valent pas zéro et ne
 doivent pas être interpolées.
 
+## La stratégie la plus efficace n'est pas celle qu'on comparait
+
+Une régression logistique entraînée sur les mêmes embeddings que le retriever
+atteint **75,6 %** d'exactitude et **99,3 %** de rappel d'urgence, en 75 ms au
+p95. Elle dépasse le retriever seul (68,1 %), la baseline de règles (62,4 %) et
+toutes les architectures adossées à un micro-modèle d'appel d'outils, qui
+plafonnent à 20,2 % pour cinquante fois plus de latence.
+
+La différence tient à la question posée. Le retriever demande « de quoi cette
+phrase est-elle proche ? » et compare à des prototypes ; le classifieur apprend
+« qu'est-ce qui sépare ces fonctions ? ». Sur un catalogue fermé de sept
+fonctions, la seconde question est la bonne — et elle ne nécessite aucun modèle
+génératif en aval.
+
+Le classifieur lexical TF-IDF, sans aucun réseau de neurones, atteint 50,4 % en
+1 ms. C'est nettement moins, mais cela chiffre ce que l'encodeur dense apporte
+réellement : environ 25 points, pour un modèle de 300 millions de paramètres.
+
 ## Ce que disent les premières campagnes
 
 Aucune architecture adossée à Needle ne sélectionne jamais `emergency_handoff` :
