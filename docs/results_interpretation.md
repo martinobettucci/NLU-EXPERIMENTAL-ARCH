@@ -21,6 +21,23 @@ pessimiste et n'est pas comparable aux débits annoncés par l'auteur du modèle
 Elles signifient exactement cela : la mesure n'a pas été faite. Elles ne valent pas zéro et ne
 doivent pas être interpolées.
 
-## État d'implémentation
+## Ce que disent les premières campagnes
 
-Rapports à venir au jalon M6.
+Aucune architecture adossée à Needle ne sélectionne jamais `emergency_handoff` :
+son rappel est de 0 % sur les trois variantes. C'est la métrique de sécurité
+prioritaire du §17.1, et ce résultat suffit à disqualifier ces configurations
+pour un usage réel, quelle que soit leur exactitude par ailleurs.
+
+La préselection sémantique fait passer Needle de 11,9 % à 20,2 % : réduire le
+catalogue à deux candidats aide nettement. Mais le point de départ est si bas
+que l'écart ne tranche pas encore l'hypothèse du dépôt — il faudra FunctionGemma
+pour savoir si la préselection aide un modèle qui, lui, maîtrise le domaine.
+
+## Question ouverte
+
+Le taux de sorties invalides **augmente** quand on réduit le nombre d'outils
+offerts : 8 cas sur 84 avec sept fonctions, 29 sur 84 avec deux. C'est
+contre-intuitif. Les cas rejoués isolément avec la bonne fonction dans le lot
+redeviennent valides, ce qui oriente vers des arguments empruntés au schéma
+d'une autre fonction — mais le mécanisme n'a pas été confirmé, et il n'est donc
+pas présenté comme établi.

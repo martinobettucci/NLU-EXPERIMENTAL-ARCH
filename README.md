@@ -79,13 +79,13 @@ _Généré le 2026-08-07T01:30:33+00:00 — commit `627775cfbbe5` — x86_64, 4 
 | A3 functiongemma_zero_shot | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
 | A4 functiongemma_tuned | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
 | A5 embedding_only | 68.1% | 64.6% | 95.3% | 10.7% | 74.0% | 0.0% | 989 ms | 2088 |
-| A6 hybrid_needle_top2 | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A6 hybrid_needle_top2 | 20.2% | 19.5% | 0.0% | 25.0% | 53.0% | 15.2% | 9088 ms | 84 / 2088 |
 | A7 hybrid_functiongemma_top2 | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A8 hybrid_adaptive | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A8 hybrid_adaptive | 19.0% | 16.0% | 0.0% | 25.0% | 50.8% | 14.3% | 5834 ms | 84 / 2088 |
 
 Une cellule `non exécuté` signifie exactement cela : la mesure n'a pas été faite. Elle ne vaut pas zéro.
 
-Couverture partielle sur : needle_full. Ces architectures coûtent plusieurs secondes par énoncé sur CPU ; l'échantillon est stratifié par fonction et sa taille figure dans la colonne « Cas ».
+Couverture partielle sur : hybrid_adaptive, hybrid_needle_top2, needle_full. Ces architectures coûtent plusieurs secondes par énoncé sur CPU ; l'échantillon est stratifié par fonction et sa taille figure dans la colonne « Cas ».
 
 Résultats bruts : `results/runs/`. Reproduction : `make reproduce`.
 
