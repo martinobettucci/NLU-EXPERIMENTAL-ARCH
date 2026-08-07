@@ -1,0 +1,2116 @@
+version: "3.1"
+nlu:
+  - intent: answer_general_information
+    examples: |
+      - vous êtes situés où exactement ?
+      - quelle est votre adresse merci ?
+      - il faut apporter quoi comme documents ?
+      - qu'est-ce que je dois amener ?
+      - comment est-ce que je règle la consultation ?
+      - quels sont vos horaires ?
+      - est-ce qu'il y a un parking ?
+      - quels sont vos horaires merci ?
+      - quels papiers dois-je apporter ?
+      - à quelle heure ouvre le cabinet ?
+      - c'est accessible aux personnes à mobilité réduite ?
+      - est-ce accessible en fauteuil roulant ?
+      - où se trouve le cabinet ?
+      - est-ce que je peux payer par carte ?
+      - il y a un ascenseur ?
+      - où est le parking ?
+      - vous prenez la carte bleue ?
+      - quelle est votre adresse ?
+      - où est le parking merci ?
+      - vous êtes ouverts le samedi ?
+      - je peux me garer où ?
+      - quels papiers dois-je apporter s'il vous plait ?
+      - à quelle heure ouvre le cabinet merci ?
+      - où se trouve le cabinet s'il vous plait ?
+      - ben, est-ce qu'il y a un parking ?
+      - qu'est-ce que je dois amener alors ?
+      - alors, où est le parking merci ?
+      - c'est accessible aux personnes à ben mobilité réduite ?
+      - vous êtes ouverts ouverts le samedi ?
+      - euh, comment est-ce que je règle la consultation ?
+      - alors, où est le parking s'il vous plait ?
+      - qu'est-ce que je alors dois amener ?
+      - où est le euh parking s'il vous plait ?
+      - où se euh trouve le cabinet ?
+      - vous êtes ouverts le en fait samedi ?
+      - en fait, qu'est-ce que je dois amener ?
+      - vous prenez la carte bleue bleue ?
+      - vous prenez la carte bleue ? ?
+      - est-ce que je ben peux payer par carte ?
+      - vous êtes ouverts le samedi ? ?
+      - alors, je peux me garer où ?
+      - il y a un un ascenseur ?
+      - où se se trouve le cabinet s'il vous plait ?
+      - qu'est-ce que je dois amener amener ?
+      - qu'est-ce que je dois hum amener ?
+      - où est le parking s'il vous plait ? ?
+      - quels papiers dois-je apporter hum s'il vous plait ?
+      - il faut apporter ben quoi comme documents ?
+      - ben, vous êtes ouverts le samedi ?
+      - est-ce qu'il y y a un parking ?
+      - alors, quels papiers dois-je apporter s'il vous plait ?
+      - en fait, quels sont vos horaires merci ?
+      - est-ce accessible en fauteuil fauteuil roulant ?
+      - je peux me garer où ? ?
+      - à alors quelle heure ouvre le cabinet s'il vous plait ?
+      - hum, quels sont vos horaires s'il vous plait ?
+      - euh, est-ce que je peux payer par carte ?
+      - où se trouve le le cabinet merci ?
+      - est-ce que je peux payer hum par carte ?
+      - est-ce que je peux ben payer par carte ?
+      - ben, il y a un ascenseur ?
+      - il faut apporter quoi quoi comme documents ?
+      - comment est-ce ben que je règle la consultation ?
+      - quels papiers dois-je apporter apporter ?
+      - il y a un ascenseur ? ?
+      - alors, il y a un ascenseur ?
+      - où se euh trouve le cabinet s'il vous plait ?
+      - c'est accessible aux personnes personnes à mobilité réduite ?
+      - quels papiers dois-je apporter s'il vous plait ? ?
+      - ben, est-ce accessible en fauteuil roulant ?
+      - en fait, il faut apporter quoi comme documents ?
+      - ben, quels sont vos horaires merci ?
+      - alors, est-ce qu'il y a un parking ?
+      - est-ce accessible accessible en fauteuil roulant ?
+      - ben, je peux me garer où ?
+      - en fait, quels papiers dois-je apporter s'il vous plait ?
+      - hum, qu'est-ce que je dois amener ?
+      - est-ce qu'il qu'il y a un parking ?
+      - où se se trouve le cabinet merci ?
+      - est-ce que je peux payer par par carte ?
+      - quelle est votre ben adresse merci ?
+      - ben, vous êtes situés où exactement ?
+      - quels papiers hum dois-je apporter s'il vous plait ?
+      - comment est-ce que je règle la consultation ? ?
+      - euh, à quelle heure ouvre le cabinet merci ?
+      - comment est-ce que je je règle la consultation ?
+      - en fait, est-ce qu'il y a un parking ?
+      - quelle est votre votre adresse ?
+      - alors, vous prenez la carte bleue ?
+      - hum, c'est accessible aux personnes à mobilité réduite ?
+      - hum, je peux me garer où ?
+      - où se trouve le cabinet s'il vous vous plait ?
+      - alors, c'est accessible aux personnes à mobilité réduite ?
+      - ben, c'est accessible aux personnes à mobilité réduite ?
+      - alors, est-ce accessible en fauteuil roulant ?
+      - où est le parking merci ? ?
+      - hum, où se trouve le cabinet merci ?
+      - à quelle heure ouvre ouvre le cabinet ?
+      - il faut apporter apporter quoi comme documents ?
+      - en fait, vous êtes situés où exactement ?
+      - vous êtes euh ouverts le samedi ?
+      - euh, quels sont vos horaires merci ?
+      - hum, vous êtes situés où exactement ?
+      - comment est-ce que je règle la consultation consultation ?
+      - quels hum sont vos horaires ?
+      - ben, quels papiers dois-je apporter merci ?
+      - vous êtes situés où exactement ? ?
+      - vous êtes situés alors où exactement ?
+      - est-ce que je alors peux payer par carte ?
+      - hum, vous prenez la carte bleue ?
+      - quelle est votre adresse merci ? ?
+      - alors, vous êtes ouverts le samedi ?
+      - euh, vous prenez la carte bleue ?
+      - il y a a un ascenseur ?
+      - c'est accessible aux euh personnes à mobilité réduite ?
+      - il faut apporter quoi ben comme documents ?
+      - euh, quelle est votre adresse merci ?
+      - ben, qu'est-ce que je dois amener ?
+      - est-ce que je peux payer payer par carte ?
+      - quels sont vos vos horaires ?
+      - quels sont vos horaires s'il vous vous plait ?
+      - quels sont vos horaires merci merci ?
+      - où se trouve le hum cabinet ?
+      - alors, à quelle heure ouvre le cabinet ?
+      - quels papiers dois-je apporter ? ?
+      - vous êtes ouverts le samedi hum ?
+      - quels papiers dois-je apporter apporter merci ?
+      - alors, qu'est-ce que je dois amener ?
+      - vous êtes situés situés où exactement ?
+      - en fait, est-ce accessible en fauteuil roulant ?
+      - vous êtes ben situés où exactement ?
+      - est-ce accessible en fauteuil roulant roulant ?
+      - ben, est-ce que je peux payer par carte ?
+      - ben, quels papiers dois-je apporter s'il vous plait ?
+      - hum, est-ce qu'il y a un parking ?
+      - euh, est-ce accessible en fauteuil roulant ?
+      - comment est-ce que alors je règle la consultation ?
+      - c'est accessible aux aux personnes à mobilité réduite ?
+      - ben, il faut apporter quoi comme documents ?
+      - en fait, vous êtes ouverts le samedi ?
+      - ben, à quelle heure ouvre le cabinet ?
+      - alors, vous êtes situés où exactement ?
+      - c'est accessible aux personnes à alors mobilité réduite ?
+      - vous êtes ouverts le ben samedi ?
+      - en fait, c'est accessible aux personnes à mobilité réduite ?
+      - je peux me alors garer où ?
+      - où est le parking parking s'il vous plait ?
+      - c'est accessible aux personnes à en fait mobilité réduite ?
+      - est-ce accessible alors en fauteuil roulant ?
+      - c'est accessible aux personnes à mobilité mobilité réduite ?
+      - quels sont vos horaires ? ?
+      - quelle est ben votre adresse ?
+      - quelle hum est votre adresse ?
+      - je peux me me garer où ?
+      - hum, à quelle heure ouvre le cabinet ?
+      - à quelle heure ouvre ouvre le cabinet s'il vous plait ?
+      - vous êtes êtes ouverts le samedi ?
+      - je hum peux me garer où ?
+      - est-ce accessible en en fait fauteuil roulant ?
+      - hum, quels papiers dois-je apporter s'il vous plait ?
+      - il y a un en fait ascenseur ?
+      - c'est accessible ben aux personnes à mobilité réduite ?
+      - en fait, vous prenez la carte bleue ?
+      - est-ce qu'il y a hum un parking ?
+      - quelle est votre euh adresse ?
+      - hum, il y a un ascenseur ?
+      - quelle est votre euh adresse merci ?
+      - vous êtes hum situés où exactement ?
+      - il faut apporter quoi comme documents hum ?
+      - où alors est le parking ?
+      - il faut apporter quoi comme documents documents ?
+      - hum, est-ce que je peux payer par carte ?
+      - vous êtes situés où exactement exactement ?
+      - alors, à quelle heure ouvre le cabinet s'il vous plait ?
+      - il y a un alors ascenseur ?
+      - où se trouve le cabinet s'il vous hum plait ?
+      - est-ce que je peux alors payer par carte ?
+      - euh, c'est accessible aux personnes à mobilité réduite ?
+      - en fait, à quelle heure ouvre le cabinet ?
+      - à quelle heure heure ouvre le cabinet s'il vous plait ?
+      - euh, vous êtes ouverts le samedi ?
+      - où se trouve le en fait cabinet s'il vous plait ?
+      - c'est accessible aux personnes à mobilité réduite ? ?
+      - quelle est hum votre adresse ?
+      - en fait, où se trouve le cabinet ?
+      - où est le parking parking merci ?
+      - à quelle heure alors ouvre le cabinet merci ?
+      - quelle est votre adresse merci en fait ?
+      - quels papiers dois-je apporter alors merci ?
+      - est-ce que je euh peux payer par carte ?
+      - il faut ben apporter quoi comme documents ?
+      - ben, quels sont vos horaires s'il vous plait ?
+      - en fait, est-ce que je peux payer par carte ?
+      - il y a un euh ascenseur ?
+      - vous êtes ouverts le samedi samedi ?
+      - en fait, je peux me garer où ?
+      - il alors faut apporter quoi comme documents ?
+      - comment est-ce que je règle la consultation ben ?
+      - hum, est-ce accessible en fauteuil roulant ?
+      - quelle euh est votre adresse merci ?
+      - qu'est-ce que je ben dois amener ?
+      - est-ce que je en fait peux payer par carte ?
+      - il y y a un ascenseur ?
+      - comment est-ce que je hum règle la consultation ?
+      - où est le en fait parking ?
+      - alors, quels sont vos horaires s'il vous plait ?
+      - il faut apporter en fait quoi comme documents ?
+      - quelle est ben votre adresse merci ?
+      - il y a un ascenseur ascenseur ?
+      - en fait, il y a un ascenseur ?
+      - vous êtes situés euh où exactement ?
+      - c'est accessible accessible aux personnes à mobilité réduite ?
+      - vous hum êtes situés où exactement ?
+      - comment est-ce que je euh règle la consultation ?
+      - c'est accessible alors aux personnes à mobilité réduite ?
+      - quels sont vos horaires horaires merci ?
+      - quelle est votre adresse hum ?
+      - quels papiers dois-je dois-je apporter ?
+      - comment est-ce en fait que je règle la consultation ?
+      - quels sont vos horaires s'il vous en fait plait ?
+      - vous êtes en fait ouverts le samedi ?
+      - où hum se trouve le cabinet ?
+      - ben, quelle est votre adresse s'il vous plait ?
+      - à quelle heure ouvre le en fait cabinet s'il vous plait ?
+      - je peux euh me garer où ?
+      - vous prenez la euh carte bleue ?
+      - il faut apporter quoi comme comme documents ?
+      - euh, qu'est-ce que je dois amener ?
+      - à quelle heure ouvre le cabinet ? ?
+      - vous prenez la carte bleue hum ?
+      - où se trouve le cabinet s'il vous plait ? ?
+      - alors, comment est-ce que je règle la consultation ?
+      - quels papiers papiers dois-je apporter merci ?
+      - hum, où se trouve le cabinet ?
+      - ben, à quelle heure ouvre le cabinet s'il vous plait ?
+      - il y a un ascenseur en fait ?
+      - alors, quelle est votre adresse ?
+      - où est hum le parking ?
+      - comment est-ce que je ben règle la consultation ?
+      - hum, quelle est votre adresse ?
+      - où est le parking parking ?
+      - où se trouve le ben cabinet s'il vous plait ?
+      - comment est-ce que je règle ben la consultation ?
+      - c'est accessible aux personnes à mobilité réduite réduite ?
+      - hum, il faut apporter quoi comme documents ?
+      - comment est-ce que je règle la la consultation ?
+      - qu'est-ce que je hum dois amener ?
+      - est-ce qu'il y a un alors parking ?
+      - à quelle heure ouvre le le cabinet ?
+      - hum, comment est-ce que je règle la consultation ?
+      - est-ce qu'il y a un parking en fait ?
+      - où se trouve le cabinet s'il s'il vous plait ?
+      - à quelle heure ouvre le cabinet s'il vous plait ? ?
+      - je peux me garer alors où ?
+      - où se trouve le en fait cabinet ?
+      - vous prenez prenez la carte bleue ?
+      - quels papiers dois-je hum apporter ?
+      - euh, quelle est votre adresse ?
+      - vous prenez alors la carte bleue ?
+      - quels hum papiers dois-je apporter ?
+      - en fait, comment est-ce que je règle la consultation ?
+      - quels sont sont vos horaires ?
+      - où ben est le parking ?
+      - ben, où est le parking s'il vous plait ?
+      - est-ce que que je peux payer par carte ?
+      - quelle est ben votre adresse s'il vous plait ?
+      - il y a un ben ascenseur ?
+      - qu'est-ce que je dois dois amener ?
+      - euh, il faut apporter quoi comme documents ?
+      - il faut en fait apporter quoi comme documents ?
+      - il faut apporter quoi comme documents ? ?
+      - à quelle heure ouvre hum le cabinet ?
+      - quels sont sont vos horaires merci ?
+      - est-ce qu'il y a un un parking ?
+      - quels papiers dois-je apporter ben ?
+      - vous êtes situés où alors exactement ?
+      - où en fait est le parking ?
+      - en fait, quelle est votre adresse ?
+      - hum, quelle est votre adresse merci ?
+      - euh, est-ce qu'il y a un parking ?
+      - il faut apporter quoi euh comme documents ?
+      - est-ce que je peux peux payer par carte ?
+      - qu'est-ce que je dois amener en fait ?
+      - vous prenez la en fait carte bleue ?
+      - où est le le parking merci ?
+      - alors, quels papiers dois-je apporter merci ?
+      - est-ce que je hum peux payer par carte ?
+      - à quelle heure ouvre le hum cabinet s'il vous plait ?
+      - vous êtes ouverts le le samedi ?
+      - ben, quels papiers dois-je apporter ?
+      - où est est le parking ?
+      - il faut apporter quoi alors comme documents ?
+      - euh, quels sont vos horaires ?
+      - euh, où se trouve le cabinet ?
+      - quels sont vos horaires s'il euh vous plait ?
+      - alors, il faut apporter quoi comme documents ?
+      - je peux me en fait garer où ?
+      - à quelle heure ouvre le cabinet cabinet merci ?
+      - alors, où est le parking ?
+      - vous ben prenez la carte bleue ?
+  - intent: emergency_handoff
+    examples: |
+      - mon père ne répond plus, qu'est-ce que je fais ?
+      - c'est une urgence, il faut que quelqu'un m'aide tout de suite
+      - je n'arrive plus à respirer normalement
+      - j'ai une douleur violente dans la poitrine
+      - quelqu'un vient d'avoir un accident chez moi
+      - j'ai très mal à la poitrine et je respire mal
+      - c'est urgent, je viens de perdre connaissance
+      - c'est urgent, je je viens de perdre connaissance
+      - alors, c'est une urgence, il faut que quelqu'un m'aide tout de suite
+      - quelqu'un ben vient d'avoir un accident chez moi
+      - euh, quelqu'un vient d'avoir un accident chez moi
+      - ben, c'est urgent, je viens de perdre connaissance
+      - c'est une urgence, il faut que quelqu'un m'aide m'aide tout de suite
+      - mon père père ne répond plus, qu'est-ce que je fais ?
+      - quelqu'un vient d'avoir un accident chez moi moi
+      - j'ai une euh douleur violente dans la poitrine
+      - c'est alors urgent, je viens de perdre connaissance
+      - ben, mon père ne répond plus, qu'est-ce que je fais ?
+      - ben, c'est une urgence, il faut que quelqu'un m'aide tout de suite
+      - j'ai une douleur hum violente dans la poitrine
+      - c'est une en fait urgence, il faut que quelqu'un m'aide tout de suite
+      - je n'arrive n'arrive plus à respirer normalement
+      - c'est urgent, urgent, je viens de perdre connaissance
+      - je alors n'arrive plus à respirer normalement
+      - c'est une urgence, il faut que quelqu'un m'aide tout en fait de suite
+      - ben, j'ai une douleur violente dans la poitrine
+      - j'ai très alors mal à la poitrine et je respire mal
+      - mon père ne répond plus, plus, qu'est-ce que je fais ?
+      - quelqu'un vient d'avoir un accident chez chez moi
+      - alors, quelqu'un vient d'avoir un accident chez moi
+      - hum, c'est urgent, je viens de perdre connaissance
+      - je n'arrive plus à respirer respirer normalement
+      - alors, mon père ne répond plus, qu'est-ce que je fais ?
+      - ben, quelqu'un vient d'avoir un accident chez moi
+      - c'est urgent, en fait je viens de perdre connaissance
+      - j'ai très mal à la poitrine et je respire respire mal
+      - en fait, quelqu'un vient d'avoir un accident chez moi
+      - euh, j'ai une douleur violente dans la poitrine
+      - j'ai très mal à la poitrine hum et je respire mal
+      - quelqu'un vient en fait d'avoir un accident chez moi
+      - j'ai très mal à la alors poitrine et je respire mal
+      - je n'arrive plus alors à respirer normalement
+      - je n'arrive en fait plus à respirer normalement
+      - j'ai très mal à la la poitrine et je respire mal
+      - c'est une urgence, il faut que quelqu'un m'aide tout de suite suite
+      - hum, c'est une urgence, il faut que quelqu'un m'aide tout de suite
+      - j'ai une douleur violente dans la poitrine poitrine
+      - j'ai une une douleur violente dans la poitrine
+      - j'ai très mal à à la poitrine et je respire mal
+      - j'ai une douleur violente violente dans la poitrine
+      - en fait, c'est une urgence, il faut que quelqu'un m'aide tout de suite
+      - je n'arrive plus à à respirer normalement
+      - alors, j'ai une douleur violente dans la poitrine
+      - quelqu'un vient d'avoir un accident hum chez moi
+      - c'est une urgence, il faut que ben quelqu'un m'aide tout de suite
+      - quelqu'un vient d'avoir un un accident chez moi
+      - j'ai très mal à la poitrine et je respire mal mal
+      - alors, je n'arrive plus à respirer normalement
+      - euh, mon père ne répond plus, qu'est-ce que je fais ?
+      - euh, j'ai très mal à la poitrine et je respire mal
+      - quelqu'un vient d'avoir un accident accident chez moi
+      - c'est alors une urgence, il faut que quelqu'un m'aide tout de suite
+      - hum, je n'arrive plus à respirer normalement
+      - je n'arrive plus à respirer euh normalement
+      - ben, je n'arrive plus à respirer normalement
+      - en fait, j'ai une douleur violente dans la poitrine
+      - c'est une urgence, il faut que quelqu'un hum m'aide tout de suite
+      - c'est urgent, je viens de perdre perdre connaissance
+      - en fait, c'est urgent, je viens de perdre connaissance
+      - c'est une urgence, urgence, il faut que quelqu'un m'aide tout de suite
+      - j'ai une douleur euh violente dans la poitrine
+      - quelqu'un vient d'avoir un accident ben chez moi
+      - j'ai très mal à hum la poitrine et je respire mal
+      - euh, c'est une urgence, il faut que quelqu'un m'aide tout de suite
+      - alors, j'ai très mal à la poitrine et je respire mal
+      - euh, c'est urgent, je viens de perdre connaissance
+      - quelqu'un vient ben d'avoir un accident chez moi
+      - c'est une urgence, il faut que quelqu'un m'aide tout de de suite
+      - je n'arrive plus à respirer en fait normalement
+      - mon père ne répond hum plus, qu'est-ce que je fais ?
+      - je n'arrive plus à respirer ben normalement
+      - quelqu'un vient d'avoir d'avoir un accident chez moi
+      - hum, mon père ne répond plus, qu'est-ce que je fais ?
+      - c'est urgent, je viens de ben perdre connaissance
+      - quelqu'un vient d'avoir un accident chez hum moi
+      - j'ai très mal à euh la poitrine et je respire mal
+      - quelqu'un vient vient d'avoir un accident chez moi
+      - ben, j'ai très mal à la poitrine et je respire mal
+      - quelqu'un vient d'avoir en fait un accident chez moi
+      - mon père ne répond plus, qu'est-ce que je euh fais ?
+      - en fait, je n'arrive plus à respirer normalement
+      - je n'arrive plus plus à respirer normalement
+      - je n'arrive plus ben à respirer normalement
+      - c'est une urgence, il faut que quelqu'un m'aide tout euh de suite
+      - alors, c'est urgent, je viens de perdre connaissance
+      - c'est urgent, je ben viens de perdre connaissance
+      - je n'arrive plus à euh respirer normalement
+      - c'est urgent, je viens ben de perdre connaissance
+      - j'ai ben très mal à la poitrine et je respire mal
+      - quelqu'un vient alors d'avoir un accident chez moi
+      - j'ai très mal à la poitrine et en fait je respire mal
+      - mon père ne répond euh plus, qu'est-ce que je fais ?
+      - c'est urgent, je viens de perdre euh connaissance
+      - c'est une urgence, il faut que que quelqu'un m'aide tout de suite
+      - mon père ne répond plus, qu'est-ce en fait que je fais ?
+      - je n'arrive plus hum à respirer normalement
+      - en fait, mon père ne répond plus, qu'est-ce que je fais ?
+      - c'est urgent, je viens de alors perdre connaissance
+      - j'ai une douleur violente hum dans la poitrine
+      - j'ai hum une douleur violente dans la poitrine
+      - j'ai une douleur violente dans dans la poitrine
+      - j'ai très mal alors à la poitrine et je respire mal
+      - mon père ne hum répond plus, qu'est-ce que je fais ?
+      - mon père ne répond plus, qu'est-ce que je ben fais ?
+      - mon père ne répond plus, qu'est-ce que que je fais ?
+      - j'ai très mal à la poitrine poitrine et je respire mal
+      - j'ai ben une douleur violente dans la poitrine
+      - mon père ne ne répond plus, qu'est-ce que je fais ?
+      - c'est une urgence, il faut que quelqu'un m'aide tout de euh suite
+      - j'ai une douleur en fait violente dans la poitrine
+      - mon père ne répond plus, alors qu'est-ce que je fais ?
+      - c'est urgent, je viens alors de perdre connaissance
+      - j'ai très très mal à la poitrine et je respire mal
+      - c'est une urgence, il faut que quelqu'un m'aide tout de alors suite
+      - mon père ne répond plus, qu'est-ce que je fais euh ?
+      - euh, je n'arrive plus à respirer normalement
+      - j'ai une douleur violente ben dans la poitrine
+      - j'ai très mal à la poitrine et je en fait respire mal
+      - c'est une urgence, il faut que quelqu'un m'aide tout de hum suite
+      - en fait, j'ai très mal à la poitrine et je respire mal
+      - je n'arrive plus à respirer normalement normalement
+      - j'ai très mal mal à la poitrine et je respire mal
+      - c'est une urgence, alors il faut que quelqu'un m'aide tout de suite
+      - c'est urgent, je viens de perdre connaissance connaissance
+      - c'est une urgence, il faut que quelqu'un quelqu'un m'aide tout de suite
+      - c'est une urgence, il faut que quelqu'un m'aide tout de ben suite
+      - je n'arrive plus à alors respirer normalement
+      - j'ai une douleur violente dans la la poitrine
+      - je en fait n'arrive plus à respirer normalement
+      - mon euh père ne répond plus, qu'est-ce que je fais ?
+      - mon père ne répond plus, qu'est-ce que je fais ? ?
+      - c'est une urgence, il il faut que quelqu'un m'aide tout de suite
+      - mon père ne répond ben plus, qu'est-ce que je fais ?
+      - mon père ne répond plus, qu'est-ce que je hum fais ?
+      - c'est une urgence, il hum faut que quelqu'un m'aide tout de suite
+      - hum, quelqu'un vient d'avoir un accident chez moi
+      - hum, j'ai une douleur violente dans la poitrine
+      - j'ai très en fait mal à la poitrine et je respire mal
+      - j'ai très mal hum à la poitrine et je respire mal
+      - j'ai une douleur violente dans en fait la poitrine
+      - j'ai très mal à la poitrine et je je respire mal
+      - c'est urgent, je viens viens de perdre connaissance
+      - c'est une urgence, il faut que quelqu'un m'aide tout tout de suite
+      - je n'arrive plus à ben respirer normalement
+      - j'ai très mal à la poitrine et je respire hum mal
+      - j'ai alors très mal à la poitrine et je respire mal
+      - hum, j'ai très mal à la poitrine et je respire mal
+      - c'est une urgence, il faut que hum quelqu'un m'aide tout de suite
+      - mon père ne répond répond plus, qu'est-ce que je fais ?
+      - mon père ne répond en fait plus, qu'est-ce que je fais ?
+      - c'est euh une urgence, il faut que quelqu'un m'aide tout de suite
+      - c'est hum une urgence, il faut que quelqu'un m'aide tout de suite
+      - c'est urgent, je alors viens de perdre connaissance
+      - mon père ne répond plus, qu'est-ce qu'est-ce que je fais ?
+      - j'ai une douleur violente dans la ben poitrine
+      - quelqu'un en fait vient d'avoir un accident chez moi
+      - c'est une urgence, ben il faut que quelqu'un m'aide tout de suite
+      - j'ai très mal à la poitrine et je respire euh mal
+      - quelqu'un vient d'avoir un en fait accident chez moi
+      - c'est une urgence, il faut faut que quelqu'un m'aide tout de suite
+      - j'ai très euh mal à la poitrine et je respire mal
+      - quelqu'un vient d'avoir euh un accident chez moi
+      - c'est urgent, je viens de hum perdre connaissance
+      - mon père ne répond plus, qu'est-ce que je je fais ?
+      - mon père ne répond plus, en fait qu'est-ce que je fais ?
+      - j'ai très mal à la poitrine euh et je respire mal
+      - mon père ne répond plus, qu'est-ce que alors je fais ?
+      - c'est urgent, alors je viens de perdre connaissance
+      - j'ai une douleur douleur violente dans la poitrine
+      - c'est urgent, je viens de en fait perdre connaissance
+      - c'est une urgence, il faut que quelqu'un m'aide hum tout de suite
+      - c'est une urgence, hum il faut que quelqu'un m'aide tout de suite
+      - je ben n'arrive plus à respirer normalement
+      - je n'arrive euh plus à respirer normalement
+      - quelqu'un euh vient d'avoir un accident chez moi
+      - c'est une urgence, il faut que quelqu'un m'aide tout de en fait suite
+      - j'ai une ben douleur violente dans la poitrine
+      - j'ai très mal à alors la poitrine et je respire mal
+      - quelqu'un vient d'avoir un accident en fait chez moi
+      - j'ai très mal à la poitrine alors et je respire mal
+      - c'est une urgence, il faut euh que quelqu'un m'aide tout de suite
+      - c'est urgent, je viens de de perdre connaissance
+      - mon père ne répond plus, qu'est-ce que euh je fais ?
+      - j'ai une douleur violente dans la euh poitrine
+      - j'ai une hum douleur violente dans la poitrine
+      - quelqu'un vient d'avoir un hum accident chez moi
+      - j'ai euh une douleur violente dans la poitrine
+      - quelqu'un vient d'avoir ben un accident chez moi
+      - c'est ben urgent, je viens de perdre connaissance
+      - je n'arrive alors plus à respirer normalement
+      - mon père ne répond plus, euh qu'est-ce que je fais ?
+      - j'ai très mal à la poitrine et euh je respire mal
+      - mon père ne répond plus, qu'est-ce hum que je fais ?
+      - j'ai très mal à la hum poitrine et je respire mal
+      - mon père ne répond plus, qu'est-ce que je fais fais ?
+      - j'ai très mal à la poitrine et hum je respire mal
+      - quelqu'un vinet d'avoir un accident chez moi
+      - quelqu'un vient d'avoir un acccident chez moi
+      - je narrive plus à respirer normalement
+      - quelqu'un vient d'voir un accident chez moi
+      - c'est une urgence, il faut que quequ'un m'aide tout de suite
+      - c'est une urgence, il faut que quelqu'un m'aide tout de siute
+      - cest une urgence, il faut que quelqu'un m'aide tout de suite
+      - mon père ne répond plus, qu'es-ce que je fais ?
+      - j'ai une douleur violente dans la piotrine
+      - ce'st urgent, je viens de perdre connaissance
+      - je n'arrrive plus à respirer normalement
+      - quelqu'un viennt d'avoir un accident chez moi
+      - mon père ne répodn plus, qu'est-ce que je fais ?
+      - mon père ne répond pus, qu'est-ce que je fais ?
+      - j'ai une douleur violente dans la poiitrine
+      - j'ai une douleur vioente dans la poitrine
+      - je n'arrive plus à respier normalement
+      - c'est une urgence, il faut que quelqu'un m'aide tout de suiite
+      - c'est urent, je viens de perdre connaissance
+      - quelqu'un viient d'avoir un accident chez moi
+      - j'ai une douleur violente dans la pooitrine
+      - mon père ne répond plus, q'est-ce que je fais ?
+      - je n'arrive plus à respirer noramlement
+      - j'ai très mal à la poirine et je respire mal
+      - mon père ne répnd plus, qu'est-ce que je fais ?
+      - c'est urgent, je viens de perddre connaissance
+      - je n'arive plus à respirer normalement
+      - quelqu'un vient d'avvoir un accident chez moi
+      - c'est urgent, je viens de perdre conniassance
+      - c'est urgent, je vienns de perdre connaissance
+      - c'est une urgence, il faut que qeulqu'un m'aide tout de suite
+      - quelqu'un viet d'avoir un accident chez moi
+      - je n'arrive plus à respirer normalemennt
+      - c'est urgnet, je viens de perdre connaissance
+      - c'ets urgent, je viens de perdre connaissance
+      - je n'arrive plus à resprier normalement
+      - c'est une urgence, il faut que quelqu'un m'aide tout de sute
+      - mon père ne répnod plus, qu'est-ce que je fais ?
+      - je n'arrive plus à respirer normaelment
+      - j'ai une douleur vioolente dans la poitrine
+      - c'ets une urgence, il faut que quelqu'un m'aide tout de suite
+      - j'ai une douleur vioelnte dans la poitrine
+      - j'ai une duoleur violente dans la poitrine
+      - quelqu'un vient d'avoir un accidet chez moi
+      - c'est urgent, je vieens de perdre connaissance
+      - mon père ne répond plsu, qu'est-ce que je fais ?
+      - je na'rrive plus à respirer normalement
+      - j'ai une douuleur violente dans la poitrine
+      - j'ai une douleur violentte dans la poitrine
+      - mon père ne répond plus, quest-ce que je fais ?
+      - c'est une urgenc, il faut que quelqu'un m'aide tout de suite
+      - c'est urgent, je vins de perdre connaissance
+      - c'est une urgene, il faut que quelqu'un m'aide tout de suite
+      - j'ai une douleur violente dans la poirtine
+      - je n'arrive plus à respirer normaleent
+      - je n'arrive plus à respirer nromalement
+      - quelqu'un vient davoir un accident chez moi
+      - quelqu'un vient d'avoir un accidetn chez moi
+      - c'est urgent, je viens de prdre connaissance
+      - je n'rarive plus à respirer normalement
+      - quelqu'un vient d'avoir un acident chez moi
+      - je n'arrive plus à respirr normalement
+      - j'ai très mal à la poitrine et je resppire mal
+      - c'est une urgence, il faut que quelqu'un m'aide tout de site
+      - j'ai très mal à la poitrine et je rspire mal
+      - j'ai très mal à la poirtine et je respire mal
+      - j'ai une doleur violente dans la poitrine
+      - mon père ne rpéond plus, qu'est-ce que je fais ?
+      - quelqu'un vient d'avor un accident chez moi
+      - j'ai une douleur violenet dans la poitrine
+      - c'est urgetn, je viens de perdre connaissance
+      - j'ai très mal à la poitrnie et je respire mal
+      - j'ai une douleur violente dans la poitrne
+      - c'est une urence, il faut que quelqu'un m'aide tout de suite
+      - c'esst une urgence, il faut que quelqu'un m'aide tout de suite
+      - j'ai très mal à la poitrine et je resprie mal
+      - quelquu'un vient d'avoir un accident chez moi
+      - j'ai très mal à la poitriine et je respire mal
+      - mon père ne répond plus, qu'eest-ce que je fais ?
+      - c'est une urgence, il faut que quelqqu'un m'aide tout de suite
+      - je n'aarrive plus à respirer normalement
+      - j'ai une douleur violente dans la poitine
+      - c'est une uregnce, il faut que quelqu'un m'aide tout de suite
+      - c'est une urgence, il faut que quuelqu'un m'aide tout de suite
+      - j'ai très mal à la poitirne et je respire mal
+      - j'ai une doueur violente dans la poitrine
+      - j'ai très mal à la poitrine et je repsire mal
+      - je n'arrive plus à respirer normaement
+      - ce'st une urgence, il faut que quelqu'un m'aide tout de suite
+      - j'ai très mal à la poitrine et je resire mal
+      - j'ai très mal à la pooitrine et je respire mal
+      - quelqu'nu vient d'avoir un accident chez moi
+      - j'ai très mal à la poitrine et je respie mal
+      - quelu'un vient d'avoir un accident chez moi
+  - intent: human_handoff
+    examples: |
+      - quel médicament dois-je prendre ?
+      - pouvez-vous interpréter mes résultats ?
+      - je veux parler à quelqu'un merci
+      - je veux parler à quelqu'un s'il vous plait
+      - passez-moi le secrétariat
+      - je préfère expliquer à une personne
+      - je veux un diagnostic
+      - je veux parler à à quelqu'un merci
+      - ben, quel médicament dois-je prendre ?
+      - je veux alors un diagnostic
+      - ben, je préfère expliquer à une personne
+      - passez-moi le le secrétariat
+      - pouvez-vous alors interpréter mes résultats ?
+      - euh, pouvez-vous interpréter mes résultats ?
+      - je veux en fait parler à quelqu'un merci
+      - pouvez-vous interpréter mes hum résultats ?
+      - je préfère expliquer à une une personne
+      - je veux euh un diagnostic
+      - passez-moi le hum secrétariat
+      - je euh veux un diagnostic
+      - hum, je veux parler à quelqu'un s'il vous plait
+      - je hum préfère expliquer à une personne
+      - quel médicament dois-je dois-je prendre ?
+      - passez-moi le secrétariat secrétariat
+      - je veux parler à quelqu'un quelqu'un s'il vous plait
+      - je veux parler ben à quelqu'un merci
+      - pouvez-vous euh interpréter mes résultats ?
+      - je veux alors parler à quelqu'un merci
+      - je veux un diagnostic diagnostic
+      - je en fait veux un diagnostic
+      - je veux veux un diagnostic
+      - quel médicament ben dois-je prendre ?
+      - alors, pouvez-vous interpréter mes résultats ?
+      - je préfère expliquer expliquer à une personne
+      - je veux parler parler à quelqu'un merci
+      - en fait, je veux un diagnostic
+      - passez-moi alors le secrétariat
+      - pouvez-vous hum interpréter mes résultats ?
+      - alors, passez-moi le secrétariat
+      - alors, je préfère expliquer à une personne
+      - pouvez-vous interpréter hum mes résultats ?
+      - je veux veux parler à quelqu'un merci
+      - je veux parler à quelqu'un quelqu'un merci
+      - quel médicament médicament dois-je prendre ?
+      - euh, je préfère expliquer à une personne
+      - pouvez-vous interpréter mes résultats en fait ?
+      - quel médicament dois-je hum prendre ?
+      - en fait, pouvez-vous interpréter mes résultats ?
+      - passez-moi hum le secrétariat
+      - je veux parler à quelqu'un euh s'il vous plait
+      - alors, je veux parler à quelqu'un s'il vous plait
+      - je veux un euh diagnostic
+      - passez-moi en fait le secrétariat
+      - je veux parler à euh quelqu'un merci
+      - je veux parler à à quelqu'un s'il vous plait
+      - je veux veux parler à quelqu'un
+      - pouvez-vous interpréter interpréter mes résultats ?
+      - quel médicament dois-je prendre prendre ?
+      - je préfère expliquer à à une personne
+      - pouvez-vous interpréter mes résultats alors ?
+      - quel ben médicament dois-je prendre ?
+      - pouvez-vous interpréter mes mes résultats ?
+      - je préfère en fait expliquer à une personne
+      - je préfère expliquer à une euh personne
+      - je préfère hum expliquer à une personne
+      - alors, quel médicament dois-je prendre ?
+      - pouvez-vous interpréter mes alors résultats ?
+      - euh, passez-moi le secrétariat
+      - euh, je veux parler à quelqu'un
+      - ben, je veux parler à quelqu'un merci
+      - hum, je veux parler à quelqu'un
+      - passez-moi le ben secrétariat
+      - pouvez-vous interpréter mes résultats ? ?
+      - je préfère préfère expliquer à une personne
+      - euh, quel médicament dois-je prendre ?
+      - pouvez-vous interpréter mes résultats résultats ?
+      - hum, quel médicament dois-je prendre ?
+      - passez-moi le alors secrétariat
+      - je ben veux un diagnostic
+      - passez-moi le euh secrétariat
+      - je préfère expliquer à une hum personne
+      - passez-moi ben le secrétariat
+      - je veux parler euh à quelqu'un
+      - je veux un un diagnostic
+      - pouvez-vous ben interpréter mes résultats ?
+      - je préfère expliquer à une personne personne
+      - ben, passez-moi le secrétariat
+      - je veux parler à quelqu'un s'il vous vous plait
+      - quel médicament dois-je prendre ? ?
+      - je veux parler à euh quelqu'un
+      - je préfère ben expliquer à une personne
+      - en fait, je préfère expliquer à une personne
+      - je en fait veux parler à quelqu'un merci
+      - euh, je veux parler à quelqu'un merci
+      - je veux un alors diagnostic
+      - je préfère alors expliquer à une personne
+      - hum, je préfère expliquer à une personne
+      - quel médicament hum dois-je prendre ?
+      - en fait, passez-moi le secrétariat
+      - je veux parler à alors quelqu'un merci
+      - quel médicament dois-je alors prendre ?
+      - hum, je veux un diagnostic
+      - hum, pouvez-vous interpréter mes résultats ?
+      - je euh veux parler à quelqu'un merci
+      - je préfère expliquer hum à une personne
+      - je ben préfère expliquer à une personne
+      - je préfère expliquer à en fait une personne
+      - je veux parler hum à quelqu'un
+      - je veux parler à quelqu'un merci merci
+      - je veux parler à quelqu'un s'il vous ben plait
+      - je veux en fait un diagnostic
+      - quel médicament dois-je euh prendre ?
+      - en fait, je veux parler à quelqu'un
+      - alors, je veux un diagnostic
+      - je préfère expliquer à euh une personne
+      - je veux parler à à quelqu'un
+      - je veux hum un diagnostic
+      - quel médicament dois-je prendre hum ?
+      - ben, pouvez-vous interpréter mes résultats ?
+      - quel médicament dois-je prendre ben ?
+      - hum, passez-moi le secrétariat
+      - quel médicament dois-je en fait prendre ?
+      - en fait, quel médicament dois-je prendre ?
+      - je hum veux un diagnostic
+      - pouvez-vous interpréter mes résultats ben ?
+      - pouvez-vous interpréter alors mes résultats ?
+      - je veux parler parler à quelqu'un s'il vous plait
+      - quel alors médicament dois-je prendre ?
+      - pouvez-vous interpréter ben mes résultats ?
+      - je veux parler alors à quelqu'un merci
+      - je veux un hum diagnostic
+      - je ben veux parler à quelqu'un merci
+      - je veux parler à quelqu'un ben s'il vous plait
+      - je préfère expliquer à ben une personne
+      - je veux parler à quelqu'un s'il s'il vous plait
+      - je veux ben un diagnostic
+      - pouvez-vous interpréter mes euh résultats ?
+      - hum, je veux parler à quelqu'un merci
+      - pouvez-vous en fait interpréter mes résultats ?
+      - je préfère expliquer euh à une personne
+      - euh, je veux parler à quelqu'un s'il vous plait
+      - quel médicament alors dois-je prendre ?
+      - euh, je veux un diagnostic
+      - ben, je veux parler à quelqu'un s'il vous plait
+      - alors, je veux parler à quelqu'un
+      - je en fait préfère expliquer à une personne
+      - je préfère expliquer ben à une personne
+      - je veux parler euh à quelqu'un merci
+      - pouvez-vous interpréter mes ben résultats ?
+      - ben, je veux parler à quelqu'un
+      - je hum veux parler à quelqu'un
+      - ben, je veux un diagnostic
+      - quel euh médicament dois-je prendre ?
+      - passez-moi le en fait secrétariat
+      - pouvez-vous interpréter euh mes résultats ?
+      - passez-moi euh le secrétariat
+      - je préfère expliquer à une en fait personne
+      - je veux parler à quelqu'un s'il vous euh plait
+      - je veux un diagnosttic
+      - je veux un diagnotsic
+      - je veux un diagnostc
+      - je veux un dianostic
+      - quel médicament dois-jje prendre ?
+      - je veux un diagnstic
+      - je veux un diagnosstic
+      - je veux paarler à quelqu'un merci
+      - quel médicameent dois-je prendre ?
+      - passez-oi le secrétariat
+      - pouuvez-vous interpréter mes résultats ?
+      - paassez-moi le secrétariat
+      - je veux un dagnostic
+      - pasez-moi le secrétariat
+      - je pérfère expliquer à une personne
+      - je veux un daignostic
+      - pouvez-vous inteerpréter mes résultats ?
+      - je préfère expliquer à une presonne
+      - pouvez-vous interprétter mes résultats ?
+      - je préfère expliquer à une persone
+      - je préfère expliquer à une personnne
+      - je préfère exxpliquer à une personne
+      - passezz-moi le secrétariat
+      - pouvez-vous interprétre mes résultats ?
+      - je veux parler à quelqu'un meerci
+      - passez-mmoi le secrétariat
+      - poouvez-vous interpréter mes résultats ?
+      - quel méicament dois-je prendre ?
+      - je préfère expliqeur à une personne
+      - je veux un diagnosic
+      - je préfère expiquer à une personne
+      - passezmoi le secrétariat
+      - je prféère expliquer à une personne
+      - quel médicament dois--je prendre ?
+      - je veux un diagnostiic
+      - psasez-moi le secrétariat
+      - je veux un diganostic
+      - je veux parler à quelqu'un mreci
+      - je veux parler à quequ'un merci
+      - je préfère expliquer à une persnone
+      - quel médicament dois-je prenre ?
+      - je préfère expliqer à une personne
+      - passez-moi le secrétraiat
+      - quel médicament dois-je prndre ?
+      - je préfèe expliquer à une personne
+      - quel médicament dois-je prrendre ?
+      - pouvez-vous interppréter mes résultats ?
+      - passezm-oi le secrétariat
+      - je veux parlre à quelqu'un merci
+      - pouvez-vous intrpréter mes résultats ?
+      - je veux un diagnoostic
+      - passez-moi le secrétriat
+      - je veux parler à queluq'un s'il vous plait
+      - pouvez-vous inerpréter mes résultats ?
+      - je préfrèe expliquer à une personne
+      - je veux un diagonstic
+      - passez-moi le sercétariat
+      - quel médiicament dois-je prendre ?
+      - quel médicaament dois-je prendre ?
+      - quel médicmaent dois-je prendre ?
+      - quel médicament dois-je prender ?
+      - je veux parler à qelqu'un merci
+      - passez-moi le scerétariat
+      - je prréfère expliquer à une personne
+      - pouvez-vous interpréter mes réslutats ?
+      - je préfère expliqur à une personne
+      - quel méidcament dois-je prendre ?
+      - quel médicament doisj-e prendre ?
+      - je veux parler à qulequ'un merci
+      - pouvez-vouus interpréter mes résultats ?
+      - je veux un dignostic
+      - pouve-zvous interpréter mes résultats ?
+      - je veux parler à quelqu'un mercci
+      - passeez-moi le secrétariat
+      - je préfère epliquer à une personne
+      - je veux un diangostic
+      - passez-mooi le secrétariat
+      - je veux parler à qeulqu'un
+      - je préfère expliquer à une prsonne
+      - pouvez-vous iterpréter mes résultats ?
+      - je veux parler à quelqu'un mecri
+      - je veux un diagnotic
+      - quel médiccament dois-je prendre ?
+      - je préfère expliquer à une pesronne
+      - passez-moi le secrétarita
+      - je veux prler à quelqu'un
+      - passez-moi le secrtariat
+      - je veux paarler à quelqu'un
+      - passe-zmoi le secrétariat
+      - quel médicament doisje prendre ?
+      - pouvez-vous interpréter mes réultats ?
+      - je veux parller à quelqu'un merci
+      - passez-moi le secrétairat
+      - je veux parlre à quelqu'un s'il vous plait
+      - pasesz-moi le secrétariat
+      - pouvez-vous intterpréter mes résultats ?
+      - pouvez-vous interpréter mes réusltats ?
+      - je veux parler à quelqu'un s'il vous plit
+      - je péfère expliquer à une personne
+      - je veux parler à quelqu'un meri
+      - quel médicament dios-je prendre ?
+      - je veux un diaggnostic
+      - pouvez-vosu interpréter mes résultats ?
+      - je veux un diagnsotic
+      - je veux parleer à quelqu'un
+      - passez-moi le secrétarat
+      - je préfèrre expliquer à une personne
+      - je prfère expliquer à une personne
+      - je préfère explquer à une personne
+      - je veux parler à queelqu'un
+      - je veux parer à quelqu'un merci
+      - je veux parller à quelqu'un s'il vous plait
+      - je préfère exppliquer à une personne
+      - pouvez-vuos interpréter mes résultats ?
+      - passsez-moi le secrétariat
+      - pouvez-vous interpréter mes réésultats ?
+      - je veux un diagnostci
+      - pouvz-vous interpréter mes résultats ?
+      - passez-moi le secrétarit
+      - passez-moi le secrétariiat
+      - je veux parler à qulqu'un
+      - je préère expliquer à une personne
+      - pouvez-vous interpréter mes rsultats ?
+      - passez-moi le secréétariat
+      - passez-moi le secréttariat
+      - quel médicament dois-je prenrde ?
+      - quel médcament dois-je prendre ?
+      - quel médicametn dois-je prendre ?
+      - quel médicament doiss-je prendre ?
+      - quel médicamet dois-je prendre ?
+      - pouvez-vous interpréter mes rséultats ?
+      - pouvez-ous interpréter mes résultats ?
+      - je veux parler à quelqu'un s'il vous plati
+      - pouvez-vous interrpéter mes résultats ?
+      - je veux parelr à quelqu'un
+      - je prééfère expliquer à une personne
+      - pouvez--vous interpréter mes résultats ?
+      - quel médicament dois-je prenddre ?
+      - je veux parleer à quelqu'un s'il vous plait
+      - je préfère exliquer à une personne
+      - je veux parler à quelqu'un meci
+      - je veux parleer à quelqu'un merci
+  - intent: list_appointments
+    examples: |
+      - je souhaite voir mes rendez-vous [lundi](date_from)
+      - c'est quand mon prochain rendez-vous ?
+      - quels sont mes prochains rendez-vous ?
+      - il me faudrait vérifier mon rendez-vous avec [docteur Jardol](practitioner_name)
+      - il me faudrait vérifier mon rendez-vous avec [docteur Romain Verans](practitioner_name)
+      - j'ai un rendez-vous prévu avec [professeur Seriel](practitioner_name) ?
+      - qu'est-ce que j'ai de prévu [dans deux semaines](date_from) ?
+      - il me faudrait vérifier mon rendez-vous avec [docteur Gardot](practitioner_name)
+      - j'aimerais voir mes rendez-vous [demain](date_from)
+      - est-ce que j'ai déjà un rendez-vous avec [Dr Ferange](practitioner_name) ?
+      - j'ai quoi de prévu [jeudi](date_from) ?
+      - qu'est-ce que j'ai de prévu [après-demain](date_from) ?
+      - j'ai quoi de prévu [la semaine prochaine](date_from) ?
+      - j'ai un rendez-vous prévu avec [le docteur Lavoy](practitioner_name) ?
+      - j'aimerais voir mes rendez-vous [la semaine prochaine](date_from)
+      - j'ai un rendez-vous prévu avec [professeur Rivier](practitioner_name) ?
+      - quels sont mes prochains rendez-vous merci ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Gonzbert](practitioner_name) ?
+      - qu'est-ce que j'ai de prévu [demain](date_from) ?
+      - j'ai quoi de prévu [le 12 mars](date_from) ?
+      - j'ai besoin d' savoir quand est mon prochain rendez-vous
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur L'Hermitte](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [le docteur Bourteau](practitioner_name) ?
+      - j'aimerais savoir quand est mon prochain rendez-vous
+      - je souhaite savoir quand est mon prochain rendez-vous
+      - qu'est-ce que j'ai de prévu [le 12 mars](date_from) ?
+      - qu'est-ce que j'ai de prévu [vendredi](date_from) ?
+      - est-ce que j'ai déjà un rendez-vous avec [Dr Frenieu](practitioner_name) ?
+      - j'aimerais voir mes rendez-vous [vendredi](date_from)
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Montbert](practitioner_name) ?
+      - j'ai quoi de prévu [lundi](date_from) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Orlon](practitioner_name) ?
+      - je voudrais savoir quand est mon prochain rendez-vous
+      - j'ai besoin d' voir mes rendez-vous [mercredi](date_from)
+      - j'aimerais vérifier mon rendez-vous avec [Dr Reï](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Dourans](practitioner_name) ?
+      - qu'est-ce que j'ai de prévu [mardi](date_from) ?
+      - je voudrais voir mes rendez-vous [après-demain](date_from)
+      - j'ai quoi de prévu [dans deux semaines](date_from) ?
+      - j'ai un rendez-vous prévu avec [docteur Hervbert](practitioner_name) ?
+      - il me faudrait savoir quand est mon prochain rendez-vous
+      - qu'est-ce que j'ai de prévu [lundi](date_from) ?
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Brefard](practitioner_name) ?
+      - j'ai quoi de prévu [vendredi](date_from) ?
+      - j'ai besoin d' voir mes rendez-vous [le 12 mars](date_from)
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Loubec](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [docteur Lucie Marol](practitioner_name)
+      - j'ai besoin d' vérifier mon rendez-vous avec [le docteur Robert](practitioner_name)
+      - j'ai quoi de prévu [demain](date_from) ?
+      - je souhaite voir mes rendez-vous [après-demain](date_from)
+      - il me faudrait vérifier mon rendez-vous avec [docteur Karim Courin](practitioner_name)
+      - il me faudrait vérifier mon rendez-vous avec [madame le docteur Nogier](practitioner_name)
+      - j'ai besoin d' voir mes rendez-vous [mardi](date_from)
+      - j'ai besoin d' vérifier mon rendez-vous avec [le docteur Nevoy](practitioner_name)
+      - j'ai un rendez-vous prévu avec [docteur Anne-Sophie Marier](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [professeur Nevac](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Hugo Beauon](practitioner_name) ?
+      - il me faudrait vérifier mon rendez-vous avec [madame le docteur Isamreau](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Valange](practitioner_name) ?
+      - je souhaite voir mes rendez-vous [dans deux semaines](date_from)
+      - qu'est-ce que j'ai de prévu [la semaine prochaine](date_from) ?
+      - j'ai quoi de prévu [mercredi](date_from) ?
+      - j'ai un rendez-vous prévu avec [docteur Antoine Delac](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Castust](practitioner_name) ?
+      - j'ai besoin d' vérifier mon rendez-vous avec [Dr Bourteau](practitioner_name)
+      - j'ai quoi de prévu [mardi](date_from) ?
+      - il me faudrait vérifier mon rendez-vous avec [docteur Morin](practitioner_name)
+      - j'ai un rendez-vous prévu avec [madame le docteur Brefteau](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Olivier Pavard](practitioner_name) ?
+      - qu'est-ce que j'ai de prévu [mercredi](date_from) ?
+      - j'ai un rendez-vous prévu avec [le docteur Ferreira](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur D'Amico](practitioner_name) ?
+      - il me faudrait vérifier mon rendez-vous avec [madame le docteur Hervot](practitioner_name)
+      - il me faudrait voir mes rendez-vous [dans deux semaines](date_from)
+      - j'ai un rendez-vous prévu avec [docteur Marine Belot](practitioner_name) ?
+      - il me faudrait vérifier mon rendez-vous avec [docteur Marac](practitioner_name)
+      - j'ai besoin d' vérifier mon rendez-vous avec [docteur Isamet](practitioner_name)
+      - je souhaite vérifier mon rendez-vous avec [docteur Laura Ben Saïd](practitioner_name)
+      - j'ai un rendez-vous prévu avec [docteur Ferard](practitioner_name) ?
+      - je voudrais vérifier mon rendez-vous avec [Dr Durand](practitioner_name)
+      - je souhaite vérifier mon rendez-vous avec [docteur Maret](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Couron](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [professeur Sabet](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur D'Amico](practitioner_name) ?
+      - j'aimerais voir mes rendez-vous [le 12 mars](date_from)
+      - je voudrais vérifier mon rendez-vous avec [docteur Fischer](practitioner_name)
+      - je voudrais voir mes rendez-vous [demain](date_from)
+      - il me faudrait voir mes rendez-vous [la semaine prochaine](date_from)
+      - il me faudrait voir mes rendez-vous [demain](date_from)
+      - il me faudrait voir mes rendez-vous [le 12 mars](date_from)
+      - j'ai un rendez-vous prévu avec [madame le docteur Ferin](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [madame le docteur Orlon](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [professeur David](practitioner_name)
+      - j'ai un rendez-vous prévu avec [docteur Julien Valac](practitioner_name) ?
+      - je souhaite voir mes rendez-vous [mercredi](date_from)
+      - je voudrais vérifier mon rendez-vous avec [Dr Chamard](practitioner_name)
+      - j'ai un rendez-vous prévu avec [le docteur Kervec](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Tremreau](practitioner_name) ?
+      - je voudrais voir mes rendez-vous [jeudi](date_from)
+      - j'aimerais voir mes rendez-vous [mercredi](date_from)
+      - il me faudrait voir mes rendez-vous [mercredi](date_from)
+      - j'ai un rendez-vous prévu avec [madame le docteur Charust](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Bourcourt](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Frenmont](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Valard](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [le docteur Seriel](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [le docteur Dourbert](practitioner_name) ?
+      - je voudrais vérifier mon rendez-vous avec [professeur Vilec](practitioner_name)
+      - il me faudrait vérifier mon rendez-vous avec [professeur Rochon](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Damien Belans](practitioner_name) ?
+      - j'ai quoi de prévu [après-demain](date_from) ?
+      - j'aimerais voir mes rendez-vous [jeudi](date_from)
+      - j'ai un rendez-vous prévu avec [madame le docteur Rochay](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [Dr Moreau](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Aubans](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Chénier](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [madame le docteur Belreau](practitioner_name)
+      - j'ai un rendez-vous prévu avec [docteur Estris](practitioner_name) ?
+      - je voudrais voir mes rendez-vous [dans deux semaines](date_from)
+      - il me faudrait vérifier mon rendez-vous avec [docteur Amina Kervcourt](practitioner_name)
+      - j'ai besoin d' vérifier mon rendez-vous avec [docteur Aubeau](practitioner_name)
+      - j'aimerais vérifier mon rendez-vous avec [docteur Damien Estrac](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Delans](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Lavel](practitioner_name) ?
+      - je voudrais vérifier mon rendez-vous avec [professeur Tourin](practitioner_name)
+      - j'aimerais vérifier mon rendez-vous avec [docteur Anais Feraf](practitioner_name)
+      - j'ai un rendez-vous prévu avec [le docteur Ferel](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [madame le docteur Sabeau](practitioner_name)
+      - je souhaite voir mes rendez-vous [vendredi](date_from)
+      - j'ai un rendez-vous prévu avec [Dr Mathieu](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [Dr Gardieu](practitioner_name) ?
+      - je voudrais vérifier mon rendez-vous avec [madame le docteur Bouriel](practitioner_name)
+      - j'ai besoin d' vérifier mon rendez-vous avec [madame le docteur Gardier](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Martin](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [le docteur Jardbert](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Marie-Claire Rémy](practitioner_name) ?
+      - je souhaite vérifier mon rendez-vous avec [docteur Fauvon](practitioner_name)
+      - je souhaite vérifier mon rendez-vous avec [le docteur Valoux](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Courin](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [le docteur Osei](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Bonnet](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Ferac](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Tremis](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [professeur Lavet](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Halbert](practitioner_name) ?
+      - qu'est-ce que j'ai de prévu [jeudi](date_from) ?
+      - j'ai besoin d' vérifier mon rendez-vous avec [le docteur Nevville](practitioner_name)
+      - je souhaite voir mes rendez-vous [jeudi](date_from)
+      - je souhaite vérifier mon rendez-vous avec [le docteur Aubec](practitioner_name)
+      - j'ai un rendez-vous prévu avec [professeur Bianchi](practitioner_name) ?
+      - j'ai besoin d' voir mes rendez-vous [jeudi](date_from)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Delac](practitioner_name) ?
+      - je souhaite vérifier mon rendez-vous avec [le docteur Halans](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Tourec](practitioner_name) ?
+      - j'aimerais voir mes rendez-vous [mardi](date_from)
+      - j'ai un rendez-vous prévu avec [docteur L'Hermitte](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Loubreau](practitioner_name) ?
+      - il me faudrait voir mes rendez-vous [lundi](date_from)
+      - j'aimerais vérifier mon rendez-vous avec [docteur Rivans](practitioner_name)
+      - j'ai un rendez-vous prévu avec [professeur Gardier](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Guerin](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [le docteur Verieu](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [le docteur Bourcourt](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [madame le docteur Castieu](practitioner_name)
+      - j'ai besoin d' vérifier mon rendez-vous avec [docteur Vilel](practitioner_name)
+      - j'aimerais vérifier mon rendez-vous avec [docteur Kervard](practitioner_name)
+      - j'ai un rendez-vous prévu avec [le docteur Serville](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [professeur Beaugnac](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [Dr Lavieu](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Jolbert](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [docteur Lavol](practitioner_name)
+      - je voudrais vérifier mon rendez-vous avec [docteur Fauvol](practitioner_name)
+      - j'aimerais voir mes rendez-vous [lundi](date_from)
+      - j'ai un rendez-vous prévu avec [madame le docteur Jardoy](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [Dr Orliel](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Loubreau](practitioner_name) ?
+      - il me faudrait vérifier mon rendez-vous avec [Dr Jardol](practitioner_name)
+      - j'aimerais vérifier mon rendez-vous avec [Dr Orliel](practitioner_name)
+      - j'ai un rendez-vous prévu avec [madame le docteur Frencourt](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [Dr Courans](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Vincent Merville](practitioner_name) ?
+      - il me faudrait voir mes rendez-vous [vendredi](date_from)
+      - j'ai un rendez-vous prévu avec [docteur Pierre Gardiel](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [madame le docteur Meunier](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [Dr Montot](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [professeur Castbert](practitioner_name)
+      - j'ai besoin d' vérifier mon rendez-vous avec [professeur Rivol](practitioner_name)
+      - j'ai un rendez-vous prévu avec [madame le docteur Deloy](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Ines Beauis](practitioner_name) ?
+      - je souhaite vérifier mon rendez-vous avec [docteur Damien Pavel](practitioner_name)
+      - j'ai un rendez-vous prévu avec [le docteur Lavel](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Frenin](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Bernart](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Sabin](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Romain Nogol](practitioner_name) ?
+      - je souhaite voir mes rendez-vous [demain](date_from)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Quenville](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Estrbert](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [Dr Douret](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Rivon](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Rochec](practitioner_name) ?
+      - je souhaite vérifier mon rendez-vous avec [le docteur Valot](practitioner_name)
+      - il me faudrait vérifier mon rendez-vous avec [docteur Jolin](practitioner_name)
+      - j'aimerais voir mes rendez-vous [après-demain](date_from)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Lavmont](practitioner_name) ?
+      - j'ai besoin d' vérifier mon rendez-vous avec [le docteur Delier](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [Dr Ferier](practitioner_name) ?
+      - j'ai besoin d' vérifier mon rendez-vous avec [Dr Lavbert](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Pavard](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [professeur Mergnac](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Frenbert](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Quenteau](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Manon Kervoy](practitioner_name) ?
+      - il me faudrait vérifier mon rendez-vous avec [docteur Hugo Belgnac](practitioner_name)
+      - je souhaite vérifier mon rendez-vous avec [docteur Camille Quenmont](practitioner_name)
+      - j'ai besoin d' vérifier mon rendez-vous avec [docteur Chloe Pavon](practitioner_name)
+      - j'ai un rendez-vous prévu avec [le docteur Castust](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Delbert](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Valcourt](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Orlgnac](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [madame le docteur Tremet](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Lamac](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Francois](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [professeur Frengnac](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [Dr Tremard](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [professeur Fauvoy](practitioner_name) ?
+      - je voudrais voir mes rendez-vous [lundi](date_from)
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Vilet](practitioner_name) ?
+      - je voudrais vérifier mon rendez-vous avec [le docteur Traore](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Deliel](practitioner_name) ?
+      - je souhaite vérifier mon rendez-vous avec [madame le docteur Pavange](practitioner_name)
+      - je voudrais vérifier mon rendez-vous avec [le docteur Nevreau](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Rochier](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [madame le docteur Kervreau](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [madame le docteur Bouret](practitioner_name) ?
+      - j'ai besoin d' voir mes rendez-vous [lundi](date_from)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Roussel](practitioner_name) ?
+      - il me faudrait vérifier mon rendez-vous avec [le docteur Nevon](practitioner_name)
+      - il me faudrait voir mes rendez-vous [jeudi](date_from)
+      - j'ai besoin d' vérifier mon rendez-vous avec [madame le docteur Bouraf](practitioner_name)
+      - j'ai un rendez-vous prévu avec [docteur Chen](practitioner_name) ?
+      - je voudrais vérifier mon rendez-vous avec [docteur Nevust](practitioner_name)
+      - j'ai un rendez-vous prévu avec [madame le docteur Kervet](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [Dr Mathieu](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Lucie Andersson](practitioner_name) ?
+      - je voudrais voir mes rendez-vous [mercredi](date_from)
+      - je voudrais vérifier mon rendez-vous avec [professeur Ben Saïd](practitioner_name)
+      - il me faudrait vérifier mon rendez-vous avec [professeur Bourteau](practitioner_name)
+      - j'aimerais vérifier mon rendez-vous avec [docteur Marc Montet](practitioner_name)
+      - je souhaite vérifier mon rendez-vous avec [docteur Nicolas Tourans](practitioner_name)
+      - j'ai un rendez-vous prévu avec [professeur Veron](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Vauot](practitioner_name) ?
+      - je voudrais voir mes rendez-vous [mardi](date_from)
+      - j'ai un rendez-vous prévu avec [docteur Olivier Marchant](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Alice Moreau](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Mathieu Nevville](practitioner_name) ?
+      - il me faudrait voir mes rendez-vous [après-demain](date_from)
+      - j'ai un rendez-vous prévu avec [professeur Castbert](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Pierre Gardier](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Sebastien Loubust](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [docteur Julien Ben Said](practitioner_name)
+      - j'ai un rendez-vous prévu avec [docteur Julie Aubbert](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [madame le docteur Isamans](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [le docteur Gardgnac](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [madame le docteur Brefac](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [professeur Gardel](practitioner_name) ?
+      - j'ai besoin d' vérifier mon rendez-vous avec [professeur Vilieu](practitioner_name)
+      - je souhaite voir mes rendez-vous [le 12 mars](date_from)
+      - il me faudrait vérifier mon rendez-vous avec [madame le docteur Pavcourt](practitioner_name)
+      - j'ai un rendez-vous prévu avec [professeur Kervbert](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [docteur Vauac](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [professeur Reï](practitioner_name) ?
+      - je souhaite vérifier mon rendez-vous avec [madame le docteur Verier](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [Dr Loubis](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [madame le docteur Roussel](practitioner_name) ?
+      - j'ai un rendez-vous prévu avec [le docteur Feron](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Montcourt](practitioner_name) ?
+      - j'aimerais vérifier mon rendez-vous avec [Dr Lavon](practitioner_name)
+      - j'ai besoin d' voir mes rendez-vous [après-demain](date_from)
+      - je souhaite vérifier mon rendez-vous avec [docteur Lamay](practitioner_name)
+      - il me faudrait vérifier mon rendez-vous avec [madame le docteur Beauoux](practitioner_name)
+      - je voudrais vérifier mon rendez-vous avec [docteur Rossi](practitioner_name)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Meraf](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Leila Gonzoy](practitioner_name) ?
+      - je voudrais vérifier mon rendez-vous avec [professeur Brefoy](practitioner_name)
+      - je souhaite voir mes rendez-vous [la semaine prochaine](date_from)
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Lucie Tourange](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Sabay](practitioner_name) ?
+      - j'ai besoin d' voir mes rendez-vous [vendredi](date_from)
+      - j'ai un rendez-vous prévu avec [professeur Estroux](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [docteur Nevbert](practitioner_name) ?
+      - j'ai besoin d' voir mes rendez-vous [dans deux semaines](date_from)
+      - j'ai un rendez-vous prévu avec [madame le docteur Popescu](practitioner_name) ?
+      - est-ce que j'ai déjà un rendez-vous avec [madame le docteur Ferard](practitioner_name) ?
+      - est-ce que hum j'ai déjà un rendez-vous avec [madame le docteur Quenteau](practitioner_name) ?
+      - qu'est-ce que j'ai de prévu prévu [demain](date_from) ?
+      - j'ai un rendez-vous prévu avec alors [docteur Olivier Pavard](practitioner_name) ?
+      - est-ce que hum j'ai déjà un rendez-vous avec [docteur Lavmont](practitioner_name) ?
+      - quels ben sont mes prochains rendez-vous ?
+      - je souhaite savoir quand est mon mon prochain rendez-vous
+  - intent: no_tool
+    examples: |
+      - vous connaissez un bon restaurant dans le quartier ?
+      - quel temps fera-t-il demain ?
+      - annulez mon abonnement téléphonique
+      - pouvez-vous appeler ma banque ?
+      - racontez-moi une histoire
+      - racontez-moi une une histoire
+      - pouvez-vous appeler ma en fait banque ?
+      - quel temps fera-t-il ben demain ?
+      - hum, pouvez-vous appeler ma banque ?
+      - quel temps fera-t-il demain alors ?
+      - pouvez-vous appeler ma ma banque ?
+      - euh, annulez mon abonnement téléphonique
+      - vous connaissez un bon restaurant dans le quartier quartier ?
+      - annulez mon abonnement abonnement téléphonique
+      - euh, quel temps fera-t-il demain ?
+      - quel hum temps fera-t-il demain ?
+      - alors, racontez-moi une histoire
+      - vous connaissez un bon restaurant dans le le quartier ?
+      - ben, annulez mon abonnement téléphonique
+      - en fait, vous connaissez un bon restaurant dans le quartier ?
+      - ben, quel temps fera-t-il demain ?
+      - pouvez-vous appeler ma banque en fait ?
+      - hum, vous connaissez un bon restaurant dans le quartier ?
+      - annulez mon euh abonnement téléphonique
+      - ben, vous connaissez un bon restaurant dans le quartier ?
+      - ben, racontez-moi une histoire
+      - annulez mon abonnement téléphonique téléphonique
+      - vous connaissez un bon restaurant hum dans le quartier ?
+      - alors, pouvez-vous appeler ma banque ?
+      - en fait, racontez-moi une histoire
+      - quel temps fera-t-il demain demain ?
+      - pouvez-vous appeler ma euh banque ?
+      - en fait, quel temps fera-t-il demain ?
+      - euh, racontez-moi une histoire
+      - vous connaissez connaissez un bon restaurant dans le quartier ?
+      - vous connaissez alors un bon restaurant dans le quartier ?
+      - quel temps temps fera-t-il demain ?
+      - pouvez-vous appeler ma banque banque ?
+      - alors, vous connaissez un bon restaurant dans le quartier ?
+      - racontez-moi une ben histoire
+      - quel temps fera-t-il fera-t-il demain ?
+      - pouvez-vous alors appeler ma banque ?
+      - hum, racontez-moi une histoire
+      - racontez-moi une euh histoire
+      - pouvez-vous appeler ma banque ? ?
+      - pouvez-vous appeler appeler ma banque ?
+      - vous connaissez un bon restaurant alors dans le quartier ?
+      - en fait, annulez mon abonnement téléphonique
+      - ben, pouvez-vous appeler ma banque ?
+      - hum, quel temps fera-t-il demain ?
+      - racontez-moi ben une histoire
+      - quel temps fera-t-il en fait demain ?
+      - euh, pouvez-vous appeler ma banque ?
+      - en fait, pouvez-vous appeler ma banque ?
+      - alors, quel temps fera-t-il demain ?
+      - vous connaissez un un bon restaurant dans le quartier ?
+      - racontez-moi une histoire histoire
+      - vous connaissez un bon bon restaurant dans le quartier ?
+      - vous connaissez un bon restaurant dans euh le quartier ?
+      - racontez-moi euh une histoire
+      - pouvez-vous appeler hum ma banque ?
+      - vous connaissez un bon restaurant restaurant dans le quartier ?
+      - vous ben connaissez un bon restaurant dans le quartier ?
+      - racontez-moi une en fait histoire
+      - annulez mon abonnement ben téléphonique
+      - pouvez-vous appeler euh ma banque ?
+      - quel temps hum fera-t-il demain ?
+      - annulez euh mon abonnement téléphonique
+      - vous connaissez un bon restaurant dans le quartier euh ?
+      - vous connaissez un bon restaurant dans le euh quartier ?
+      - annulez mon mon abonnement téléphonique
+      - hum, annulez mon abonnement téléphonique
+      - racontez-moi en fait une histoire
+      - pouvez-vous hum appeler ma banque ?
+      - annulez mon abonnement en fait téléphonique
+      - quel temps fera-t-il demain ? ?
+      - annulez mon hum abonnement téléphonique
+      - vous euh connaissez un bon restaurant dans le quartier ?
+      - pouvez-vous appeler ma banque ben ?
+      - annulez hum mon abonnement téléphonique
+      - quel en fait temps fera-t-il demain ?
+      - vous connaissez un bon restaurant ben dans le quartier ?
+      - annulez mon alors abonnement téléphonique
+      - vous connaissez un bon restaurant dans alors le quartier ?
+      - annulez en fait mon abonnement téléphonique
+      - vous hum connaissez un bon restaurant dans le quartier ?
+      - vous connaissez ben un bon restaurant dans le quartier ?
+      - annulez mon abonnement hum téléphonique
+      - racontez-moi hum une histoire
+      - racontez-moi une hum histoire
+      - racontez-moi alors une histoire
+      - annulez mon ben abonnement téléphonique
+      - annulez mon abonnement alors téléphonique
+      - vous connaissez un bon restaurant dans dans le quartier ?
+      - vous connaissez un euh bon restaurant dans le quartier ?
+      - quel temps fera-t-il demain en fait ?
+      - vous connaissez un bon restaurant dans le quartier ? ?
+      - pouvez-vous euh appeler ma banque ?
+      - annulez ben mon abonnement téléphonique
+      - vous connaissez un bon restaurant dans le ben quartier ?
+      - quel temps fera-t-il demain hum ?
+      - vous en fait connaissez un bon restaurant dans le quartier ?
+      - vous connaissez un bon restaurant dans le quartier en fait ?
+      - pouvez-vous appeler ma banque euh ?
+      - vous connaissez un bon hum restaurant dans le quartier ?
+      - vous connaissez un bon ben restaurant dans le quartier ?
+      - racontez-moi une alors histoire
+      - quel euh temps fera-t-il demain ?
+      - pouvez-vous appeler ben ma banque ?
+      - pouvez-vous appeler alors ma banque ?
+      - quel temps en fait fera-t-il demain ?
+      - annulez mon en fait abonnement téléphonique
+      - quel temps fera-t-il demain euh ?
+      - vous connaissez un bon restaurant dans en fait le quartier ?
+      - alors, annulez mon abonnement téléphonique
+      - pouvez-vous appeler ma banque alors ?
+      - annulez alors mon abonnement téléphonique
+      - vous connaissez un bon restaurant dans le alors quartier ?
+      - euh, vous connaissez un bon restaurant dans le quartier ?
+      - quel temps fera-t-il euh demain ?
+      - pouvez-vous appelr ma banque ?
+      - quel tems fera-t-il demain ?
+      - quel temps fera-t-il dmeain ?
+      - racontez-moi une hisstoire
+      - quel tepms fera-t-il demain ?
+      - racontez-moi une hstoire
+      - racontez-moi une hsitoire
+      - raconttez-moi une histoire
+      - vous connaissez un bon restaurant dans le quatrier ?
+      - racontez-moi une hisoire
+      - anulez mon abonnement téléphonique
+      - pouvz-vous appeler ma banque ?
+      - annulez mon abonnemnet téléphonique
+      - puovez-vous appeler ma banque ?
+      - pouveez-vous appeler ma banque ?
+      - vous connaiissez un bon restaurant dans le quartier ?
+      - quel temmps fera-t-il demain ?
+      - racontz-moi une histoire
+      - quel temps fera-t-il demian ?
+      - vous connaissez un bon restuarant dans le quartier ?
+      - pouvez-vous apeler ma banque ?
+      - racotnez-moi une histoire
+      - annulez mon abonnement téléphonque
+      - quel temps fera--il demain ?
+      - annuleez mon abonnement téléphonique
+      - quel temps fera-t-il deamin ?
+      - annulez mon abonnement téléphhonique
+      - annulez mon abonement téléphonique
+      - vous connaissez un bon restaurant dans le quaartier ?
+      - pouvez-vous apepler ma banque ?
+      - annulez mon abonnement téléphoniqeu
+      - quel temps fera-t-il demaain ?
+      - raccontez-moi une histoire
+      - quel temps fera-t-il demin ?
+      - racotez-moi une histoire
+      - raontez-moi une histoire
+      - quel temps fera--til demain ?
+      - annuez mon abonnement téléphonique
+      - pouvez-vous appeler ma baanque ?
+      - racontez-moi une historie
+      - vous connaissez un bon restaurant dans le qurtier ?
+      - anunlez mon abonnement téléphonique
+      - vous connaissez un bon rstaurant dans le quartier ?
+      - pouvez-vosu appeler ma banque ?
+      - annulez mon abonnement téléphoniqque
+      - vous connaissez un bon restaurant dans le quuartier ?
+      - vous connnaissez un bon restaurant dans le quartier ?
+      - annulez mon abonnement télphonique
+      - quel temps fera-t-il dmain ?
+      - pouvezvous appeler ma banque ?
+      - annulez mon abbonnement téléphonique
+      - rcaontez-moi une histoire
+      - pouvez-vous appeler ma baque ?
+      - quel tmeps fera-t-il demain ?
+      - povez-vous appeler ma banque ?
+      - racontez-moi une histiore
+      - quel temps fera-t-iil demain ?
+      - vous connaissez un bon restauraant dans le quartier ?
+      - annulez mon abonnement télééphonique
+      - vous connaissez un bon retaurant dans le quartier ?
+      - pouez-vous appeler ma banque ?
+      - vous conaissez un bon restaurant dans le quartier ?
+      - racontez--moi une histoire
+      - vous connaissez un bon rsetaurant dans le quartier ?
+      - annulez mon abonneent téléphonique
+      - quel temps feera-t-il demain ?
+      - annulez mon abonnement télépohnique
+      - vous connaissez un bon restaurant dans le quartieer ?
+      - vous connaissez un bon restaurnt dans le quartier ?
+      - vous connaissez un bon restaurant dans le quarteir ?
+      - racoontez-moi une histoire
+      - vous connaissez un bon restaurant dans le quatier ?
+      - annulez mon abonnement téléphoniquue
+      - vous connaissez un bon restaurant dans le quariter ?
+      - quel temps fera-t-il demmain ?
+      - quel temps ferat-il demain ?
+      - annulez mon abonnement téléponique
+      - raocntez-moi une histoire
+      - racontez-moi une histooire
+      - pouvez-vous appeller ma banque ?
+      - vous connaissez un bon restaurant dans le quartir ?
+      - annulez mon abonnement tlééphonique
+      - annulez mon abonnement téléphonqiue
+      - pouvez-vous appleer ma banque ?
+      - vous connassez un bon restaurant dans le quartier ?
+      - quel temps fera-t-il deain ?
+      - vous connaissez un bon resturant dans le quartier ?
+      - raconte-moi une histoire
+      - annulez mon abonnement tléphonique
+      - pouvez-vous appelre ma banque ?
+      - racontez-mmoi une histoire
+      - quel temsp fera-t-il demain ?
+      - annluez mon abonnement téléphonique
+      - pouvez-vus appeler ma banque ?
+      - pouvvez-vous appeler ma banque ?
+      - vous connaissez un bon restaruant dans le quartier ?
+      - quel temps fera-t-il deemain ?
+      - pouvez-vous appeler ma baqnue ?
+      - rcontez-moi une histoire
+      - quel temps frea-t-il demain ?
+      - annnulez mon abonnement téléphonique
+      - vous connaissez un bon restaaurant dans le quartier ?
+      - annulze mon abonnement téléphonique
+      - quel temps fera-t-l demain ?
+      - quel tmps fera-t-il demain ?
+      - racnotez-moi une histoire
+      - racontez-moi une hitoire
+      - pouvez-vous appeleer ma banque ?
+      - pouvez-vous appeler ma banqque ?
+      - annulez mon abonneement téléphonique
+      - pouvez-vous apppeler ma banque ?
+      - pouvez-vous appeler ma banquue ?
+      - quel temps fera--t-il demain ?
+      - vous conanissez un bon restaurant dans le quartier ?
+      - annulez mon abonnment téléphonique
+      - pouvez-vuos appeler ma banque ?
+      - vous connissez un bon restaurant dans le quartier ?
+      - racontez-moi une histore
+      - annulez mon abonnement téléphoniqe
+      - raconte-zmoi une histoire
+      - annullez mon abonnement téléphonique
+      - annulez mon abonnemet téléphonique
+      - annulez mon abonnement tééléphonique
+      - racontez-moi une histoirre
+      - annulez mon abonnement téléphoinque
+      - pouvez-ovus appeler ma banque ?
+      - racontez-moi une histoie
+      - vous connaisez un bon restaurant dans le quartier ?
+      - pouvez-vous appeelr ma banque ?
+      - vous connaissez un bon restaurrant dans le quartier ?
+      - vous connaissez un bon restaurant dans le quarttier ?
+      - racontez-mi une histoire
+      - pouvez-vos appeler ma banque ?
+      - racontez-moi une hiistoire
+      - annulez mon abonnement télléphonique
+      - quel temps fera-ti-l demain ?
+      - pouve-vous appeler ma banque ?
+      - vous connaisssez un bon restaurant dans le quartier ?
+      - quel temps fera-t-il deman ?
+      - racontez-moi une histoier
+      - annulez mon abnonement téléphonique
+      - racontez-moi une hisotire
+      - annulez mon abonnemment téléphonique
+      - vous connaissez un bon restaurant dans le quratier ?
+      - racontezmoi une histoire
+      - vous connaissez un bon restaurant dans le quarier ?
+      - racontezz-moi une histoire
+      - quel teps fera-t-il demain ?
+      - pouvez-vous appeer ma banque ?
+      - annlez mon abonnement téléphonique
+      - vous connaissez un bon reestaurant dans le quartier ?
+      - pouvez-vouus appeler ma banque ?
+      - annulez mon aboonnement téléphonique
+      - vous connaissez un bon retsaurant dans le quartier ?
+      - pouvez--vous appeler ma banque ?
+      - raconteez-moi une histoire
+      - quel teemps fera-t-il demain ?
+      - vous connaissze un bon restaurant dans le quartier ?
+      - annulez mon abonneemnt téléphonique
+      - annulez mon abonenment téléphonique
+      - vous connaissez un bon restaurat dans le quartier ?
+      - racontez-moi une histire
+      - quel temps fea-t-il demain ?
+      - racontez-moi une histoiire
+      - annulez mon abonnement téléphoniique
+      - racontez-moi une histtoire
+      - racontez-moi une hitsoire
+      - vous connaissez un bon restauarnt dans le quartier ?
+      - vous connaissez un bon restaurant dans le quartire ?
+      - annulez mon abonnement télpéhonique
+      - vous connaaissez un bon restaurant dans le quartier ?
+      - pouvezv-ous appeler ma banque ?
+      - vous connaissez un bon restaurant dans le quarter ?
+      - pouvez-vous appeler ma banue ?
+      - pouvez-vous appeeler ma banque ?
+      - vous coonnaissez un bon restaurant dans le quartier ?
+      - annuelz mon abonnement téléphonique
+      - annulez mon abonnemnt téléphonique
+      - vous connaissez un bon restaurannt dans le quartier ?
+      - vous connaissez un bon restauant dans le quartier ?
+  - intent: request_appointment_reschedule
+    examples: |
+      - je ne veux pas annuler, je veux juste changer l'heure
+      - j'ai besoin d' décaler mon rendez-vous à [après-demain](preferred_new_date)
+      - déplacez mon rendez-vous à [vendredi](preferred_new_date)
+      - déplacez celui avec [Dr Meriel](practitioner_name) à [le 12 mars](preferred_new_date)
+      - gardez le même médecin mais mettez-le [en fin de journée](preferred_new_time)
+      - déplacez celui avec [professeur Vincent](practitioner_name) à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Marie-Claire Sabon](practitioner_name)
+      - surtout n'annulez pas, décalez-le [à 16h30](preferred_new_time)
+      - gardez le même médecin mais mettez-le [l'après-midi](preferred_new_time)
+      - est-ce qu'on peut reporter mon rendez-vous à [la semaine prochaine](preferred_new_date) ?
+      - même praticien, mais [le matin](preferred_new_time) plutôt
+      - est-ce qu'on peut reporter mon rendez-vous à [le 12 mars](preferred_new_date) ?
+      - gardez le même médecin mais mettez-le [à 14h](preferred_new_time)
+      - est-ce qu'on peut reporter mon rendez-vous à [lundi](preferred_new_date) ?
+      - même praticien, mais [à 14h](preferred_new_time) plutôt
+      - je voudrais décaler mon rendez-vous à [après-demain](preferred_new_date)
+      - déplacez celui avec [le docteur Roussel](practitioner_name) à [jeudi](preferred_new_date)
+      - déplacez mon rendez-vous à [après-demain](preferred_new_date)
+      - déplacez celui avec [docteur Ferac](practitioner_name) à [vendredi](preferred_new_date)
+      - même praticien, mais [l'après-midi](preferred_new_time) plutôt
+      - déplacez mon rendez-vous à [demain](preferred_new_date)
+      - déplacez mon rendez-vous à [lundi](preferred_new_date)
+      - même praticien, mais [à 9h](preferred_new_time) plutôt
+      - déplacez celui avec [Dr Serust](practitioner_name) à [vendredi](preferred_new_date)
+      - il me faudrait décaler mon rendez-vous à [lundi](preferred_new_date)
+      - je voudrais décaler mon rendez-vous à [jeudi](preferred_new_date)
+      - surtout n'annulez pas, décalez-le [en fin de journée](preferred_new_time)
+      - je veux modifier mon rendez-vous avec [le docteur Tremis](practitioner_name)
+      - déplacez celui avec [professeur Tourreau](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Emma Bourbert](practitioner_name)
+      - surtout n'annulez pas, décalez-le [à 14h](preferred_new_time)
+      - surtout n'annulez pas, décalez-le [le matin](preferred_new_time)
+      - déplacez celui avec [madame le docteur Castust](practitioner_name) à [vendredi](preferred_new_date)
+      - est-ce qu'on peut reporter mon rendez-vous à [après-demain](preferred_new_date) ?
+      - gardez le même médecin mais mettez-le [à 9h](preferred_new_time)
+      - déplacez celui avec [docteur Courin](practitioner_name) à [lundi](preferred_new_date)
+      - déplacez celui avec [docteur Guerin](practitioner_name) à [dans deux semaines](preferred_new_date)
+      - est-ce qu'on peut reporter mon rendez-vous à [dans deux semaines](preferred_new_date) ?
+      - je souhaite décaler mon rendez-vous à [mercredi](preferred_new_date)
+      - est-ce qu'on peut reporter mon rendez-vous à [mercredi](preferred_new_date) ?
+      - je veux modifier mon rendez-vous avec [professeur Brefans](practitioner_name)
+      - est-ce qu'on peut reporter mon rendez-vous à [demain](preferred_new_date) ?
+      - déplacez mon rendez-vous à [jeudi](preferred_new_date)
+      - déplacez mon rendez-vous à [la semaine prochaine](preferred_new_date)
+      - déplacez celui avec [Dr Loubville](practitioner_name) à [mardi](preferred_new_date)
+      - déplacez celui avec [le docteur Haleau](practitioner_name) à [après-demain](preferred_new_date)
+      - j'aimerais décaler mon rendez-vous à [le 12 mars](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Antoine Vilteau](practitioner_name)
+      - même praticien, mais [à 16h30](preferred_new_time) plutôt
+      - j'aimerais décaler mon rendez-vous à [mercredi](preferred_new_date)
+      - surtout n'annulez pas, décalez-le [l'après-midi](preferred_new_time)
+      - il me faudrait décaler mon rendez-vous à [le 12 mars](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Laura Valot](practitioner_name)
+      - même praticien, mais [en fin de journée](preferred_new_time) plutôt
+      - je veux modifier mon rendez-vous avec [le docteur Castaf](practitioner_name)
+      - je veux modifier mon rendez-vous avec [professeur Tremville](practitioner_name)
+      - j'aimerais décaler mon rendez-vous à [après-demain](preferred_new_date)
+      - est-ce qu'on peut reporter mon rendez-vous à [mardi](preferred_new_date) ?
+      - déplacez celui avec [professeur Quenange](practitioner_name) à [le 12 mars](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Verans](practitioner_name)
+      - est-ce qu'on peut reporter mon rendez-vous à [jeudi](preferred_new_date) ?
+      - je veux modifier mon rendez-vous avec [professeur Quenis](practitioner_name)
+      - déplacez celui avec [madame le docteur Tremard](practitioner_name) à [mardi](preferred_new_date)
+      - j'ai besoin d' décaler mon rendez-vous à [jeudi](preferred_new_date)
+      - déplacez celui avec [docteur Wang](practitioner_name) à [lundi](preferred_new_date)
+      - déplacez celui avec [docteur Celine Granon](practitioner_name) à [jeudi](preferred_new_date)
+      - déplacez celui avec [docteur Antoine Rivin](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - j'aimerais décaler mon rendez-vous à [jeudi](preferred_new_date)
+      - il me faudrait décaler mon rendez-vous à [mercredi](preferred_new_date)
+      - gardez le même médecin mais mettez-le [à 16h30](preferred_new_time)
+      - déplacez mon rendez-vous à [mardi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Julien Dumont](practitioner_name)
+      - je veux modifier mon rendez-vous avec [le docteur Estraf](practitioner_name)
+      - déplacez mon rendez-vous à [le 12 mars](preferred_new_date)
+      - déplacez mon rendez-vous à [mercredi](preferred_new_date)
+      - déplacez celui avec [le docteur Nevmont](practitioner_name) à [le 12 mars](preferred_new_date)
+      - déplacez mon rendez-vous à [dans deux semaines](preferred_new_date)
+      - déplacez celui avec [docteur Jean-Pierre Mercier](practitioner_name) à [demain](preferred_new_date)
+      - gardez le même médecin mais mettez-le [le matin](preferred_new_time)
+      - je voudrais décaler mon rendez-vous à [dans deux semaines](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [professeur Fauvmont](practitioner_name)
+      - je veux modifier mon rendez-vous avec [docteur Damien Nogis](practitioner_name)
+      - il me faudrait décaler mon rendez-vous à [jeudi](preferred_new_date)
+      - surtout n'annulez pas, décalez-le [à 9h](preferred_new_time)
+      - déplacez celui avec [professeur Loubol](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - déplacez celui avec [le docteur Romano](practitioner_name) à [lundi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [Dr Fauvec](practitioner_name)
+      - je souhaite décaler mon rendez-vous à [le 12 mars](preferred_new_date)
+      - je voudrais décaler mon rendez-vous à [lundi](preferred_new_date)
+      - est-ce qu'on peut reporter mon rendez-vous à [vendredi](preferred_new_date) ?
+      - je veux modifier mon rendez-vous avec [Dr Seris](practitioner_name)
+      - déplacez celui avec [docteur Halteau](practitioner_name) à [demain](preferred_new_date)
+      - j'ai besoin d' décaler mon rendez-vous à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [madame le docteur Lamange](practitioner_name)
+      - il me faudrait décaler mon rendez-vous à [la semaine prochaine](preferred_new_date)
+      - j'aimerais décaler mon rendez-vous à [demain](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [le docteur Loubec](practitioner_name)
+      - je veux modifier mon rendez-vous avec [madame le docteur Lavieu](practitioner_name)
+      - déplacez celui avec [docteur Weber](practitioner_name) à [demain](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Écrivain](practitioner_name)
+      - je veux modifier mon rendez-vous avec [Dr Jardcourt](practitioner_name)
+      - j'aimerais décaler mon rendez-vous à [vendredi](preferred_new_date)
+      - je voudrais décaler mon rendez-vous à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Dourol](practitioner_name)
+      - il me faudrait décaler mon rendez-vous à [vendredi](preferred_new_date)
+      - j'aimerais décaler mon rendez-vous à [la semaine prochaine](preferred_new_date)
+      - déplacez celui avec [Dr Quenin](practitioner_name) à [le 12 mars](preferred_new_date)
+      - déplacez celui avec [docteur Castust](practitioner_name) à [lundi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Fatima Nogange](practitioner_name)
+      - déplacez celui avec [madame le docteur Vauange](practitioner_name) à [dans deux semaines](preferred_new_date)
+      - déplacez celui avec [le docteur Coureau](practitioner_name) à [après-demain](preferred_new_date)
+      - déplacez celui avec [madame le docteur Tremol](practitioner_name) à [mercredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Sabgnac](practitioner_name)
+      - je veux modifier mon rendez-vous avec [docteur Romain Romano](practitioner_name)
+      - je veux modifier mon rendez-vous avec [le docteur Henry](practitioner_name)
+      - déplacez celui avec [docteur Chen](practitioner_name) à [après-demain](preferred_new_date)
+      - déplacez celui avec [Dr Loubust](practitioner_name) à [jeudi](preferred_new_date)
+      - déplacez celui avec [madame le docteur Nogol](practitioner_name) à [après-demain](preferred_new_date)
+      - déplacez celui avec [Dr Bensaïd](practitioner_name) à [dans deux semaines](preferred_new_date)
+      - je souhaite décaler mon rendez-vous à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [le docteur Frenard](practitioner_name)
+      - je voudrais décaler mon rendez-vous à [mardi](preferred_new_date)
+      - j'ai besoin d' décaler mon rendez-vous à [lundi](preferred_new_date)
+      - déplacez celui avec [le docteur Quenac](practitioner_name) à [après-demain](preferred_new_date)
+      - déplacez celui avec [madame le docteur Nogec](practitioner_name) à [mercredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [professeur Bourville](practitioner_name)
+      - je veux modifier mon rendez-vous avec [Dr Estreau](practitioner_name)
+      - déplacez celui avec [professeur Belard](practitioner_name) à [mardi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [professeur Vilol](practitioner_name)
+      - j'ai besoin d' décaler mon rendez-vous à [la semaine prochaine](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [madame le docteur Seraf](practitioner_name)
+      - je voudrais décaler mon rendez-vous à [le 12 mars](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [professeur N'Diaye](practitioner_name)
+      - je veux modifier mon rendez-vous avec [professeur Girard](practitioner_name)
+      - déplacez celui avec [professeur Seraf](practitioner_name) à [mercredi](preferred_new_date)
+      - déplacez celui avec [docteur Seroy](practitioner_name) à [mardi](preferred_new_date)
+      - déplacez celui avec [le docteur Delmont](practitioner_name) à [mardi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [le docteur Tourol](practitioner_name)
+      - je veux modifier mon rendez-vous avec [Dr Delcourt](practitioner_name)
+      - déplacez celui avec [docteur Kervet](practitioner_name) à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Rochin](practitioner_name)
+      - j'ai besoin d' décaler mon rendez-vous à [mardi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [Dr Delier](practitioner_name)
+      - je veux modifier mon rendez-vous avec [professeur Dourac](practitioner_name)
+      - je veux modifier mon rendez-vous avec [professeur Rivard](practitioner_name)
+      - déplacez celui avec [madame le docteur Tremet](practitioner_name) à [après-demain](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [le docteur Frenol](practitioner_name)
+      - déplacez celui avec [madame le docteur Aubol](practitioner_name) à [jeudi](preferred_new_date)
+      - j'ai besoin d' décaler mon rendez-vous à [demain](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [le docteur Brefans](practitioner_name)
+      - déplacez celui avec [docteur Vincent Merel](practitioner_name) à [jeudi](preferred_new_date)
+      - je voudrais décaler mon rendez-vous à [mercredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Minh Belis](practitioner_name)
+      - déplacez celui avec [le docteur Merier](practitioner_name) à [mardi](preferred_new_date)
+      - déplacez celui avec [madame le docteur Chamec](practitioner_name) à [après-demain](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Frenec](practitioner_name)
+      - je veux modifier mon rendez-vous avec [professeur Romano](practitioner_name)
+      - déplacez celui avec [Dr Vauac](practitioner_name) à [mercredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Charieu](practitioner_name)
+      - je veux modifier mon rendez-vous avec [Dr Lavreau](practitioner_name)
+      - déplacez celui avec [docteur Lucas Vauot](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [madame le docteur Valel](practitioner_name)
+      - déplacez celui avec [Dr Loubec](practitioner_name) à [jeudi](preferred_new_date)
+      - déplacez celui avec [le docteur Brefoux](practitioner_name) à [après-demain](preferred_new_date)
+      - déplacez celui avec [docteur Kervbert](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - déplacez celui avec [docteur Graneau](practitioner_name) à [dans deux semaines](preferred_new_date)
+      - il me faudrait décaler mon rendez-vous à [demain](preferred_new_date)
+      - je souhaite décaler mon rendez-vous à [après-demain](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [professeur Charieu](practitioner_name)
+      - déplacez celui avec [docteur Amina Lavgnac](practitioner_name) à [mardi](preferred_new_date)
+      - déplacez celui avec [Dr Charis](practitioner_name) à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [le docteur Jardans](practitioner_name)
+      - déplacez celui avec [professeur Castreau](practitioner_name) à [jeudi](preferred_new_date)
+      - déplacez celui avec [madame le docteur Kervec](practitioner_name) à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Fabien Tremiel](practitioner_name)
+      - je veux modifier mon rendez-vous avec [le docteur Frengnac](practitioner_name)
+      - déplacez celui avec [docteur Fatima Isamis](practitioner_name) à [jeudi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [professeur Estron](practitioner_name)
+      - je veux modifier mon rendez-vous avec [Dr Montcourt](practitioner_name)
+      - j'aimerais décaler mon rendez-vous à [lundi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [madame le docteur Ferier](practitioner_name)
+      - déplacez celui avec [professeur Morin](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - déplacez celui avec [professeur Rochin](practitioner_name) à [vendredi](preferred_new_date)
+      - déplacez celui avec [madame le docteur Montet](practitioner_name) à [mercredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [Dr Orleau](practitioner_name)
+      - je veux modifier mon rendez-vous avec [docteur Lavet](practitioner_name)
+      - je veux modifier mon rendez-vous avec [le docteur Castier](practitioner_name)
+      - déplacez celui avec [madame le docteur Isamac](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - déplacez celui avec [professeur Lévy](practitioner_name) à [jeudi](preferred_new_date)
+      - je souhaite décaler mon rendez-vous à [demain](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Granon](practitioner_name)
+      - je veux modifier mon rendez-vous avec [Dr Frenard](practitioner_name)
+      - je souhaite décaler mon rendez-vous à [jeudi](preferred_new_date)
+      - déplacez celui avec [docteur Anne-Sophie Halreau](practitioner_name) à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Brefac](practitioner_name)
+      - déplacez celui avec [le docteur Valot](practitioner_name) à [mercredi](preferred_new_date)
+      - déplacez celui avec [Dr Vergnac](practitioner_name) à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [le docteur Dourol](practitioner_name)
+      - je veux modifier mon rendez-vous avec [docteur Brefot](practitioner_name)
+      - déplacez celui avec [professeur Chamec](practitioner_name) à [vendredi](preferred_new_date)
+      - déplacez celui avec [Dr Beauoux](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [Dr Monton](practitioner_name)
+      - je veux modifier mon rendez-vous avec [madame le docteur Nogmont](practitioner_name)
+      - je souhaite décaler mon rendez-vous à [dans deux semaines](preferred_new_date)
+      - il me faudrait décaler mon rendez-vous à [mardi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Frenot](practitioner_name)
+      - déplacez celui avec [le docteur Feron](practitioner_name) à [mardi](preferred_new_date)
+      - déplacez celui avec [docteur Julien Gardmont](practitioner_name) à [jeudi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Laura Gardange](practitioner_name)
+      - je veux modifier mon rendez-vous avec [Dr Chamec](practitioner_name)
+      - déplacez celui avec [docteur Rochaf](practitioner_name) à [jeudi](preferred_new_date)
+      - déplacez celui avec [madame le docteur Brefoux](practitioner_name) à [lundi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [madame le docteur Estrust](practitioner_name)
+      - déplacez celui avec [docteur Mercier](practitioner_name) à [vendredi](preferred_new_date)
+      - déplacez celui avec [le docteur Bon](practitioner_name) à [après-demain](preferred_new_date)
+      - déplacez celui avec [professeur Quenot](practitioner_name) à [mardi](preferred_new_date)
+      - déplacez celui avec [docteur Nicolas Tourin](practitioner_name) à [mardi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [madame le docteur Sabin](practitioner_name)
+      - je veux modifier mon rendez-vous avec [le docteur Kervgnac](practitioner_name)
+      - je veux modifier mon rendez-vous avec [Dr Weber](practitioner_name)
+      - je veux modifier mon rendez-vous avec [Dr Montoux](practitioner_name)
+      - déplacez celui avec [Dr Merel](practitioner_name) à [vendredi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [madame le docteur Halay](practitioner_name)
+      - déplacez celui avec [Dr Montaf](practitioner_name) à [lundi](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [docteur Youssef Pavin](practitioner_name)
+      - déplacez celui avec [madame le docteur Rochis](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - je veux modifier mon rendez-vous avec [Dr Brefieu](practitioner_name)
+      - euh, je ne veux pas annuler, je veux juste changer l'heure
+      - ben, déplacez celui avec [docteur Ferac](practitioner_name) à [vendredi](preferred_new_date)
+      - déplacez mon rendez-vous rendez-vous à [jeudi](preferred_new_date)
+      - gardez le même médecin mais mettez-le à [à 16h30](preferred_new_time)
+      - je souhaite souhaite décaler mon rendez-vous à [vendredi](preferred_new_date)
+      - euh, déplacez celui avec [madame le docteur Tremol](practitioner_name) à [mercredi](preferred_new_date)
+      - alors, même praticien, mais [le matin](preferred_new_time) plutôt
+      - hum, gardez le même médecin mais mettez-le [le matin](preferred_new_time)
+      - même en fait praticien, mais [à 16h30](preferred_new_time) plutôt
+      - déplacez celui avec avec [docteur Mercier](practitioner_name) à [vendredi](preferred_new_date)
+      - est-ce qu'on peut reporter mon hum rendez-vous à [la semaine prochaine](preferred_new_date) ?
+      - même praticien, mais [à 14h](preferred_new_time) 14h plutôt
+      - même praticien, mais [le matin](preferred_new_time) euh plutôt
+      - je ne veux pas annuler, euh je veux juste changer l'heure
+      - alors, j'aimerais décaler mon rendez-vous à [le 12 mars](preferred_new_date)
+      - il me faudrait décaler mon euh rendez-vous à [mercredi](preferred_new_date)
+      - déplacez mon rendez-vous à hum [dans deux semaines](preferred_new_date)
+      - je ne veux pas annuler, annuler, je veux juste changer l'heure
+      - je veux modifier mon rendez-vous avec Dr [Dr Estreau](practitioner_name)
+      - je veux modifier mon rendez-vous avec Dr [Dr Brefieu](practitioner_name)
+      - hum, déplacez celui avec [professeur Morin](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - hum, déplacez mon rendez-vous à [lundi](preferred_new_date)
+      - est-ce qu'on peut reporter mon rendez-vous à la semaine en fait prochaine ?
+      - surtout n'annulez pas, euh décalez-le [en fin de journée](preferred_new_time)
+      - je souhaite décaler mon rendez-vous à le euh 12 mars
+      - alors, je veux modifier mon rendez-vous avec [madame le docteur Nogmont](practitioner_name)
+      - surtout n'annulez alors pas, décalez-le [à 14h](preferred_new_time)
+      - déplacez mon rendez-vous à en fait [la semaine prochaine](preferred_new_date)
+      - est-ce qu'on qu'on peut reporter mon rendez-vous à [demain](preferred_new_date) ?
+      - déplacez celui avec [Dr Bensaïd](practitioner_name) à dans [dans deux semaines](preferred_new_date)
+      - déplacez mon rendez-vous à [mercredi](preferred_new_date) mercredi
+      - en fait, gardez le même médecin mais mettez-le [à 9h](preferred_new_time)
+      - même praticien, mais [le matin](preferred_new_time) plutôt plutôt
+      - gardez le même médecin mais mais mettez-le [en fin de journée](preferred_new_time)
+      - ben, déplacez celui avec [Dr Meriel](practitioner_name) à [le 12 mars](preferred_new_date)
+      - je ne veux veux pas annuler, je veux juste changer l'heure
+      - déplacez celui avec [docteur Kervet](practitioner_name) euh à [vendredi](preferred_new_date)
+      - hum, je veux modifier mon rendez-vous avec [Dr Chamec](practitioner_name)
+      - en fait, surtout n'annulez pas, décalez-le [à 9h](preferred_new_time)
+      - déplacez celui celui avec [madame le docteur Nogol](practitioner_name) à [après-demain](preferred_new_date)
+      - il me faudrait décaler mon rendez-vous à à [la semaine prochaine](preferred_new_date)
+      - est-ce qu'on peut reporter mon rendez-vous à [mardi](preferred_new_date) mardi ?
+      - même praticien, euh mais [à 14h](preferred_new_time) plutôt
+      - est-ce qu'on euh peut reporter mon rendez-vous à [jeudi](preferred_new_date) ?
+      - déplacez mon mon rendez-vous à [jeudi](preferred_new_date)
+      - déplacez celui avec euh [madame le docteur Vauange](practitioner_name) à [dans deux semaines](preferred_new_date)
+      - déplacez alors celui avec [docteur Lucas Vauot](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - surtout n'annulez pas, décalez-le [le matin](preferred_new_time) matin
+      - en fait, déplacez mon rendez-vous à [lundi](preferred_new_date)
+      - déplacez mon mon rendez-vous à [après-demain](preferred_new_date)
+      - il me faudrait décaler mon euh rendez-vous à [demain](preferred_new_date)
+      - je ne veux pas annuler, je ben veux juste changer l'heure
+      - euh, déplacez celui avec [madame le docteur Isamac](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - je ne veux ben pas annuler, je veux juste changer l'heure
+      - hum, surtout n'annulez pas, décalez-le [en fin de journée](preferred_new_time)
+      - il euh me faudrait décaler mon rendez-vous à [lundi](preferred_new_date)
+      - hum, je ne veux pas annuler, je veux juste changer l'heure
+      - surtout n'annulez pas, décalez-le en [en fin de journée](preferred_new_time)
+      - surtout n'annulez pas, décalez-le [à 16h30](preferred_new_time) 16h30
+      - est-ce qu'on peut reporter euh mon rendez-vous à [la semaine prochaine](preferred_new_date) ?
+      - je en fait veux modifier mon rendez-vous avec [madame le docteur Ferier](practitioner_name)
+      - ben, déplacez celui avec [madame le docteur Rochis](practitioner_name) à [la semaine prochaine](preferred_new_date)
+      - hum, est-ce qu'on peut reporter mon rendez-vous à [mercredi](preferred_new_date) ?
+      - alors, surtout n'annulez pas, décalez-le [le matin](preferred_new_time)
+      - hum, déplacez celui avec [le docteur Quenac](practitioner_name) à [après-demain](preferred_new_date)
+      - même praticien, mais [à 9h](preferred_new_time) ben plutôt
+      - surtout n'annulez n'annulez pas, décalez-le [le matin](preferred_new_time)
+      - est-ce qu'on peut reporter mon rendez-vous à [mercredi](preferred_new_date) ? ?
+      - surtout n'annulez pas, décalez-le [à 14h](preferred_new_time) 14h
+      - même praticien, mais en fin de de journée plutôt
+      - est-ce qu'on peut reporter mon rendez-vous à [jeudi](preferred_new_date) jeudi ?
+      - je ne veux euh pas annuler, je veux juste changer l'heure
+      - est-ce qu'on peut peut reporter mon rendez-vous à [jeudi](preferred_new_date) ?
+  - intent: request_new_appointment
+    examples: |
+      - n'importe quel praticien, [dans deux semaines](preferred_date) si possible
+      - je veux un rendez-vous [dans deux semaines](preferred_date), peu importe le médecin
+      - je voudrais un rendez-vous avec [Dr Kervans](practitioner_name) [demain](preferred_date) [à 14h](preferred_time)
+      - je veux voir [professeur Lavbert](practitioner_name)
+      - il me faudrait un rendez-vous
+      - prenez-moi un rendez-vous avec [le docteur Sabin](practitioner_name)
+      - je voudrais voir [le docteur Pavin](practitioner_name) [la semaine prochaine](preferred_date) [à 16h30](preferred_time)
+      - j'ai besoin d'un rendez-vous en [podologie](specialty) [demain](preferred_date)
+      - je veux voir [Dr Isamiel](practitioner_name)
+      - je voudrais consulter [le docteur Chamoux](practitioner_name)
+      - je veux un rendez-vous
+      - j'ai besoin d'un rendez-vous en [ophtalmologie](specialty) [mardi](preferred_date)
+      - je veux un rendez-vous merci
+      - je veux voir [Dr Chamiel](practitioner_name)
+      - j'ai besoin d' voir [le docteur Kervmont](practitioner_name) [après-demain](preferred_date) [à 9h](preferred_time)
+      - je voudrais un rendez-vous avec [Dr Riveau](practitioner_name) [demain](preferred_date) [à 9h](preferred_time)
+      - prenez-moi un rendez-vous avec [docteur Jolin](practitioner_name)
+      - n'importe quel praticien, [jeudi](preferred_date) si possible
+      - n'importe quel praticien, [mardi](preferred_date) si possible
+      - je voudrais consulter [docteur Delol](practitioner_name)
+      - je veux un rendez-vous [la semaine prochaine](preferred_date), peu importe le médecin
+      - je veux voir [docteur Vauac](practitioner_name)
+      - il me faudrait consulter [le docteur Gonzaf](practitioner_name)
+      - je voudrais consulter [Dr Jolange](practitioner_name)
+      - j'ai besoin d' voir [madame le docteur Bourcourt](practitioner_name) [vendredi](preferred_date) [à 16h30](preferred_time)
+      - j'ai besoin d' un rendez-vous en [rhumatologie](specialty) [dans deux semaines](preferred_date) [le matin](preferred_time)
+      - j'ai besoin d' un rendez-vous avec [Dr Lavbert](practitioner_name) [mercredi](preferred_date) [le matin](preferred_time)
+      - j'aimerais voir [madame le docteur Granol](practitioner_name) [mercredi](preferred_date) [l'après-midi](preferred_time)
+      - prenez-moi un rendez-vous avec [docteur Pierre Tremans](practitioner_name) [dans deux semaines](preferred_date) [à 16h30](preferred_time)
+      - je souhaite un rendez-vous en [medecine generale](specialty) [après-demain](preferred_date) [le matin](preferred_time)
+      - n'importe quel praticien, [après-demain](preferred_date) si possible
+      - prenez-moi un rendez-vous avec [Dr Estroy](practitioner_name)
+      - prenez-moi un rendez-vous avec [professeur Trembert](practitioner_name) [le 12 mars](preferred_date) [en fin de journée](preferred_time)
+      - j'aimerais un rendez-vous en [endocrinologie](specialty) [le 12 mars](preferred_date) [à 14h](preferred_time)
+      - je voudrais consulter en [pediatrie](specialty)
+      - il me faudrait consulter [docteur Olivier Estrmont](practitioner_name)
+      - n'importe quel praticien, [vendredi](preferred_date) si possible
+      - prenez-moi un rendez-vous avec [docteur Montis](practitioner_name) [après-demain](preferred_date) [à 14h](preferred_time)
+      - prenez-moi un rendez-vous avec [professeur Chamec](practitioner_name)
+      - je veux voir [professeur Valac](practitioner_name)
+      - je veux voir [madame le docteur Lamaf](practitioner_name)
+      - prenez-moi un rendez-vous avec [le docteur Beleau](practitioner_name)
+      - je souhaite prendre rendez-vous
+      - je veux voir [madame le docteur Hervec](practitioner_name)
+      - j'ai besoin d' prendre rendez-vous
+      - je voudrais prendre rendez-vous
+      - j'ai besoin d'un rendez-vous en [medecine generale](specialty) [jeudi](preferred_date)
+      - prenez-moi un rendez-vous avec [le docteur Isamaf](practitioner_name)
+      - il me faudrait un rendez-vous en [gastro-enterologie](specialty) [vendredi](preferred_date) [à 9h](preferred_time)
+      - j'ai besoin d' un rendez-vous en [orthopedie](specialty) [mercredi](preferred_date) [à 16h30](preferred_time)
+      - prenez-moi un rendez-vous avec [docteur Jolaf](practitioner_name)
+      - il me faudrait prendre rendez-vous
+      - n'importe quel praticien, [le 12 mars](preferred_date) si possible
+      - je veux voir [le docteur Ferteau](practitioner_name)
+      - j'aimerais un rendez-vous en [allergologie](specialty) [mercredi](preferred_date) [à 14h](preferred_time)
+      - j'ai besoin d'un rendez-vous en [pneumologie](specialty) [jeudi](preferred_date)
+      - je veux un rendez-vous [vendredi](preferred_date), peu importe le médecin
+      - je veux un rendez-vous [le 12 mars](preferred_date), peu importe le médecin
+      - j'aimerais un rendez-vous avec [madame le docteur Marel](practitioner_name) [mercredi](preferred_date) [l'après-midi](preferred_time)
+      - je veux voir [professeur Noggnac](practitioner_name)
+      - je veux un rendez-vous [après-demain](preferred_date), peu importe le médecin
+      - j'aimerais consulter en [podologie](specialty)
+      - je souhaite voir [professeur Belec](practitioner_name) [mardi](preferred_date) [à 9h](preferred_time)
+      - je souhaite un rendez-vous avec [professeur Isamay](practitioner_name) [mardi](preferred_date) [l'après-midi](preferred_time)
+      - il me faudrait consulter en [dermatologie](specialty)
+      - j'ai besoin d' un rendez-vous en [cardiologie](specialty) [mardi](preferred_date) [le matin](preferred_time)
+      - j'aimerais consulter en [sage-femme](specialty)
+      - je veux voir [docteur Marie-Claire Granaf](practitioner_name)
+      - il me faudrait consulter [Dr Roche-Dubois](practitioner_name)
+      - je souhaite consulter [docteur Romain Vauoux](practitioner_name)
+      - il me faudrait un rendez-vous avec [docteur Camille Vilard](practitioner_name) [la semaine prochaine](preferred_date) [à 14h](preferred_time)
+      - prenez-moi un rendez-vous avec [le docteur Veraf](practitioner_name) [mercredi](preferred_date) [le matin](preferred_time)
+      - je voudrais un rendez-vous en [orthophonie](specialty) [la semaine prochaine](preferred_date) [à 9h](preferred_time)
+      - prenez-moi un rendez-vous avec [professeur Estrec](practitioner_name) [demain](preferred_date) [en fin de journée](preferred_time)
+      - j'ai besoin d' un rendez-vous en [medecine generale](specialty) [dans deux semaines](preferred_date) [à 16h30](preferred_time)
+      - je veux voir [docteur Guillaume Hue](practitioner_name)
+      - il me faudrait consulter en [neurologie](specialty)
+      - prenez-moi un rendez-vous avec [madame le docteur Fauvans](practitioner_name)
+      - prenez-moi un rendez-vous avec [Dr Quenac](practitioner_name) [lundi](preferred_date) [en fin de journée](preferred_time)
+      - j'ai besoin d'un rendez-vous en [pediatrie](specialty) [jeudi](preferred_date)
+      - n'importe quel praticien, [demain](preferred_date) si possible
+      - il me faudrait un rendez-vous en [dermatologie](specialty) [lundi](preferred_date) [l'après-midi](preferred_time)
+      - n'importe quel praticien, [lundi](preferred_date) si possible
+      - j'ai besoin d' un rendez-vous en [radiologie](specialty) [lundi](preferred_date) [à 16h30](preferred_time)
+      - je veux voir [docteur Aubieu](practitioner_name)
+      - j'ai besoin d' consulter [docteur Nicolas Isamreau](practitioner_name)
+      - prenez-moi un rendez-vous avec [docteur Jean-Luc Halieu](practitioner_name) [lundi](preferred_date) [l'après-midi](preferred_time)
+      - il me faudrait un rendez-vous en [orthopedie](specialty) [lundi](preferred_date) [à 16h30](preferred_time)
+      - j'ai besoin d'un rendez-vous en [pneumologie](specialty) [dans deux semaines](preferred_date)
+      - j'ai besoin d' un rendez-vous avec [professeur Dourange](practitioner_name) [mardi](preferred_date) [à 16h30](preferred_time)
+      - je souhaite consulter en [cardiologie](specialty)
+      - j'ai besoin d' consulter [docteur Gardgnac](practitioner_name)
+      - prenez-moi un rendez-vous avec [Dr Chamust](practitioner_name)
+      - prenez-moi un rendez-vous avec [Dr Belis](practitioner_name)
+      - je veux un rendez-vous [jeudi](preferred_date), peu importe le médecin
+      - prenez-moi un rendez-vous avec [professeur Gardiel](practitioner_name)
+      - je souhaite un rendez-vous en [orthopedie](specialty) [après-demain](preferred_date) [le matin](preferred_time)
+      - je veux voir [madame le docteur Écrivain](practitioner_name)
+      - je voudrais un rendez-vous en [endocrinologie](specialty) [après-demain](preferred_date) [à 9h](preferred_time)
+      - je veux voir [docteur Bourec](practitioner_name)
+      - il me faudrait voir [docteur Damien Rochteau](practitioner_name) [vendredi](preferred_date) [à 16h30](preferred_time)
+      - je voudrais voir [le docteur Vauel](practitioner_name) [lundi](preferred_date) [le matin](preferred_time)
+      - je veux un rendez-vous [mercredi](preferred_date), peu importe le médecin
+      - j'ai besoin d' voir [docteur Sabay](practitioner_name) [dans deux semaines](preferred_date) [en fin de journée](preferred_time)
+      - il me faudrait consulter [docteur Anh Morin](practitioner_name)
+      - j'aimerais consulter en [orthophonie](specialty)
+      - j'ai besoin d' consulter en [ophtalmologie](specialty)
+      - prenez-moi un rendez-vous avec [professeur Feray](practitioner_name)
+      - je souhaite consulter [Dr Gardel](practitioner_name)
+      - il me faudrait un rendez-vous avec [madame le docteur Fauvis](practitioner_name) [mercredi](preferred_date) [le matin](preferred_time)
+      - il me faudrait un rendez-vous avec [madame le docteur Lavieu](practitioner_name) [demain](preferred_date) [l'après-midi](preferred_time)
+      - prenez-moi un rendez-vous avec [docteur Fauvon](practitioner_name)
+      - j'aimerais un rendez-vous en [pneumologie](specialty) [vendredi](preferred_date) [à 9h](preferred_time)
+      - il me faudrait un rendez-vous avec [professeur Beaureau](practitioner_name) [demain](preferred_date) [le matin](preferred_time)
+      - je veux voir [docteur Anais Feraf](practitioner_name)
+      - je souhaite consulter en [kinesitherapie](specialty)
+      - je veux voir [docteur Vincent Rivoux](practitioner_name)
+      - je souhaite consulter en [nutrition](specialty)
+      - je souhaite consulter [Dr Frenol](practitioner_name)
+      - j'ai besoin d' consulter [docteur Loubol](practitioner_name)
+      - j'aimerais consulter [docteur Brefon](practitioner_name)
+      - j'ai besoin d' un rendez-vous en [kinesitherapie](specialty) [la semaine prochaine](preferred_date) [à 16h30](preferred_time)
+      - prenez-moi un rendez-vous avec [docteur Fauviel](practitioner_name)
+      - j'ai besoin d' voir [le docteur Tremgnac](practitioner_name) [jeudi](preferred_date) [l'après-midi](preferred_time)
+      - prenez-moi un rendez-vous avec [madame le docteur Chamet](practitioner_name) [lundi](preferred_date) [à 16h30](preferred_time)
+      - je veux voir [Dr Lavol](practitioner_name)
+      - je souhaite un rendez-vous en [gastro-enterologie](specialty) [demain](preferred_date) [le matin](preferred_time)
+      - j'ai besoin d' consulter en [kinesitherapie](specialty)
+      - il me faudrait un rendez-vous avec [docteur Belreau](practitioner_name) [après-demain](preferred_date) [à 14h](preferred_time)
+      - j'aimerais un rendez-vous en [gynecologie](specialty) [demain](preferred_date) [à 9h](preferred_time)
+      - prenez-moi un rendez-vous avec [Dr Fauvieu](practitioner_name) [après-demain](preferred_date) [en fin de journée](preferred_time)
+      - je souhaite un rendez-vous en [pneumologie](specialty) [dans deux semaines](preferred_date) [l'après-midi](preferred_time)
+      - il me faudrait consulter en [gynecologie](specialty)
+      - prenez-moi un rendez-vous avec [docteur Gonzbert](practitioner_name)
+      - je voudrais consulter [le docteur Nevust](practitioner_name)
+      - j'ai besoin d'un rendez-vous en [orthopedie](specialty) [lundi](preferred_date)
+      - j'ai besoin d' un rendez-vous en [ophtalmologie](specialty) [jeudi](preferred_date) [à 9h](preferred_time)
+      - prenez-moi un rendez-vous avec [docteur Sophie Orlange](practitioner_name)
+      - je voudrais consulter [Dr Brefis](practitioner_name)
+      - j'ai besoin d'un rendez-vous en [dermatologie](specialty) [demain](preferred_date)
+      - il me faudrait consulter [madame le docteur Nevon](practitioner_name)
+      - j'aimerais voir [docteur Paula Gardot](practitioner_name) [lundi](preferred_date) [en fin de journée](preferred_time)
+      - je voudrais consulter [docteur Emma Mercourt](practitioner_name)
+      - j'aimerais voir [docteur Antoine Quenbert](practitioner_name) [la semaine prochaine](preferred_date) [l'après-midi](preferred_time)
+      - je veux voir [professeur Bianchi](practitioner_name)
+      - je veux voir [docteur Hervville](practitioner_name)
+      - je veux voir [madame le docteur Chareau](practitioner_name)
+      - j'ai besoin d'un rendez-vous en [neurologie](specialty) [dans deux semaines](preferred_date)
+      - j'ai besoin d' un rendez-vous avec [madame le docteur Castreau](practitioner_name) [demain](preferred_date) [à 9h](preferred_time)
+      - je veux voir [docteur Gonzbert](practitioner_name)
+      - prenez-moi un rendez-vous avec [docteur Pavbert](practitioner_name)
+      - prenez-moi un rendez-vous avec [docteur Jolay](practitioner_name)
+      - je veux voir [madame le docteur Verieu](practitioner_name)
+      - j'aimerais consulter en [ophtalmologie](specialty)
+      - prenez-moi un rendez-vous avec [docteur Hervec](practitioner_name)
+      - j'ai besoin d'un rendez-vous en [orthophonie](specialty) [après-demain](preferred_date)
+      - j'aimerais un rendez-vous avec [Dr Belis](practitioner_name) [lundi](preferred_date) [à 16h30](preferred_time)
+      - j'ai besoin d'un rendez-vous en [allergologie](specialty) [le 12 mars](preferred_date)
+      - prenez-moi un rendez-vous avec [le docteur Nicolas](practitioner_name) [la semaine prochaine](preferred_date) [l'après-midi](preferred_time)
+      - je veux voir [le docteur Jolteau](practitioner_name)
+      - j'ai besoin d'un rendez-vous en [pediatrie](specialty) [demain](preferred_date)
+      - il me faudrait un rendez-vous avec [docteur Claire Seroy](practitioner_name) [jeudi](preferred_date) [à 14h](preferred_time)
+      - je souhaite consulter en [gastro-enterologie](specialty)
+      - il me faudrait voir [le docteur Nogec](practitioner_name) [lundi](preferred_date) [en fin de journée](preferred_time)
+      - il me faudrait un rendez-vous avec [docteur Merville](practitioner_name) [la semaine prochaine](preferred_date) [à 16h30](preferred_time)
+      - il me faudrait un rendez-vous en [podologie](specialty) [jeudi](preferred_date) [à 14h](preferred_time)
+      - il me faudrait un rendez-vous en [allergologie](specialty) [vendredi](preferred_date) [l'après-midi](preferred_time)
+      - j'ai besoin d' voir [docteur Camille Freneau](practitioner_name) [mardi](preferred_date) [en fin de journée](preferred_time)
+      - j'ai besoin d' un rendez-vous avec [le docteur Lavmont](practitioner_name) [mardi](preferred_date) [à 16h30](preferred_time)
+      - prenez-moi un rendez-vous avec [madame le docteur Castust](practitioner_name) [après-demain](preferred_date) [à 9h](preferred_time)
+      - je souhaite consulter en [dermatologie](specialty)
+      - j'ai besoin d'un rendez-vous en [sage-femme](specialty) [le 12 mars](preferred_date)
+      - il me faudrait voir [professeur Chamange](practitioner_name) [jeudi](preferred_date) [à 14h](preferred_time)
+      - j'ai besoin d'un rendez-vous en [kinesitherapie](specialty) [après-demain](preferred_date)
+      - je veux un rendez-vous [mardi](preferred_date), peu importe le médecin
+      - j'ai besoin d'un rendez-vous en [nutrition](specialty) [le 12 mars](preferred_date)
+      - prenez-moi un rendez-vous avec [Dr Fontaine](practitioner_name) [vendredi](preferred_date) [à 9h](preferred_time)
+      - j'ai besoin d' un rendez-vous en [dermatologie](specialty) [demain](preferred_date) [en fin de journée](preferred_time)
+      - prenez-moi un rendez-vous avec [Dr Nau](practitioner_name)
+      - je voudrais voir [docteur Minh Halans](practitioner_name) [lundi](preferred_date) [à 9h](preferred_time)
+      - je voudrais un rendez-vous avec [docteur Jolot](practitioner_name) [vendredi](preferred_date) [à 16h30](preferred_time)
+      - j'ai besoin d'un rendez-vous en [endocrinologie](specialty) [dans deux semaines](preferred_date)
+      - j'ai besoin d'un rendez-vous en [rhumatologie](specialty) [lundi](preferred_date)
+      - j'ai besoin d' voir [madame le docteur David](practitioner_name) [demain](preferred_date) [à 14h](preferred_time)
+      - j'aimerais un rendez-vous avec [madame le docteur Simon](practitioner_name) [après-demain](preferred_date) [en fin de journée](preferred_time)
+      - je veux voir [docteur Quengnac](practitioner_name)
+      - prenez-moi un rendez-vous avec [le docteur Jardoux](practitioner_name) [après-demain](preferred_date) [l'après-midi](preferred_time)
+      - j'ai besoin d'un rendez-vous en [orthophonie](specialty) [la semaine prochaine](preferred_date)
+      - je veux voir [madame le docteur Montay](practitioner_name)
+      - prenez-moi un rendez-vous avec [madame le docteur Kervard](practitioner_name)
+      - j'aimerais prendre rendez-vous
+      - prenez-moi un rendez-vous avec [Dr Ferin](practitioner_name) [mercredi](preferred_date) [à 16h30](preferred_time)
+      - je voudrais consulter [le docteur Loubon](practitioner_name)
+      - prenez-moi un rendez-vous avec [le docteur Renault](practitioner_name)
+      - je veux voir [Dr Ferin](practitioner_name)
+      - j'ai besoin d'un rendez-vous en [ophtalmologie](specialty) [lundi](preferred_date)
+      - il me faudrait consulter en [pneumologie](specialty)
+      - je veux un rendez-vous [lundi](preferred_date), peu importe le médecin
+      - je veux voir [madame le docteur Gardange](practitioner_name)
+      - je souhaite un rendez-vous en [orthopedie](specialty) [mardi](preferred_date) [le matin](preferred_time)
+      - je voudrais voir [madame le docteur Ferteau](practitioner_name) [la semaine prochaine](preferred_date) [à 14h](preferred_time)
+      - je veux un rendez-vous [demain](preferred_date), peu importe le médecin
+      - j'ai besoin d'un rendez-vous en [sage-femme](specialty) [demain](preferred_date)
+      - je voudrais un rendez-vous en [radiologie](specialty) [après-demain](preferred_date) [l'après-midi](preferred_time)
+      - j'aimerais consulter en [gastro-enterologie](specialty)
+      - j'ai besoin d' consulter [madame le docteur Belet](practitioner_name)
+      - prenez-moi un rendez-vous avec [le docteur Chameau](practitioner_name)
+      - prenez-moi un rendez-vous avec [le docteur Kervon](practitioner_name) [jeudi](preferred_date) [à 9h](preferred_time)
+      - prenez-moi un rendez-vous avec [Dr Nogieu](practitioner_name) [le 12 mars](preferred_date) [à 9h](preferred_time)
+      - j'ai besoin d' un rendez-vous avec [le docteur Tremieu](practitioner_name) [vendredi](preferred_date) [en fin de journée](preferred_time)
+      - il me faudrait voir [Dr Silva](practitioner_name) [dans deux semaines](preferred_date) [en fin de journée](preferred_time)
+      - prenez-moi un rendez-vous avec [Dr Jardec](practitioner_name)
+      - je voudrais consulter [Dr Veray](practitioner_name)
+      - je souhaite un rendez-vous avec [docteur Lucie Nogbert](practitioner_name) [mercredi](preferred_date) [en fin de journée](preferred_time)
+      - j'ai besoin d' consulter [docteur Manon Jardec](practitioner_name)
+      - j'ai besoin d' consulter en [psychiatrie](specialty)
+      - je souhaite consulter en [pneumologie](specialty)
+      - j'ai besoin d'un rendez-vous en [dermatologie](specialty) [lundi](preferred_date)
+      - j'aimerais voir [docteur Rochiel](practitioner_name) [demain](preferred_date) [à 16h30](preferred_time)
+      - prenez-moi un rendez-vous avec [Dr L'Hermitte](practitioner_name) [après-demain](preferred_date) [l'après-midi](preferred_time)
+      - prenez-moi un rendez-vous avec [madame le docteur Estrac](practitioner_name) [vendredi](preferred_date) [en fin de journée](preferred_time)
+      - j'ai besoin d'un rendez-vous en [psychiatrie](specialty) [jeudi](preferred_date)
+      - je veux voir [madame le docteur Rivard](practitioner_name)
+      - je souhaite voir [Dr Dourieu](practitioner_name) [mercredi](preferred_date) [le matin](preferred_time)
+      - j'ai besoin d' voir [professeur Granust](practitioner_name) [après-demain](preferred_date) [à 14h](preferred_time)
+      - prenez-moi un rendez-vous avec [docteur Vilol](practitioner_name)
+      - je souhaite consulter en [psychiatrie](specialty)
+      - il me faudrait consulter [professeur Couraf](practitioner_name)
+      - prenez-moi un rendez-vous avec [docteur Sermont](practitioner_name)
+      - je souhaite consulter [madame le docteur Rochay](practitioner_name)
+      - j'ai besoin d'un rendez-vous en [allergologie](specialty) [jeudi](preferred_date)
+      - je veux voir [docteur Anais Rivteau](practitioner_name)
+      - je souhaite consulter en [orthophonie](specialty)
+      - prenez-moi un rendez-vous avec [le docteur Beauon](practitioner_name) [mardi](preferred_date) [à 16h30](preferred_time)
+      - j'aimerais voir [Dr Brefard](practitioner_name) [mardi](preferred_date) [à 16h30](preferred_time)
+      - prenez-moi un rendez-vous avec [docteur Loubville](practitioner_name) [mercredi](preferred_date) [le matin](preferred_time)
+      - je souhaite consulter [madame le docteur Orlmont](practitioner_name)
+      - j'ai besoin d' un rendez-vous avec [docteur Sarah Douris](practitioner_name) [demain](preferred_date) [à 14h](preferred_time)
+      - je souhaite un rendez-vous en [radiologie](specialty) [mardi](preferred_date) [en fin de journée](preferred_time)
+      - je souhaite voir [madame le docteur Verac](practitioner_name) [vendredi](preferred_date) [en fin de journée](preferred_time)
+      - il me faudrait un rendez-vous avec [Dr Verin](practitioner_name) [vendredi](preferred_date) [le matin](preferred_time)
+      - je souhaite un rendez-vous en [kinesitherapie](specialty) [demain](preferred_date) [à 16h30](preferred_time)
+      - j'ai besoin d' consulter [le docteur David](practitioner_name)
+      - j'ai besoin d'un rendez-vous en [allergologie](specialty) [vendredi](preferred_date)
+      - prenez-moi un rendez-vous avec [le docteur Kervcourt](practitioner_name)
+      - prenez-moi un rendez-vous avec [professeur Granet](practitioner_name) [après-demain](preferred_date) [à 16h30](preferred_time)
+      - prenez-moi un rendez-vous avec [Dr Séguin](practitioner_name)
+      - prenez-moi un rendez-vous avec [madame le docteur Nogaf](practitioner_name)
+      - j'aimerais un rendez-vous en [gastro-enterologie](specialty) [après-demain](preferred_date) [en fin de journée](preferred_time)
+      - prenez-moi un rendez-vous avec [docteur Pauline Charbert](practitioner_name) [jeudi](preferred_date) [en fin de journée](preferred_time)
+      - il me faudrait voir [madame le docteur Ferange](practitioner_name) [mercredi](preferred_date) [l'après-midi](preferred_time)
+      - je souhaite un rendez-vous avec [madame le docteur Bourcourt](practitioner_name) [mercredi](preferred_date) [le matin](preferred_time)
+      - je souhaite un rendez-vous en [allergologie](specialty) [la semaine prochaine](preferred_date) [l'après-midi](preferred_time)
+      - je souhaite voir [professeur Herviel](practitioner_name) [vendredi](preferred_date) [à 16h30](preferred_time)
+      - prenez-moi un rendez-vous avec [professeur Nevmont](practitioner_name)
+      - j'ai besoin d'un rendez-vous en [nutrition](specialty) [jeudi](preferred_date)
+      - prenez-moi un rendez-vous avec [Dr Gay](practitioner_name) [jeudi](preferred_date) [à 14h](preferred_time)
+      - prenez-moi un rendez-vous avec [professeur Frenol](practitioner_name)
+      - je veux voir [docteur Orliel](practitioner_name)
+      - je voudrais consulter [professeur Estrin](practitioner_name)
+      - je voudrais consulter [madame le docteur Montaf](practitioner_name)
+      - prenez-moi un rendez-vous avec [docteur Delbert](practitioner_name) [dans deux semaines](preferred_date) [l'après-midi](preferred_time)
+      - il me faudrait voir [le docteur Loubust](practitioner_name) [mardi](preferred_date) [le matin](preferred_time)
+      - il me faudrait voir [docteur Frenbert](practitioner_name) [mercredi](preferred_date) [à 9h](preferred_time)
+      - je voudrais un rendez-vous avec [professeur Marac](practitioner_name) [vendredi](preferred_date) [l'après-midi](preferred_time)
+      - il me faudrait un rendez-vous en [psychiatrie](specialty) [jeudi](preferred_date) [à 14h](preferred_time)
+      - j'ai besoin d'un rendez-vous en [orthophonie](specialty) [mercredi](preferred_date)
+      - je voudrais consulter en [gynecologie](specialty)
+      - je souhaite un rendez-vous avec [Dr Belieu](practitioner_name) [mercredi](preferred_date) [à 14h](preferred_time)
+      - j'ai besoin d' voir [le docteur Bouris](practitioner_name) [le 12 mars](preferred_date) [le matin](preferred_time)
+      - je voudrais consulter [madame le docteur Fauvoux](practitioner_name)
+      - il me faudrait voir [docteur Pierre Chamet](practitioner_name) [mercredi](preferred_date) [à 14h](preferred_time)
+      - je veux voir [professeur Isamieu](practitioner_name)
+      - n'importe quel praticien, [la semaine prochaine](preferred_date) si possible
+      - je voudrais un rendez-vous en [medecine generale](specialty) [après-demain](preferred_date) [le matin](preferred_time)
+      - il me faudrait consulter [docteur Damien Jardville](practitioner_name)
+      - je voudrais consulter en [psychiatrie](specialty)
+      - je voudrais voir [professeur Loubis](practitioner_name) [dans deux semaines](preferred_date) [à 9h](preferred_time)
+      - je souhaite consulter en [endocrinologie](specialty)
+      - je voudrais un rendez-vous en [pneumologie](specialty) [jeudi](preferred_date) [à 16h30](preferred_time)
+      - j'ai besoin d' voir [madame le docteur Estris](practitioner_name) [vendredi](preferred_date) [à 14h](preferred_time)
+      - je veux voir [Dr Verreau](practitioner_name)
+      - je souhaite consulter [docteur Tremieu](practitioner_name)
+      - prenez-moi un rendez-vous avec [le docteur Michel](practitioner_name) [jeudi](preferred_date) [à 16h30](preferred_time)
+      - je veux voir [professeur Verin](practitioner_name)
+      - je voudrais consulter [Dr Montec](practitioner_name)
+      - je souhaite voir [Dr Ivanov](practitioner_name) [après-demain](preferred_date) [en fin de journée](preferred_time)
+      - j'aimerais un rendez-vous en [ophtalmologie](specialty) [le 12 mars](preferred_date) [à 16h30](preferred_time)
+      - prenez-moi un rendez-vous avec [professeur Fauvet](practitioner_name) [après-demain](preferred_date) [à 14h](preferred_time)
+      - il me faudrait consulter en [gastro-enterologie](specialty)
+      - j'ai besoin d'un rendez-vous en [ophtalmologie](specialty) [demain](preferred_date)
+      - prenez-moi un rendez-vous avec [docteur Damien Tremon](practitioner_name) [lundi](preferred_date) [à 16h30](preferred_time)
+      - j'ai besoin d'un rendez-vous en [cardiologie](specialty) [mardi](preferred_date)
+      - j'aimerais consulter en [neurologie](specialty)
+      - j'ai besoin d'un rendez-vous en [nutrition](specialty) [vendredi](preferred_date)
+      - prenez-moi un rendez-vous avec [le docteur Ferin](practitioner_name)
+      - je voudrais consulter [madame le docteur Kowalski](practitioner_name)
+      - il me faudrait consulter en [sage-femme](specialty)
+      - prenez-moi un rendez-vous avec [le docteur Hervans](practitioner_name) [mercredi](preferred_date) [à 14h](preferred_time)
+      - j'ai besoin d' consulter [docteur Elodie Lavol](practitioner_name)

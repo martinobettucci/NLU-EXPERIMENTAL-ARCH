@@ -7,10 +7,14 @@ ce dossier : c'est la condition de tracabilite du §37.8.
 
 from __future__ import annotations
 
+import contextlib
+import fcntl
 import json
+import os
 import random
 import time
 from collections import defaultdict
+from collections.abc import Iterator
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -27,6 +31,36 @@ from ivr_bench.routers import create
 
 # Patient authentifie par la session : il n'est jamais extrait de la parole.
 BENCHMARK_PATIENT = "patient_00002"
+
+
+@contextlib.contextmanager
+def exclusive_campaign() -> Iterator[None]:
+    """Interdit deux campagnes simultanees sur la meme machine.
+
+    Ce n'est pas une question de vitesse. Les latences p50 et p95 font partie
+    des resultats publies ; mesurees pendant qu'un entrainement occupe les
+    memes coeurs, elles decrivent la contention, pas l'architecture. Le verrou
+    rend la mise en file obligatoire plutot que dependante de la vigilance de
+    l'appelant.
+    """
+    lock_path = results_dir() / "runs" / ".campaign.lock"
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    handle = lock_path.open("w")
+    try:
+        try:
+            fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            raise RuntimeError(
+                "une campagne est deja en cours sur cette machine. Les latences "
+                "mesurees en concurrence ne seraient pas exploitables : attendez "
+                "la fin de la campagne precedente."
+            ) from None
+        handle.write(f"{os.getpid()}\n")
+        handle.flush()
+        yield
+    finally:
+        fcntl.flock(handle, fcntl.LOCK_UN)
+        handle.close()
 
 
 @dataclass(frozen=True)
@@ -102,6 +136,10 @@ def run_text_benchmark(
     evaluation = Evaluation()
     directory.mkdir(parents=True, exist_ok=True)
 
+    # Charge au demarrage : une campagne lancee sur une machine deja occupee
+    # produit des latences ininterpretables, et le fait doit rester lisible
+    # dans le run plutot que d'etre devine apres coup.
+    load_before = os.getloadavg()[0]
     started = time.perf_counter()
     with (directory / "predictions.jsonl").open("w", encoding="utf-8") as handle:
         for case in selection.cases:
@@ -140,6 +178,11 @@ def run_text_benchmark(
     metrics["architecture"] = architecture
     metrics["split"] = split
     # La couverture reelle est declaree, y compris quand elle est partielle.
+    metrics["machine_load"] = {
+        "before": round(load_before, 2),
+        "after": round(os.getloadavg()[0], 2),
+        "cpu_count": os.cpu_count(),
+    }
     metrics["coverage"] = {
         "evaluated": len(selection.cases),
         "available": selection.total_available,

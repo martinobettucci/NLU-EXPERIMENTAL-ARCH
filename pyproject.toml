@@ -121,6 +121,7 @@ disallow_any_generics = true
 plugins = ["pydantic.mypy"]
 mypy_path = "src"
 packages = ["ivr_bench"]
+exclude = ["src/ivr_bench/routers/diet/sidecar/"]
 
 # Les paquets de modeles n'exposent pas de stubs : on tolere l'import non type,
 # jamais l'appel non verifie cote code metier.
@@ -138,6 +139,9 @@ module = [
   "matplotlib.*",
   "soundfile.*",
   "peft.*",
+  # Rasa ne vit que dans le sidecar Python 3.10 : l'environnement principal ne
+  # l'installe pas, et ne doit pas etre tenu de le typer.
+  "rasa.*",
 ]
 ignore_missing_imports = true
 

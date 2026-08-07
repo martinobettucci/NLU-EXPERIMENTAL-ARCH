@@ -41,6 +41,8 @@ ARCHITECTURES: tuple[tuple[str, str], ...] = (
     ("A9", "embedding_classifier"),
     ("A10", "lexical_classifier"),
     ("A11", "nearest_neighbour"),
+    # Proposition d'origine : similarite maximale seule, coupe par delta cosinus.
+    ("A12", "hypothetical_delta_top2"),
 )
 
 

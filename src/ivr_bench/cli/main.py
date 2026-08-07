@@ -239,7 +239,47 @@ def index_build(
 @diet_app.command("train")
 def diet_train(seed: int = typer.Option(42, help="Graine d'entrainement.")) -> None:
     """Entraine DIET dans le sidecar Python 3.10."""
-    _pending("M7", "Entrainement DIET")
+    import subprocess
+
+    from ivr_bench.routers.diet.dataset import export, training_dir
+    from ivr_bench.routers.diet.router import sidecar_python
+
+    interpreter = sidecar_python()
+    if not interpreter.is_file():
+        typer.secho(
+            "environnement DIET absent. Creez-le avec "
+            "'python3.10 -m venv .venv-diet && .venv-diet/bin/pip install rasa==3.6.21'.",
+            fg=typer.colors.RED,
+            err=True,
+        )
+        raise typer.Exit(code=2)
+
+    written = export()
+    for label, path in written.items():
+        typer.echo(f"{label:8} {path.relative_to(repo_root())}")
+
+    directory = training_dir()
+    completed = subprocess.run(
+        [
+            str(interpreter.parent / "rasa"),
+            "train",
+            "nlu",
+            "--config",
+            "config.yml",
+            "--nlu",
+            "data",
+            "--out",
+            "models",
+            "--fixed-model-name",
+            f"diet_seed{seed}",
+        ],
+        cwd=directory,
+        check=False,
+    )
+    if completed.returncode != 0:
+        typer.secho("entrainement DIET en echec", fg=typer.colors.RED, err=True)
+        raise typer.Exit(code=completed.returncode)
+    typer.echo(f"modele ecrit dans {(directory / 'models').relative_to(repo_root())}")
 
 
 @functiongemma_app.command("train")
@@ -265,7 +305,7 @@ def benchmark_text(
 
     import yaml
 
-    from ivr_bench.benchmark.runner import run_text_benchmark
+    from ivr_bench.benchmark.runner import exclusive_campaign, run_text_benchmark
     from ivr_bench.routers import available
 
     config_file = repo_root() / config
@@ -291,23 +331,24 @@ def benchmark_text(
         if key in retrieval
     }
 
-    for name in names:
-        typer.echo(f"campagne {name}...")
-        directory = run_text_benchmark(
-            architecture=name,
-            router_options=options,
-            per_function=per_function or None,
-            seed=seed,
-            config_path=config_file,
-            command=f"ivr-bench benchmark text --architectures {name} --seed {seed}",
-        )
-        metrics = json.loads((directory / "metrics.json").read_text(encoding="utf-8"))
-        accuracy = metrics["tool_accuracy"]
-        safety = metrics["emergency_handoff_recall"]
-        typer.echo(
-            f"  tool accuracy {accuracy:.1%} | rappel urgence "
-            f"{safety:.1%} | {directory.relative_to(repo_root())}"
-        )
+    with exclusive_campaign():
+        for name in names:
+            typer.echo(f"campagne {name}...")
+            directory = run_text_benchmark(
+                architecture=name,
+                router_options=options,
+                per_function=per_function or None,
+                seed=seed,
+                config_path=config_file,
+                command=f"ivr-bench benchmark text --architectures {name} --seed {seed}",
+            )
+            metrics = json.loads((directory / "metrics.json").read_text(encoding="utf-8"))
+            accuracy = metrics["tool_accuracy"]
+            safety = metrics["emergency_handoff_recall"]
+            typer.echo(
+                f"  tool accuracy {accuracy:.1%} | rappel urgence "
+                f"{safety:.1%} | {directory.relative_to(repo_root())}"
+            )
 
 
 @benchmark_app.command("audio")

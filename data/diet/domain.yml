@@ -1,0 +1,20 @@
+version: "3.1"
+intents:
+  - answer_general_information
+  - list_appointments
+  - request_new_appointment
+  - request_appointment_reschedule
+  - emergency_handoff
+  - human_handoff
+  - no_tool
+entities:
+  - appointment_reference
+  - current_date
+  - date_from
+  - date_to
+  - practitioner_name
+  - preferred_date
+  - preferred_new_date
+  - preferred_new_time
+  - preferred_time
+  - specialty
