@@ -33,6 +33,32 @@ catalogue à deux candidats aide nettement. Mais le point de départ est si bas
 que l'écart ne tranche pas encore l'hypothèse du dépôt — il faudra FunctionGemma
 pour savoir si la préselection aide un modèle qui, lui, maîtrise le domaine.
 
+## La préselection aide, et c'est mesuré
+
+Sur les mêmes 84 cas appariés, réduire le catalogue à deux candidats fait
+passer :
+
+- Needle de 11,9 % [6,0 – 19,0] à 20,2 % [11,9 – 28,6] — McNemar, p = 0,016 ;
+- FunctionGemma de 0,0 % à 19,0 % [10,7 – 27,4] — McNemar, p < 0,001.
+
+C'est l'hypothèse centrale du dépôt, et elle tient sur les deux modèles d'appel
+d'outils, pas sur un seul.
+
+## Ce que cela ne dit pas
+
+Les deux architectures hybrides restent très loin du retriever seul (68,1 % sur
+l'ensemble du corpus). Le gain est donc réel mais part d'un plancher : aucun des
+deux micro-modèles ne maîtrise ce domaine francophone en l'état. FunctionGemma
+zéro-shot n'appelle correctement aucune fonction — il répond en prose anglaise —
+ce qui correspond à ce que son éditeur annonce d'une base destinée à être
+spécialisée. La question « la préselection suffit-elle à rendre un micro-modèle
+utilisable ici ? » reste donc ouverte, et c'est la variante spécialisée (A4) qui
+peut y répondre.
+
+Les intervalles sont larges parce que l'échantillon est de 84 cas. Deux
+architectures séparées d'un point ne sont pas distinguables : le test apparié le
+dit explicitement plutôt que de laisser lire un classement dans le tableau.
+
 ## Question ouverte
 
 Le taux de sorties invalides **augmente** quand on réduit le nombre d'outils
