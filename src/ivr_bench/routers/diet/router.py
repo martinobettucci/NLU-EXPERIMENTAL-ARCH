@@ -112,18 +112,28 @@ class DietRouter:
                 text: json.loads(line) for text, line in zip(unique, lines, strict=True)
             }
 
-    def predict(
-        self,
-        utterance: str,
-        session: SessionContext,
-        tools: list[ToolDefinition],
-    ) -> RouterPrediction:
+    def parsed(self, utterance: str) -> dict[str, Any]:
+        """Analyse DIET d'un enonce du lot prepare.
+
+        Expose l'analyse brute — intention, entites, latence — pour qu'une
+        architecture composee puisse n'en retenir qu'une partie. C'est ce dont
+        A13 a besoin : les entites sans l'intention.
+        """
         parsed = self._parsed.get(utterance)
         if parsed is None:
             # Le lot n'a pas ete prepare : on echoue plutot que de charger le
             # modele phrase par phrase, ce qui produirait une latence n'ayant
             # aucun rapport avec l'inference.
             raise RuntimeError("enonce absent du lot analyse : appelez prepare() avant predict().")
+        return parsed
+
+    def predict(
+        self,
+        utterance: str,
+        session: SessionContext,
+        tools: list[ToolDefinition],
+    ) -> RouterPrediction:
+        parsed = self.parsed(utterance)
 
         allowed = {tool.name for tool in tools} or set(self._catalog.names)
         name, arguments, confidence = to_prediction(parsed)

@@ -43,6 +43,10 @@ ARCHITECTURES: tuple[tuple[str, str], ...] = (
     ("A11", "nearest_neighbour"),
     # Proposition d'origine : similarite maximale seule, coupe par delta cosinus.
     ("A12", "hypothetical_delta_top2"),
+    # Compositions : la fonction et ses arguments ne sont plus decides par le
+    # meme modele. Le classifieur choisit, DIET extrait.
+    ("A13", "classifier_diet"),
+    ("A14", "classifier_diet_rules"),
 )
 
 

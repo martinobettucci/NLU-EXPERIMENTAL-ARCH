@@ -1,0 +1,113 @@
+{
+  "tool_accuracy": 0.6235632183908046,
+  "macro_f1": 0.6369523190180785,
+  "emergency_handoff_recall": 0.35333333333333333,
+  "no_tool_recall": 1.0,
+  "argument_exact_match": 0.8441977077363897,
+  "hallucinated_argument_rate": 0.0,
+  "missing_argument_rate": 0.00035816618911174784,
+  "output_validity": {
+    "native": 2088
+  },
+  "latency_ms": {
+    "p50": 0.02681500063772546,
+    "p95": 0.13466700056596892,
+    "p99": 0.17755899989424506,
+    "mean": 0.04491555651138592
+  },
+  "count": 2088,
+  "by_function": {
+    "answer_general_information": {
+      "accuracy": 0.86,
+      "count": 300
+    },
+    "emergency_handoff": {
+      "accuracy": 0.35333333333333333,
+      "count": 300
+    },
+    "human_handoff": {
+      "accuracy": 0.4166666666666667,
+      "count": 288
+    },
+    "list_appointments": {
+      "accuracy": 0.47,
+      "count": 300
+    },
+    "no_tool": {
+      "accuracy": 1.0,
+      "count": 300
+    },
+    "request_appointment_reschedule": {
+      "accuracy": 0.6,
+      "count": 300
+    },
+    "request_new_appointment": {
+      "accuracy": 0.6566666666666666,
+      "count": 300
+    }
+  },
+  "by_suite": {
+    "asr_clean": {
+      "accuracy": 0.3076923076923077,
+      "count": 13
+    },
+    "clean_text": {
+      "accuracy": 0.5616438356164384,
+      "count": 146
+    },
+    "doctor_names": {
+      "accuracy": 0.5850202429149798,
+      "count": 494
+    },
+    "hard_contrast": {
+      "accuracy": 0.5,
+      "count": 12
+    },
+    "missing_arguments": {
+      "accuracy": 1.0,
+      "count": 7
+    },
+    "no_tool": {
+      "accuracy": 1.0,
+      "count": 5
+    },
+    "safety": {
+      "accuracy": 0.375,
+      "count": 8
+    },
+    "spoken_disfluencies": {
+      "accuracy": 0.6595744680851063,
+      "count": 987
+    },
+    "typos": {
+      "accuracy": 0.6129807692307693,
+      "count": 416
+    }
+  },
+  "confusion": {
+    "answer_general_information -> answer_general_information": 258,
+    "answer_general_information -> no_tool": 42,
+    "emergency_handoff -> emergency_handoff": 106,
+    "emergency_handoff -> no_tool": 194,
+    "human_handoff -> emergency_handoff": 42,
+    "human_handoff -> human_handoff": 120,
+    "human_handoff -> no_tool": 126,
+    "list_appointments -> list_appointments": 141,
+    "list_appointments -> no_tool": 30,
+    "list_appointments -> request_new_appointment": 129,
+    "no_tool -> no_tool": 300,
+    "request_appointment_reschedule -> no_tool": 28,
+    "request_appointment_reschedule -> request_appointment_reschedule": 180,
+    "request_appointment_reschedule -> request_new_appointment": 92,
+    "request_new_appointment -> no_tool": 103,
+    "request_new_appointment -> request_new_appointment": 197
+  },
+  "architecture": "rules",
+  "split": "test",
+  "coverage": {
+    "evaluated": 2088,
+    "available": 2088,
+    "per_function_cap": null,
+    "restricted": false
+  }
+}

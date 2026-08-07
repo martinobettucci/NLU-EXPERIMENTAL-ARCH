@@ -1,0 +1,125 @@
+{
+  "tool_accuracy": 0.6810344827586207,
+  "macro_f1": 0.6463140326516614,
+  "emergency_handoff_recall": 0.9533333333333334,
+  "no_tool_recall": 0.10666666666666667,
+  "argument_exact_match": 0.7404558404558405,
+  "hallucinated_argument_rate": 0.0,
+  "missing_argument_rate": 0.0011396011396011395,
+  "output_validity": {
+    "native": 2088
+  },
+  "latency_ms": {
+    "p50": 56.38200599969423,
+    "p95": 69.18929199946433,
+    "p99": 81.5748609993534,
+    "mean": 63.565283900852776
+  },
+  "count": 2088,
+  "by_function": {
+    "answer_general_information": {
+      "accuracy": 0.9133333333333333,
+      "count": 300
+    },
+    "emergency_handoff": {
+      "accuracy": 0.9533333333333334,
+      "count": 300
+    },
+    "human_handoff": {
+      "accuracy": 0.75,
+      "count": 288
+    },
+    "list_appointments": {
+      "accuracy": 0.56,
+      "count": 300
+    },
+    "no_tool": {
+      "accuracy": 0.10666666666666667,
+      "count": 300
+    },
+    "request_appointment_reschedule": {
+      "accuracy": 0.49666666666666665,
+      "count": 300
+    },
+    "request_new_appointment": {
+      "accuracy": 0.99,
+      "count": 300
+    }
+  },
+  "by_suite": {
+    "asr_clean": {
+      "accuracy": 0.8461538461538461,
+      "count": 13
+    },
+    "clean_text": {
+      "accuracy": 0.9726027397260274,
+      "count": 146
+    },
+    "doctor_names": {
+      "accuracy": 0.5951417004048583,
+      "count": 494
+    },
+    "hard_contrast": {
+      "accuracy": 1.0,
+      "count": 12
+    },
+    "missing_arguments": {
+      "accuracy": 1.0,
+      "count": 7
+    },
+    "no_tool": {
+      "accuracy": 0.2,
+      "count": 5
+    },
+    "safety": {
+      "accuracy": 0.875,
+      "count": 8
+    },
+    "spoken_disfluencies": {
+      "accuracy": 0.7284701114488349,
+      "count": 987
+    },
+    "typos": {
+      "accuracy": 0.5504807692307693,
+      "count": 416
+    }
+  },
+  "confusion": {
+    "answer_general_information -> answer_general_information": 274,
+    "answer_general_information -> human_handoff": 4,
+    "answer_general_information -> no_tool": 1,
+    "answer_general_information -> request_new_appointment": 21,
+    "emergency_handoff -> emergency_handoff": 286,
+    "emergency_handoff -> human_handoff": 13,
+    "emergency_handoff -> request_new_appointment": 1,
+    "human_handoff -> answer_general_information": 41,
+    "human_handoff -> emergency_handoff": 31,
+    "human_handoff -> human_handoff": 216,
+    "list_appointments -> emergency_handoff": 11,
+    "list_appointments -> list_appointments": 168,
+    "list_appointments -> request_appointment_reschedule": 1,
+    "list_appointments -> request_new_appointment": 120,
+    "no_tool -> answer_general_information": 91,
+    "no_tool -> emergency_handoff": 29,
+    "no_tool -> human_handoff": 141,
+    "no_tool -> list_appointments": 5,
+    "no_tool -> no_tool": 32,
+    "no_tool -> request_appointment_reschedule": 1,
+    "no_tool -> request_new_appointment": 1,
+    "request_appointment_reschedule -> answer_general_information": 1,
+    "request_appointment_reschedule -> list_appointments": 1,
+    "request_appointment_reschedule -> request_appointment_reschedule": 149,
+    "request_appointment_reschedule -> request_new_appointment": 149,
+    "request_new_appointment -> answer_general_information": 1,
+    "request_new_appointment -> list_appointments": 2,
+    "request_new_appointment -> request_new_appointment": 297
+  },
+  "architecture": "embedding_only",
+  "split": "test",
+  "coverage": {
+    "evaluated": 2088,
+    "available": 2088,
+    "per_function_cap": null,
+    "restricted": false
+  }
+}

@@ -331,6 +331,11 @@ def benchmark_text(
         if key in retrieval
     }
 
+    # La commande enregistree doit pouvoir etre recollee telle quelle : une
+    # restriction de couverture qui ne figure pas dans la trace rendrait le run
+    # irreproductible tout en paraissant complet.
+    restriction = f" --per-function {per_function}" if per_function else ""
+
     with exclusive_campaign():
         for name in names:
             typer.echo(f"campagne {name}...")
@@ -340,7 +345,9 @@ def benchmark_text(
                 per_function=per_function or None,
                 seed=seed,
                 config_path=config_file,
-                command=f"ivr-bench benchmark text --architectures {name} --seed {seed}",
+                command=(
+                    f"ivr-bench benchmark text --architectures {name} --seed {seed}{restriction}"
+                ),
             )
             metrics = json.loads((directory / "metrics.json").read_text(encoding="utf-8"))
             accuracy = metrics["tool_accuracy"]

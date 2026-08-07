@@ -42,6 +42,9 @@ Le protocole complet est décrit dans
 | A9 | Classifieur sur embeddings | régression logistique, EmbeddingGemma |
 | A10 | Classifieur lexical | TF-IDF caractères, aucun réseau |
 | A11 | k plus proches voisins | vote pondéré sur l'index |
+| A12 | Questions hypothétiques, delta cosinus | proposition d'origine, top 2 puis Needle |
+| A13 | Classifieur puis DIET | la fonction vient d'A9, les arguments de DIET |
+| A14 | Classifieur, DIET, puis règles | idem, arguments manquants complétés par règles |
 
 ## Démarrage
 

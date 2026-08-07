@@ -32,7 +32,7 @@ from ivr_bench.routers.registry import register
 from ivr_bench.routers.rules import extraction
 
 
-class _ArgumentMixin:
+class RuleArgumentMixin:
     """Extraction d'arguments commune, identique a celle du retriever seul."""
 
     def __init__(self) -> None:
@@ -67,7 +67,7 @@ class _ArgumentMixin:
         return values
 
 
-class EmbeddingClassifierRouter(_ArgumentMixin):
+class EmbeddingClassifierRouter(RuleArgumentMixin):
     """A9 — regression logistique sur les embeddings du retriever.
 
     Le retriever compare une phrase a des prototypes ; ce classifieur apprend
@@ -152,7 +152,7 @@ class EmbeddingClassifierRouter(_ArgumentMixin):
         )
 
 
-class LexicalClassifierRouter(_ArgumentMixin):
+class LexicalClassifierRouter(RuleArgumentMixin):
     """A10 — TF-IDF et regression logistique, sans aucun embedding.
 
     La question est directe : que reste-t-il du gain des representations denses
@@ -214,7 +214,7 @@ class LexicalClassifierRouter(_ArgumentMixin):
         )
 
 
-class NearestNeighbourRouter(_ArgumentMixin):
+class NearestNeighbourRouter(RuleArgumentMixin):
     """A11 — vote des k plus proches enonces d'entrainement.
 
     Variante du retriever qui n'agrege pas des prototypes mais vote parmi les
