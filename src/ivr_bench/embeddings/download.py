@@ -23,11 +23,18 @@ class DownloadOutcome:
 # Modeles necessaires par profil. Le profil court se limite a ce que la campagne
 # reduite utilise reellement.
 PROFILE_MODELS: dict[str, tuple[str, ...]] = {
-    "smoke": ("google/embeddinggemma-300m",),
+    "smoke": ("google/embeddinggemma-300m", "Cactus-Compute/needle"),
     "full": (
         "google/embeddinggemma-300m",
         "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+        "Cactus-Compute/needle",
     ),
+}
+
+# Fichiers a recuperer par depot : le checkpoint JAX de Needle suffit, ses
+# variantes quantifiees alourdiraient le cache sans servir la campagne.
+_ALLOW_PATTERNS: dict[str, list[str]] = {
+    "Cactus-Compute/needle": ["needle.pkl", "tokenizer*", "*.model", "*.json", "*.vocab"],
 }
 
 # Modeles sous licence Gemma : leur telechargement exige un jeton acceptant la
@@ -57,6 +64,7 @@ def download(profile: str = "full") -> list[DownloadOutcome]:
             repo_id=model_id,
             cache_dir=str(cache),
             token=token,
+            allow_patterns=_ALLOW_PATTERNS.get(model_id),
             # Les poids alternatifs alourdissent le cache sans servir la campagne.
             ignore_patterns=["*.onnx", "*.gguf", "openvino/*", "*.mlmodel"],
         )
