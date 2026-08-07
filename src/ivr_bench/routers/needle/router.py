@@ -38,6 +38,13 @@ def _unwrap(raw: str) -> str:
         calls = json.loads(text)
     except json.JSONDecodeError:
         return raw
+    if isinstance(calls, list) and not calls:
+        # Liste vide : c'est ainsi que Needle dit « aucun outil applicable ».
+        # Le catalogue nomme cette reponse `no_tool` (§5.7). La traduire releve
+        # de l'adaptateur, pas de la reparation : la compter comme sortie
+        # invalide punirait le modele pour avoir correctement refuse d'agir, et
+        # rendrait son rappel `no_tool` structurellement nul.
+        return json.dumps({"name": "no_tool", "arguments": {}}, ensure_ascii=False)
     if isinstance(calls, list) and len(calls) == 1:
         return json.dumps(calls[0], ensure_ascii=False)
     return raw
