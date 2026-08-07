@@ -18,6 +18,7 @@ from typing import Any
 
 from ivr_bench.benchmark.runner import iter_runs
 from ivr_bench.domain.paths import repo_root
+from ivr_bench.metrics.calls import exact_call_rate
 
 START = "<!-- BENCHMARK_RESULTS_START -->"
 END = "<!-- BENCHMARK_RESULTS_END -->"
@@ -55,12 +56,19 @@ class RunSummary:
     architecture: str
     metrics: dict[str, Any]
     environment: dict[str, Any]
+    directory: Path
 
     @property
     def is_publishable(self) -> bool:
         # Un depot modifie rend le run irreproductible : il reste consultable,
         # il n'est pas publie.
         return not self.environment.get("git_dirty", True)
+
+    @property
+    def exact_calls(self) -> float | None:
+        # Recalcule depuis les predictions : la colonne existe donc aussi pour
+        # les runs anterieurs a cette metrique, sans en reecrire aucun.
+        return exact_call_rate(self.directory)
 
 
 def load_summaries() -> dict[str, RunSummary]:
@@ -69,7 +77,7 @@ def load_summaries() -> dict[str, RunSummary]:
     for directory in iter_runs(complete_only=True):
         metrics = json.loads((directory / "metrics.json").read_text(encoding="utf-8"))
         environment = json.loads((directory / "environment.json").read_text(encoding="utf-8"))
-        summary = RunSummary(metrics["architecture"], metrics, environment)
+        summary = RunSummary(metrics["architecture"], metrics, environment, directory)
         if summary.is_publishable:
             latest[summary.architecture] = summary
     return latest
@@ -103,18 +111,19 @@ def render(summaries: dict[str, RunSummary]) -> str:
         )
 
     lines.append(
-        "| Architecture | Tool accuracy | Macro F1 | Rappel urgence | Rappel no_tool "
-        "| Argument EM | Hallucination | p95 | Cas |"
+        "| Architecture | Appel exact | Tool accuracy | Macro F1 | Rappel urgence "
+        "| Rappel no_tool | Argument EM | Hallucination | p95 | Cas |"
     )
-    lines.append("|---|---|---|---|---|---|---|---|---|")
+    lines.append("|---|---|---|---|---|---|---|---|---|---|")
 
     for identifier, name in ARCHITECTURES:
         summary = summaries.get(name)
         if summary is None:
-            cells = [NOT_RUN] * 7
+            cells = [NOT_RUN] * 8
         else:
             metrics = summary.metrics
             cells = [
+                _percent(summary.exact_calls),
                 _percent(metrics.get("tool_accuracy")),
                 _percent(metrics.get("macro_f1")),
                 _percent(metrics.get("emergency_handoff_recall")),
@@ -133,7 +142,7 @@ def render(summaries: dict[str, RunSummary]) -> str:
                 if coverage.get("restricted")
                 else str(evaluated or NOT_RUN)
             )
-        if len(cells) == 7:
+        if len(cells) == 8:
             cells.append(NOT_RUN)
         lines.append(f"| {identifier} {name} | " + " | ".join(cells) + " |")
 
@@ -141,6 +150,14 @@ def render(summaries: dict[str, RunSummary]) -> str:
     lines.append(
         "Une cellule `non exécuté` signifie exactement cela : la mesure n'a pas été "
         "faite. Elle ne vaut pas zéro."
+    )
+    lines.append("")
+    lines.append(
+        "**Appel exact** : la fonction et *tous* ses arguments sont corrects, compté "
+        "sur l'ensemble du corpus. C'est ce qu'un serveur vocal peut exécuter sans "
+        "reposer de question. **Argument EM** se compte clé par clé et seulement sur "
+        "les cas où la fonction est correcte, donc sur un sous-ensemble différent pour "
+        "chaque architecture : les deux colonnes ne classent pas dans le même ordre."
     )
 
     restricted = [s for s in published if s.metrics.get("coverage", {}).get("restricted")]

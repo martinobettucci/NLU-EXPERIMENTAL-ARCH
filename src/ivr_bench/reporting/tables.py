@@ -16,6 +16,7 @@ import pandas as pd
 
 from ivr_bench.benchmark.runner import iter_runs
 from ivr_bench.domain.paths import results_dir
+from ivr_bench.metrics.calls import is_exact_call
 from ivr_bench.metrics.statistics import bootstrap_proportion, mcnemar
 
 
@@ -52,6 +53,14 @@ def summary_frame() -> pd.DataFrame:
                 "tool_accuracy": metrics["tool_accuracy"],
                 "accuracy_ci_low": interval.low if interval else None,
                 "accuracy_ci_high": interval.high if interval else None,
+                # La seule metrique qui se compte sur tout le corpus et decrit
+                # ce qu'un serveur vocal peut executer tel quel.
+                "exact_call_rate": (
+                    sum(is_exact_call(row["expected"], row["predicted"]) for row in predictions)
+                    / len(predictions)
+                    if predictions
+                    else None
+                ),
                 "macro_f1": metrics["macro_f1"],
                 "emergency_handoff_recall": metrics["emergency_handoff_recall"],
                 "no_tool_recall": metrics["no_tool_recall"],

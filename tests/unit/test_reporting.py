@@ -9,7 +9,9 @@ import pytest
 from ivr_bench.reporting.readme import END, NOT_RUN, START, RunSummary, render
 
 
-def _summary(architecture: str, dirty: bool = False, **metrics: object) -> RunSummary:
+def _summary(
+    architecture: str, dirty: bool = False, directory: Path | None = None, **metrics: object
+) -> RunSummary:
     base = {
         "architecture": architecture,
         "tool_accuracy": 0.5,
@@ -32,13 +34,33 @@ def _summary(architecture: str, dirty: bool = False, **metrics: object) -> RunSu
         "ram_gb": 15.7,
         "gpu": "aucun",
     }
-    return RunSummary(architecture, base, environment)
+    # Sans dossier de run, le taux d'appel exact est absent — donc affiche
+    # `non exécuté`, ce qui est exactement le comportement attendu.
+    return RunSummary(architecture, base, environment, directory or Path("/inexistant"))
 
 
 def test_missing_architecture_reads_not_run() -> None:
     rendered = render({})
-    assert rendered.count(NOT_RUN) >= 9 * 7
+    assert rendered.count(NOT_RUN) >= 9 * 8
     assert "0.0%" not in rendered
+
+
+def test_exact_call_rate_is_read_from_the_predictions(tmp_path: Path) -> None:
+    """La colonne se recalcule depuis le run, elle n'est jamais recopiee."""
+    import json
+
+    (tmp_path / "predictions.jsonl").write_text(
+        json.dumps(
+            {
+                "expected": {"tool_name": "no_tool", "arguments": {}},
+                "predicted": {"tool_name": "no_tool", "arguments": {}},
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    rendered = render({"rules": _summary("rules", directory=tmp_path)})
+    assert "| 100.0% |" in rendered
 
 
 def test_a_dirty_run_is_never_published() -> None:
