@@ -1,27 +1,24 @@
 #!/usr/bin/env bash
-# Rejeu complet des campagnes apres la correction de la passe de chauffe.
+# Rejeu des campagnes restantes apres la correction de la passe de chauffe.
 #
 # Sequentiel par construction : les latences publiees seraient inexploitables
 # si deux campagnes partageaient les memes coeurs. Le verrou exclusif du
 # harnais l'imposerait de toute facon, mais l'ordre choisi ici va du moins
 # couteux au plus couteux, pour que les resultats arrivent progressivement.
+#
+# Le depot doit etre propre au lancement : un fichier non suivi suffit a
+# marquer chaque campagne `dirty`, donc impubliable. C'est deja arrive une
+# fois, pour un telechargement lance pendant la sequence.
 set -u
 
 BENCH=".venv/bin/ivr-bench"
 LOG="results/remeasure.log"
 
-full=(
-  rules
-  lexical_classifier
-  diet
-  embedding_classifier
-  nearest_neighbour
-  classifier_enum
-  classifier_diet
-  classifier_diet_rules
-  classifier_diet_arbitrated
-  classifier_diet_enum
-)
+if [ -n "$(git status --porcelain -- ':!results/runs')" ]; then
+  echo "depot modifie : les campagnes seraient marquees dirty. Committez d'abord." >&2
+  git status --short -- ':!results/runs' >&2
+  exit 2
+fi
 
 # Architectures a plusieurs secondes par enonce : echantillon stratifie de 12
 # cas par fonction, comme les campagnes publiees precedemment.
@@ -35,12 +32,6 @@ sampled=(
 )
 
 : > "$LOG"
-for name in "${full[@]}"; do
-  echo "=== $name (corpus complet) $(date -u +%H:%M:%S) ===" >> "$LOG"
-  "$BENCH" benchmark text --architectures "$name" --seed 42 >> "$LOG" 2>&1 \
-    || echo "!!! echec $name" >> "$LOG"
-done
-
 for name in "${sampled[@]}"; do
   echo "=== $name (12 par fonction) $(date -u +%H:%M:%S) ===" >> "$LOG"
   "$BENCH" benchmark text --architectures "$name" --seed 42 --per-function 12 >> "$LOG" 2>&1 \
