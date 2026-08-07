@@ -95,17 +95,6 @@ def _loaded() -> tuple[Any, Any, Any]:
     return SimpleAttentionNetwork(config), params, get_tokenizer()
 
 
-def warmup() -> float:
-    """Force la compilation JAX avant toute mesure.
-
-    Sans cela, le premier enonce d'une campagne porterait plusieurs secondes de
-    compilation et ecraserait la moyenne de latence.
-    """
-    started = time.perf_counter()
-    call("bonjour", tools_payload([]))
-    return (time.perf_counter() - started) * 1000.0
-
-
 def count_tokens(text: str) -> int:
     """Longueur en tokens, telle que le modele la verra."""
     _, _, tokenizer = _loaded()

@@ -112,12 +112,6 @@ def _loaded() -> tuple[Any, Any]:
     return model, tokenizer
 
 
-def warmup() -> float:
-    started = time.perf_counter()
-    call("bonjour", [])
-    return (time.perf_counter() - started) * 1000.0
-
-
 def call(query: str, tools: list[dict[str, Any]], max_new_tokens: int = 96) -> GemmaCall:
     """Un appel d'outil sur l'enonce original."""
     import torch

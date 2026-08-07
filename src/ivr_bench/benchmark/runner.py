@@ -147,6 +147,24 @@ def run_text_benchmark(
     if callable(prepare):
         prepare([case.utterance for case in selection.cases])
 
+    # Passe de chauffe, exclue de la mesure.
+    #
+    # Les poids se chargent a la premiere inference, pas a la construction du
+    # routeur : sans cette passe, le premier enonce porte le chargement du
+    # modele et la compilation. Mesure avant correction : 22 036 ms pour le
+    # premier appel de Needle contre 4 772 de mediane, 11 562 ms pour le premier
+    # appel du classifieur contre 95. C'est un cout de demarrage, il n'a rien a
+    # faire dans une distribution de latence d'inference.
+    #
+    # La chauffe utilise le premier cas reel plutot qu'une phrase inventee :
+    # certaines architectures analysent leur lot a l'avance et n'accepteraient
+    # pas un enonce absent de ce lot.
+    warmup_ms: float | None = None
+    if selection.cases:
+        warmup_started = time.perf_counter()
+        router.predict(selection.cases[0].utterance, session, tools)
+        warmup_ms = (time.perf_counter() - warmup_started) * 1000.0
+
     started = time.perf_counter()
     with (directory / "predictions.jsonl").open("w", encoding="utf-8") as handle:
         for case in selection.cases:
@@ -185,6 +203,9 @@ def run_text_benchmark(
     metrics["architecture"] = architecture
     metrics["split"] = split
     # La couverture reelle est declaree, y compris quand elle est partielle.
+    # Le cout de demarrage est publie, pas efface : c'est lui qui decide si une
+    # architecture est deployable sur une machine qui redemarre souvent.
+    metrics["warmup_ms"] = round(warmup_ms, 3) if warmup_ms is not None else None
     metrics["machine_load"] = {
         "before": round(load_before, 2),
         "after": round(os.getloadavg()[0], 2),
