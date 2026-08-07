@@ -349,13 +349,57 @@ def report_build(
     charts: bool = typer.Option(True, "--charts/--no-charts", help="Genere aussi les graphiques."),
 ) -> None:
     """Produit tableaux, graphiques et rapports."""
-    _pending("M6", "Construction des rapports")
+    from ivr_bench.reporting.charts import build_charts
+    from ivr_bench.reporting.tables import write_tables
+
+    del run_id
+    root = repo_root()
+    for path in write_tables():
+        typer.echo(str(path.relative_to(root)))
+    if charts:
+        for path in build_charts():
+            typer.echo(str(path.relative_to(root)))
+    else:
+        typer.echo("graphiques ignores (--no-charts).")
 
 
 @report_app.command("verify")
 def report_verify(run_id: str = typer.Option(..., help="Run a verifier.")) -> None:
     """Verifie la completude et les hashes d'un run avant publication."""
-    _pending("M6", "Verification du run")
+    import json
+
+    from ivr_bench.benchmark.environment import file_digest
+    from ivr_bench.benchmark.runner import incomplete_runs, is_complete
+
+    directory = results_dir() / "runs" / run_id
+    if not directory.is_dir():
+        typer.secho(f"run introuvable : {run_id}", fg=typer.colors.RED, err=True)
+        raise typer.Exit(code=1)
+
+    problems: list[str] = []
+    if not is_complete(directory):
+        problems.append("run incomplet : la campagne ne s'est pas terminee")
+    else:
+        environment = json.loads((directory / "environment.json").read_text(encoding="utf-8"))
+        # Un depot modifie rend le run irreproductible : il ne peut pas etre
+        # publie, meme complet.
+        if environment.get("git_dirty", True):
+            problems.append("depot modifie au moment du run (dirty)")
+        for label, expected in environment.get("dataset_hashes", {}).items():
+            path = repo_root() / "data" / "generated" / label / f"{label}.jsonl"
+            if not path.is_file():
+                problems.append(f"corpus absent : {label}")
+            elif file_digest(path) != expected:
+                problems.append(f"corpus modifie depuis le run : {label}")
+
+    for other in incomplete_runs():
+        typer.secho(f"  run incomplet present : {other.name}", fg=typer.colors.YELLOW, err=True)
+
+    if problems:
+        for problem in problems:
+            typer.secho(f"  {problem}", fg=typer.colors.RED, err=True)
+        raise typer.Exit(code=1)
+    typer.echo(f"{run_id} : complet, reproductible, publiable.")
 
 
 @readme_app.command("update")
@@ -403,7 +447,25 @@ def reproduce(
     seed: int = typer.Option(42, help="Graine."),
 ) -> None:
     """Rejoue la chaine complete depuis un depot propre."""
-    _pending("M6", "Reproduction complete")
+    import subprocess
+
+    root = repo_root()
+    steps = [
+        ["ivr-bench", "doctors", "generate", "--seed", str(seed)],
+        ["ivr-bench", "data", "generate", "--seed", str(seed)],
+        ["ivr-bench", "data", "validate", "--strict"],
+        ["ivr-bench", "index", "build", "--config", config],
+        ["ivr-bench", "benchmark", "text", "--config", config, "--seed", str(seed)],
+        ["ivr-bench", "report", "build"],
+        ["ivr-bench", "readme", "update"],
+    ]
+    for step in steps:
+        typer.echo(f"$ {' '.join(step)}")
+        completed = subprocess.run(step, cwd=root, check=False)
+        if completed.returncode != 0:
+            typer.secho(f"etape en echec : {' '.join(step)}", fg=typer.colors.RED, err=True)
+            raise typer.Exit(code=completed.returncode)
+    typer.echo("chaine complete rejouee.")
 
 
 if __name__ == "__main__":  # pragma: no cover

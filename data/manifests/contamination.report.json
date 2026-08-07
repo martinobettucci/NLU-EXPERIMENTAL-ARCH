@@ -5,7 +5,7 @@
     "index": 0,
     "train": 0,
     "validation": 0,
-    "contrastive": 103,
+    "contrastive": 108,
     "test": 0
   },
   "leaked_into_training": {
@@ -15,5 +15,5 @@
     "contrastive": 0
   },
   "test_size": 2088,
-  "total_removed": 103
+  "total_removed": 108
 }

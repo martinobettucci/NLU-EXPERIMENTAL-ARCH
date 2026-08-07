@@ -162,10 +162,17 @@ def run_text_benchmark(
 
 
 def is_complete(directory: Path) -> bool:
-    """Un run n'est exploitable que s'il a ete mene a son terme."""
+    """Un run n'est exploitable que s'il a ete mene a son terme.
+
+    Le critere porte sur les artefacts, pas sur le temoin : `metrics.json` et
+    `environment.json` ne sont ecrits qu'a la fin, donc leur presence suffit a
+    prouver l'aboutissement. Exiger le marqueur ferait passer pour incomplets
+    les runs anterieurs a son introduction — et le §29.3 interdit d'ecraser les
+    runs historiques.
+    """
     return all(
         (directory / name).is_file()
-        for name in ("COMPLETE", "metrics.json", "environment.json", "predictions.jsonl")
+        for name in ("metrics.json", "environment.json", "predictions.jsonl")
     )
 
 
