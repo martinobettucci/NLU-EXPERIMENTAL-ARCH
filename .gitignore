@@ -223,3 +223,4 @@ weights/
 
 # Index semantiques : reconstruits par 'ivr-bench index build', pas versionnes.
 results/index/
+results/runs/

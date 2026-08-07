@@ -150,4 +150,34 @@ def run_text_benchmark(
         json.dumps(metrics, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     env.write(context, directory, duration_s=duration)
+
+    # Marqueur ecrit en dernier. Une campagne interrompue laisse ses predictions
+    # partielles sur le disque ; sans ce temoin, un rapport ulterieur pourrait
+    # les prendre pour un resultat. Le §37.9 interdit de publier un run
+    # incomplet : on le rend donc reconnaissable plutot que plausible.
+    (directory / "COMPLETE").write_text(
+        f"{context.run_id}\n{context.timestamp}\n", encoding="utf-8"
+    )
     return directory
+
+
+def is_complete(directory: Path) -> bool:
+    """Un run n'est exploitable que s'il a ete mene a son terme."""
+    return all(
+        (directory / name).is_file()
+        for name in ("COMPLETE", "metrics.json", "environment.json", "predictions.jsonl")
+    )
+
+
+def iter_runs(complete_only: bool = True) -> list[Path]:
+    """Runs disponibles, les incomplets etant ecartes explicitement."""
+    root = results_dir() / "runs"
+    if not root.is_dir():
+        return []
+    found = sorted(path for path in root.iterdir() if path.is_dir())
+    return [path for path in found if not complete_only or is_complete(path)]
+
+
+def incomplete_runs() -> list[Path]:
+    """Runs interrompus, a signaler plutot qu'a ignorer en silence."""
+    return [path for path in iter_runs(complete_only=False) if not is_complete(path)]
