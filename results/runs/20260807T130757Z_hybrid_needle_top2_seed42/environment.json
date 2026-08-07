@@ -1,0 +1,33 @@
+{
+  "run_id": "20260807T130757Z_hybrid_needle_top2_seed42",
+  "timestamp": "2026-08-07T13:07:57+00:00",
+  "git_commit": "88c8a8a3cb59e6988775974fdcb5a2785cb49283",
+  "git_dirty": false,
+  "os": "Linux-6.18.5-fc-v18-x86_64-with-glibc2.39",
+  "kernel": "6.18.5-fc-v18",
+  "python": "3.12.3",
+  "dependencies": {
+    "numpy": "2.5.1",
+    "sentence-transformers": "5.7.0",
+    "torch": "2.13.0",
+    "transformers": "5.14.1",
+    "jax": "0.11.0",
+    "rapidfuzz": "3.14.5",
+    "pydantic": "2.13.4"
+  },
+  "cpu": "x86_64",
+  "cpu_threads": 4,
+  "ram_gb": 15.7,
+  "gpu": "aucun (comparaison CPU par construction)",
+  "runtime": "cpu",
+  "seeds": [
+    42
+  ],
+  "dataset_hashes": {
+    "test": "9c1114e6bc1db2f16299da3a6780dbcefce7249fefec9fb8852865bd5f0afc3a"
+  },
+  "config_hash": "54e1025bb2d4f1624387089cadbddf179720a9f67242b0b1f1e8e526d922abee",
+  "command": "ivr-bench benchmark text --architectures hybrid_needle_top2 --seed 42 --per-function 12",
+  "duration_s": 404.81,
+  "models": {}
+}

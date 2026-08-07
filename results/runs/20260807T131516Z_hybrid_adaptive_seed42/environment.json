@@ -1,8 +1,8 @@
 {
-  "run_id": "20260807T122440Z_classifier_diet_enum_seed42",
-  "timestamp": "2026-08-07T12:24:40+00:00",
-  "git_commit": "9a72009223a169768378042bcd11a52f61c70d1c",
-  "git_dirty": true,
+  "run_id": "20260807T131516Z_hybrid_adaptive_seed42",
+  "timestamp": "2026-08-07T13:15:16+00:00",
+  "git_commit": "88c8a8a3cb59e6988775974fdcb5a2785cb49283",
+  "git_dirty": false,
   "os": "Linux-6.18.5-fc-v18-x86_64-with-glibc2.39",
   "kernel": "6.18.5-fc-v18",
   "python": "3.12.3",
@@ -27,7 +27,7 @@
     "test": "9c1114e6bc1db2f16299da3a6780dbcefce7249fefec9fb8852865bd5f0afc3a"
   },
   "config_hash": "54e1025bb2d4f1624387089cadbddf179720a9f67242b0b1f1e8e526d922abee",
-  "command": "ivr-bench benchmark text --architectures classifier_diet_enum --seed 42",
-  "duration_s": 204.22,
+  "command": "ivr-bench benchmark text --architectures hybrid_adaptive --seed 42 --per-function 12",
+  "duration_s": 417.1,
   "models": {}
 }
