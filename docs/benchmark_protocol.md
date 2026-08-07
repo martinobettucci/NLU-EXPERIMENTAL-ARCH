@@ -1,14 +1,16 @@
 # Protocole de mesure
 
-## Modes
+## Périmètre : la phrase, pas le signal
 
-1. **texte oracle** — transcription de référence, mesure le routeur seul ;
-2. **transcription ASR** — mesure la dégradation introduite par la reconnaissance vocale ;
-3. **bout en bout** — de l'audio à l'action métier.
+La question mesurée est : *à partir d'une phrase, quelles stratégies retrouvent la bonne
+fonction et ses arguments ?* Les modes audio des §14–15 sont écartés — la reconnaissance
+vocale précède le problème et n'ajoute qu'une source de bruit entre les architectures
+comparées. Le seul mode exécuté est donc le mode texte.
 
-La suite principale est single-turn. Le remplissage de slots sur plusieurs tours est mesuré
-dans une suite secondaire distincte, car les modèles comparés n'ont pas tous vocation à gérer
-un dialogue multi-tours.
+Cette restriction est un choix de périmètre, pas une mesure manquante : les colonnes
+correspondantes sont marquées non applicables plutôt que `non exécuté`.
+
+La suite est single-turn : une phrase, une fonction. C'est exactement la question posée.
 
 ## Classement
 

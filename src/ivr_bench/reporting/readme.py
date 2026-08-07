@@ -35,6 +35,12 @@ ARCHITECTURES: tuple[tuple[str, str], ...] = (
     ("A6", "hybrid_needle_top2"),
     ("A7", "hybrid_functiongemma_top2"),
     ("A8", "hybrid_adaptive"),
+    # Strategies ajoutees apres recentrage sur la question reelle : d'une phrase
+    # vers une fonction. Ce sont les approches les plus repandues en production,
+    # et leur absence rendait la comparaison incomplete.
+    ("A9", "embedding_classifier"),
+    ("A10", "lexical_classifier"),
+    ("A11", "nearest_neighbour"),
 )
 
 

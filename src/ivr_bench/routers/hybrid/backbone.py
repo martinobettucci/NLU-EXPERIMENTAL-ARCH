@@ -10,6 +10,7 @@ from __future__ import annotations
 import time
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 from ivr_bench.domain.paths import results_dir
 from ivr_bench.embeddings.encoders import create_encoder
@@ -59,6 +60,10 @@ class RetrievalBackbone:
     @property
     def index(self) -> SemanticIndex:
         return self._index
+
+    def encode(self, utterance: str) -> Any:
+        """Vecteur d'un enonce, pour les strategies qui n'interrogent pas l'index."""
+        return self._encoder.encode([utterance], batch_size=1)[0]
 
     def retrieve(self, utterance: str) -> RetrievalResult:
         """Classe les fonctions candidates, en mesurant chaque etape (§17.5)."""

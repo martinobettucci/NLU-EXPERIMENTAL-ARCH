@@ -3,10 +3,14 @@
 Banc d'essai reproductible pour le routage d'intentions et l'appel de fonctions dans un
 serveur vocal interactif francophone.
 
-Le dépôt compare des architectures capables de transformer une demande vocale en une fonction
-métier structurée, dans le cadre d'une plateforme de prise de rendez-vous médicaux. Ce n'est
-**pas** un assistant médical : aucune question clinique n'est traitée, elle est refusée ou
-transférée selon une politique déterministe implémentée hors modèle.
+Le dépôt compare des stratégies capables de transformer **une phrase** en une fonction métier
+structurée, dans le cadre d'une plateforme de prise de rendez-vous médicaux. Ce n'est **pas**
+un assistant médical : aucune question clinique n'est traitée, elle est refusée ou transférée
+selon une politique déterministe implémentée hors modèle.
+
+Le périmètre s'arrête à la phrase. La reconnaissance vocale se situe en amont : elle ajoute une
+source de bruit qui masquerait ce que la comparaison cherche à mesurer, et les suites audio
+décrites aux §14–15 de la spécification sont donc hors périmètre. L'entrée est du texte.
 
 **Tout s'exécute sur CPU.** C'est la prémisse de l'expérience : on compare des architectures
 déployables sur du matériel ordinaire ou embarqué, pas des modèles adossés à un accélérateur.
@@ -35,6 +39,9 @@ Le protocole complet est décrit dans
 | A6 | Retriever top 2 puis Needle | architecture proposée |
 | A7 | Retriever top 2 puis FunctionGemma | variante |
 | A8 | Sélection adaptative | 1 à 4 fonctions selon l'incertitude |
+| A9 | Classifieur sur embeddings | régression logistique, EmbeddingGemma |
+| A10 | Classifieur lexical | TF-IDF caractères, aucun réseau |
+| A11 | k plus proches voisins | vote pondéré sur l'index |
 
 ## Démarrage
 
