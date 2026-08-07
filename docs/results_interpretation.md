@@ -64,10 +64,41 @@ tout le monde. Le résultat est le plus grand écart mesuré dans ce dépôt :
 | reason_category | 33,2 % | 48,0 % |
 | topic | 0 % | 26,1 % |
 
-L'appel exact passe de 32,2 % à **40,1 %**, soit 6,1 points au-dessus du classifieur seul, pour
-148 ms au p95. La leçon n'est pas « l'hybridation fonctionne » : elle est qu'un argument dont
-la valeur ne figure pas dans la phrase relève d'une classification, pas d'une extraction, et
-qu'aucune combinaison de deux extracteurs ne pouvait le trouver.
+L'appel exact passe de 32,2 % à **40,1 %**. Un argument dont la valeur ne figure pas dans la
+phrase relève d'une classification, pas d'une extraction : aucune combinaison de deux
+extracteurs ne pouvait le trouver.
+
+## Le contrôle qui retire DIET
+
+A16 change trois choses à la fois par rapport au classifieur seul — les entités de DIET,
+l'arbitrage, les énumérations apprises — et son avance ne dit pas laquelle les a gagnées.
+A17 ne garde que la dernière : même classifieur, même extracteur par règles, aucune trace de
+DIET.
+
+| | appel exact | Argument EM | Hallucination | p95 |
+|---|---|---|---|---|
+| A17 sans DIET | **41,9 %** | 77,8 % | **0,0 %** | **136 ms** |
+| A16 avec DIET | 40,1 % | **79,7 %** | 0,8 % | 147 ms |
+| A9 référence | 34,0 % | 73,7 % | 0,0 % | 137 ms |
+
+**Retirer DIET améliore le résultat.** L'écart argument par argument dit pourquoi : DIET gagne
+17,9 points sur `practitioner_name` et 8 à 10 points sur les heures, mais perd 11 à 15 points
+sur chacune des quatre dates. Un appel exige *tous* ses arguments : les dates perdues coûtent
+plus d'appels complets que les noms gagnés n'en rapportent. DIET introduit en prime 0,8 %
+d'hallucination là où les règles n'en produisent aucune, et 10 ms de latence.
+
+C'est la deuxième fois que l'Argument EM classe à l'envers de l'appel exact, et cette fois au
+sommet du tableau. Une moyenne par clé récompense un extracteur qui a souvent un peu raison ;
+un serveur vocal a besoin d'un extracteur qui a entièrement raison.
+
+**Réponse à la question posée** : hybrider le classifieur d'intentions avec DIET pour les
+entités n'améliore pas ce banc d'essai. Ce qui l'améliore — de 34,0 % à 41,9 %, soit près de
+huit points — c'est d'avoir vu que `topic`, `reason` et `reason_category` posaient une question
+de classification déguisée en question d'extraction.
+
+Il reste une raison de garder DIET à l'esprit : il est le seul à lire correctement les noms
+propres (93,3 % contre 75,4 %). Un extracteur de dates meilleur du côté DIET, ou un arbitrage
+par argument qui transfère, replacerait la question. En l'état, la mesure dit non.
 
 ## Ce que le tableau principal ne dit pas
 

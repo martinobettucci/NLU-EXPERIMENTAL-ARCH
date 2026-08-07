@@ -223,3 +223,17 @@ classifier_diet_enum,list_appointments,0.5166666666666667,300
 classifier_diet_enum,no_tool,0.44,300
 classifier_diet_enum,request_appointment_reschedule,0.8966666666666666,300
 classifier_diet_enum,request_new_appointment,0.9733333333333334,300
+classifier_enum,answer_general_information,0.7533333333333333,300
+classifier_enum,emergency_handoff,0.9933333333333333,300
+classifier_enum,human_handoff,0.7152777777777778,288
+classifier_enum,list_appointments,0.5166666666666667,300
+classifier_enum,no_tool,0.44,300
+classifier_enum,request_appointment_reschedule,0.8966666666666666,300
+classifier_enum,request_new_appointment,0.9733333333333334,300
+classifier_diet_enum,answer_general_information,0.7533333333333333,300
+classifier_diet_enum,emergency_handoff,0.9933333333333333,300
+classifier_diet_enum,human_handoff,0.7152777777777778,288
+classifier_diet_enum,list_appointments,0.5166666666666667,300
+classifier_diet_enum,no_tool,0.44,300
+classifier_diet_enum,request_appointment_reschedule,0.8966666666666666,300
+classifier_diet_enum,request_new_appointment,0.9733333333333334,300

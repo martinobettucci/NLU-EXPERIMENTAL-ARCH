@@ -82,7 +82,7 @@ reste avant tout un projet expérimental.
 
 <!-- BENCHMARK_RESULTS_START -->
 
-_Dernière campagne le 2026-08-07T11:13:22+00:00 — x86_64, 4 fils, 15.7 Go, accélérateur : aucun (comparaison CPU par construction). Les 16 lignes proviennent de campagnes distinctes, réparties sur 9 commits ; chacune est tracée dans `results/runs/`._
+_Dernière campagne le 2026-08-07T11:35:53+00:00 — x86_64, 4 fils, 15.7 Go, accélérateur : aucun (comparaison CPU par construction). Les 17 lignes proviennent de campagnes distinctes, réparties sur 10 commits ; chacune est tracée dans `results/runs/`._
 
 | Architecture | Appel exact | Tool accuracy | Macro F1 | Rappel urgence | Rappel no_tool | Argument EM | Hallucination | p95 | Cas |
 |---|---|---|---|---|---|---|---|---|---|
@@ -102,7 +102,8 @@ _Dernière campagne le 2026-08-07T11:13:22+00:00 — x86_64, 4 fils, 15.7 Go, ac
 | A13 classifier_diet | 29.7% | 75.6% | 74.6% | 99.3% | 44.0% | 72.8% | 0.8% | 146 ms | 2088 |
 | A14 classifier_diet_rules | 31.8% | 75.6% | 74.6% | 99.3% | 44.0% | 75.3% | 0.8% | 157 ms | 2088 |
 | A15 classifier_diet_arbitrated | 32.2% | 75.6% | 74.6% | 99.3% | 44.0% | 75.5% | 0.8% | 156 ms | 2088 |
-| A16 classifier_diet_enum | 40.1% | 75.6% | 74.6% | 99.3% | 44.0% | 79.7% | 0.8% | 148 ms | 2088 |
+| A16 classifier_diet_enum | 40.1% | 75.6% | 74.6% | 99.3% | 44.0% | 79.7% | 0.8% | 147 ms | 2088 |
+| A17 classifier_enum | 41.9% | 75.6% | 74.6% | 99.3% | 44.0% | 77.8% | 0.0% | 136 ms | 2088 |
 
 Une cellule `non exécuté` signifie exactement cela : la mesure n'a pas été faite. Elle ne vaut pas zéro.
 
