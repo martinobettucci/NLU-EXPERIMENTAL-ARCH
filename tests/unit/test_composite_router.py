@@ -7,10 +7,14 @@ fonction du catalogue et d'une liste d'entites.
 
 from __future__ import annotations
 
+from typing import Any
+
 import pytest
 
 from ivr_bench.domain.catalog import default_catalog
+from ivr_bench.domain.models import ToolDefinition
 from ivr_bench.routers import available
+from ivr_bench.routers.composite.arbitration import DIET, RULES, ArbitratedRouter
 from ivr_bench.routers.composite.router import ClassifierDietRouter
 
 
@@ -24,13 +28,63 @@ class _Extractor(ClassifierDietRouter):
         self._specialties = []
 
 
+class _Arbiter(ArbitratedRouter):
+    """L'arbitrage seul : les deux sources sont fournies, pas calculees."""
+
+    def __init__(self, preference: dict[str, str], diet: dict[str, Any]) -> None:
+        self._catalog = default_catalog()
+        self._specialties = []
+        self._preference = preference
+        self._enumerations = {}
+        self._diet_values = diet
+
+    def _diet_arguments(
+        self, definition: ToolDefinition, utterance: str, metadata: dict[str, Any]
+    ) -> dict[str, Any]:
+        values = dict.fromkeys(definition.parameter_names)
+        values.update(self._diet_values)
+        return values
+
+
 @pytest.fixture(scope="module")
 def extractor() -> _Extractor:
     return _Extractor()
 
 
 def test_both_compositions_are_registered() -> None:
-    assert {"classifier_diet", "classifier_diet_rules"} <= set(available())
+    assert {
+        "classifier_diet",
+        "classifier_diet_rules",
+        "classifier_diet_arbitrated",
+        "classifier_diet_enum",
+    } <= set(available())
+
+
+def test_the_preferred_source_wins_argument_by_argument() -> None:
+    definition = default_catalog().get("request_new_appointment")
+    arbiter = _Arbiter(
+        preference={"practitioner_name": DIET, "preferred_date": RULES},
+        diet={"practitioner_name": "Bensaïd", "preferred_date": "2026-01-01"},
+    )
+    metadata: dict[str, Any] = {}
+    values = arbiter._compose(
+        definition, "rendez-vous avec le docteur Bensaïd mardi", True, metadata
+    )
+    # Le nom vient de DIET, la date des regles : c'est ce que la validation a
+    # mesure, argument par argument.
+    assert values["practitioner_name"] == "Bensaïd"
+    assert values["preferred_date"] != "2026-01-01"
+    assert metadata["sources"]["practitioner_name"] == DIET
+    assert metadata["sources"]["preferred_date"] == RULES
+
+
+def test_the_other_source_is_consulted_when_the_preferred_one_is_empty() -> None:
+    definition = default_catalog().get("request_new_appointment")
+    arbiter = _Arbiter(preference={"practitioner_name": DIET}, diet={})
+    metadata: dict[str, Any] = {}
+    values = arbiter._compose(definition, "rendez-vous avec le docteur Rey", True, metadata)
+    assert values["practitioner_name"] is not None
+    assert metadata["sources"]["practitioner_name"] == RULES
 
 
 def test_exact_entity_names_are_kept(extractor: _Extractor) -> None:

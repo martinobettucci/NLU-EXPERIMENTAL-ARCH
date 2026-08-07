@@ -45,6 +45,8 @@ Le protocole complet est décrit dans
 | A12 | Questions hypothétiques, delta cosinus | proposition d'origine, top 2 puis Needle |
 | A13 | Classifieur puis DIET | la fonction vient d'A9, les arguments de DIET |
 | A14 | Classifieur, DIET, puis règles | idem, arguments manquants complétés par règles |
+| A15 | Arbitrage par argument | source choisie argument par argument sur la validation |
+| A16 | Arbitrage et énumérations apprises | idem, plus un classifieur par argument énuméré |
 
 ## Démarrage
 

@@ -147,6 +147,42 @@ class ClassifierDietRouter(RuleArgumentMixin):
                 values[name] = parameter.enum[-1]
         return values, realigned
 
+    def _diet_arguments(
+        self, definition: ToolDefinition, utterance: str, metadata: dict[str, Any]
+    ) -> dict[str, Any]:
+        """Arguments vus par DIET, l'analyse n'etant demandee que si elle sert."""
+        parsed = self._diet.parsed(utterance)
+        values, realigned = self._from_entities(definition, parsed.get("entities", []))
+        metadata["diet_ms"] = round(float(parsed.get("latency_ms", 0.0)), 3)
+        metadata["diet_intent"] = (parsed.get("intent") or {}).get("name")
+        metadata["realigned"] = realigned
+        return values
+
+    def _compose(
+        self,
+        definition: ToolDefinition,
+        utterance: str,
+        extractable: bool,
+        metadata: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Assemble les arguments. Point de variation entre A13, A14 et A15."""
+        if not definition.executable:
+            return {}
+        if not extractable:
+            # Aucun argument litteral a chercher : la composition s'arrete au
+            # classifieur, DIET n'aurait rien a dire.
+            values, _ = self._from_entities(definition, [])
+            return values
+
+        values = self._diet_arguments(definition, utterance, metadata)
+        if self.fill_with_rules:
+            fallback = self._arguments(definition.name, utterance)
+            for name, value in values.items():
+                if value is None and fallback.get(name) is not None:
+                    values[name] = fallback[name]
+                    metadata["filled_by_rules"] += 1
+        return values
+
     def predict(
         self,
         utterance: str,
@@ -181,28 +217,8 @@ class ClassifierDietRouter(RuleArgumentMixin):
         )
 
         started = time.perf_counter()
-        if not definition.executable:
-            arguments: dict[str, Any] = {}
-            realigned = 0
-        elif not extractable:
-            # Aucun argument litteral a chercher : la composition s'arrete au
-            # classifieur, DIET n'aurait rien a dire.
-            arguments, realigned = self._from_entities(definition, [])
-        else:
-            parsed = self._diet.parsed(utterance)
-            arguments, realigned = self._from_entities(definition, parsed.get("entities", []))
-            metadata["diet_ms"] = round(float(parsed.get("latency_ms", 0.0)), 3)
-            metadata["diet_intent"] = (parsed.get("intent") or {}).get("name")
-
-        if self.fill_with_rules and extractable:
-            fallback = self._arguments(function, utterance)
-            for name, value in arguments.items():
-                if value is None and fallback.get(name) is not None:
-                    arguments[name] = fallback[name]
-                    metadata["filled_by_rules"] += 1
+        arguments = self._compose(definition, utterance, extractable, metadata)
         merge_ms = (time.perf_counter() - started) * 1000.0
-
-        metadata["realigned"] = realigned
         return RouterPrediction(
             tool_name=function,
             arguments=arguments,

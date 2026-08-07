@@ -48,6 +48,10 @@ ARCHITECTURES: tuple[tuple[str, str], ...] = (
     # meme modele. Le classifieur choisit, DIET extrait.
     ("A13", "classifier_diet"),
     ("A14", "classifier_diet_rules"),
+    # Arbitrage par argument, mesure sur la validation, puis apprentissage des
+    # arguments enumeres qu'aucune extraction de texte ne peut atteindre.
+    ("A15", "classifier_diet_arbitrated"),
+    ("A16", "classifier_diet_enum"),
 )
 
 

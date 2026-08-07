@@ -23,12 +23,20 @@ from pathlib import Path
 from typing import Any
 
 
-def _normalise(value: Any) -> str | None:
-    """Meme normalisation que la comparaison d'arguments : casse et espaces."""
+def normalise_argument(value: Any) -> str | None:
+    """Meme normalisation que la comparaison d'arguments : casse et espaces.
+
+    Publique parce qu'une architecture qui arbitre entre deux extracteurs doit
+    juger avec exactement le critere de la mesure, faute de quoi elle
+    optimiserait autre chose que ce qui est publie.
+    """
     if value is None:
         return None
     text = " ".join(str(value).lower().split())
     return text or None
+
+
+_normalise = normalise_argument
 
 
 def is_exact_call(expected: dict[str, Any], predicted: dict[str, Any]) -> bool:
