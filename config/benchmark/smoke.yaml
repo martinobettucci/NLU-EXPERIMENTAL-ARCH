@@ -1,0 +1,19 @@
+# Campagne courte : modeles reels, corpus reduit. Aucun substitut.
+version: 1
+profile: smoke
+hardware: cpu
+
+retrieval:
+  encoder: embeddinggemma_128
+  strategy: kmeans
+  prototypes_per_function: 4
+  top_k_prototypes: 20
+  candidates: 2
+
+scoring:
+  weight_best: 0.55
+  weight_top3: 0.35
+  weight_support: 0.10
+
+seeds: [42]
+batch_size: 16

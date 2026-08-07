@@ -1,0 +1,33 @@
+# Encodeurs comparables (§10.4).
+#
+# Une dimension reduite n'est legitime que si le modele a ete entraine pour
+# (Matryoshka) ou si une projection a ete apprise sur l'entrainement seul. La
+# troncature arbitraire d'un embedding non prevu pour cela est interdite.
+version: 1
+
+encoders:
+  - name: embeddinggemma_768
+    model_id: google/embeddinggemma-300m
+    dimension: 768
+    reduction: native
+  - name: embeddinggemma_256
+    model_id: google/embeddinggemma-300m
+    dimension: 256
+    reduction: matryoshka
+  - name: embeddinggemma_128
+    model_id: google/embeddinggemma-300m
+    dimension: 128
+    reduction: matryoshka
+  # 64 dimensions ne fait pas partie des sorties prevues par le modele : elle
+  # exige une projection apprise, jamais une troncature.
+  - name: embeddinggemma_64_projected
+    model_id: google/embeddinggemma-300m
+    dimension: 64
+    reduction: learned_projection
+    fitted_on: train
+  # Encodeur plus petit et non soumis a licence : il verifie que le cout du
+  # retriever ne depasse pas celui du routeur final.
+  - name: minilm_multilingual_384
+    model_id: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+    dimension: 384
+    reduction: native

@@ -7,13 +7,13 @@ jamais de resultat approximatif ni de valeur de remplacement.
 
 from __future__ import annotations
 
-from typing import NoReturn
+from typing import NoReturn, get_args
 
 import typer
 
 from ivr_bench import __version__
 from ivr_bench.domain.catalog import default_catalog
-from ivr_bench.domain.paths import repo_root
+from ivr_bench.domain.paths import repo_root, results_dir
 from ivr_bench.domain.schemas import export_schemas
 from ivr_bench.domain.validation import OutputValidator
 from ivr_bench.generators.corpus import (
@@ -29,6 +29,7 @@ from ivr_bench.generators.practitioners import (
     generate_practitioners,
     write_catalog,
 )
+from ivr_bench.retrieval.prototypes import PrototypeStrategy
 
 app = typer.Typer(
     name="ivr-bench",
@@ -198,7 +199,41 @@ def index_build(
     config: str = typer.Option("config/benchmark/cpu.yaml", help="Configuration de campagne."),
 ) -> None:
     """Encode les formulations et construit les prototypes."""
-    _pending("M4", "Construction de l'index")
+    import yaml
+
+    from ivr_bench.embeddings.encoders import create_encoder
+    from ivr_bench.retrieval.index import build_index
+
+    settings = yaml.safe_load((repo_root() / config).read_text(encoding="utf-8"))
+    retrieval = settings["retrieval"]
+
+    strategy = retrieval["strategy"]
+    if strategy not in get_args(PrototypeStrategy):
+        typer.secho(
+            f"strategie inconnue : {strategy}. "
+            f"Attendues : {', '.join(get_args(PrototypeStrategy))}.",
+            fg=typer.colors.RED,
+            err=True,
+        )
+        raise typer.Exit(code=2)
+
+    cases = load_split("index")
+    encoder = create_encoder(retrieval["encoder"])
+    typer.echo(f"encodage de {len(cases)} enonces avec {encoder.name} ({encoder.dimension}d)...")
+
+    index = build_index(
+        cases,
+        encoder,
+        strategy=strategy,
+        prototypes_per_function=retrieval["prototypes_per_function"],
+        seed=settings.get("seeds", [42])[0],
+        batch_size=settings.get("batch_size", 32),
+    )
+    directory = results_dir() / "index" / f"{encoder.name}_{retrieval['strategy']}"
+    index.save(directory)
+
+    typer.echo(f"{index.size} prototypes pour {len(index.functions)} fonctions")
+    typer.echo(f"index ecrit dans {directory.relative_to(repo_root())}")
 
 
 @diet_app.command("train")
@@ -289,7 +324,10 @@ def models_download(
     profile: str = typer.Option("full", help="Jeu de poids a recuperer : smoke ou full."),
 ) -> None:
     """Telecharge et met en cache les poids reels."""
-    _pending("M4", "Telechargement des poids")
+    from ivr_bench.embeddings.download import download
+
+    for outcome in download(profile):
+        typer.echo(f"{outcome.status:4} {outcome.model_id}")
 
 
 @app.command()

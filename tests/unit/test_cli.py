@@ -13,7 +13,6 @@ runner = CliRunner()
 # Commandes imposees par le paragraphe 20 de la specification.
 EXPECTED_COMMANDS = [
     ["diet", "train"],
-    ["index", "build"],
     ["benchmark", "text"],
     ["benchmark", "audio"],
     ["benchmark", "e2e"],
@@ -28,6 +27,8 @@ EXPECTED_COMMANDS = [
 # repondre, pas echouer.
 IMPLEMENTED_COMMANDS = [
     ["doctors", "generate"],
+    ["index", "build"],
+    ["models", "download"],
     ["data", "generate"],
     ["data", "validate"],
     ["domain", "show"],

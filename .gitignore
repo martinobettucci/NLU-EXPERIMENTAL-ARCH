@@ -220,3 +220,6 @@ __marimo__/
 # Poids de modeles : recuperes par 'ivr-bench models download', jamais versionnes.
 weights/
 .cache/
+
+# Index semantiques : reconstruits par 'ivr-bench index build', pas versionnes.
+results/index/

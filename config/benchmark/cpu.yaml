@@ -1,0 +1,22 @@
+# Campagne de reference. CPU uniquement : c'est la premisse de l'experience.
+version: 1
+profile: cpu
+hardware: cpu
+
+retrieval:
+  encoder: embeddinggemma_128
+  strategy: kmeans
+  prototypes_per_function: 8
+  top_k_prototypes: 30
+  # Nombre de fonctions transmises au modele d'appel d'outils dans les
+  # architectures hybrides.
+  candidates: 2
+
+scoring:
+  # Ponderations du §11, calibrees sur la validation uniquement.
+  weight_best: 0.55
+  weight_top3: 0.35
+  weight_support: 0.10
+
+seeds: [42]
+batch_size: 32
