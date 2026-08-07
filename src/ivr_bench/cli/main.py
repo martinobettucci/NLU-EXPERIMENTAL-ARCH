@@ -254,9 +254,69 @@ def benchmark_text(
     config: str = typer.Option("config/benchmark/cpu.yaml", help="Configuration de campagne."),
     seed: int = typer.Option(42, help="Graine."),
     seed_count: int = typer.Option(1, help="Nombre de graines consecutives."),
+    per_function: int = typer.Option(
+        0,
+        help="Limite de cas par fonction (0 = tout le corpus). "
+        "Toute restriction est publiee dans le manifeste du run.",
+    ),
 ) -> None:
     """Campagne texte, transcription oracle."""
-    _pending("M6", "Campagne texte")
+    import json
+
+    import yaml
+
+    from ivr_bench.benchmark.runner import run_text_benchmark
+    from ivr_bench.routers import available
+
+    config_file = repo_root() / config
+    settings = yaml.safe_load(config_file.read_text(encoding="utf-8"))
+    retrieval = settings.get("retrieval", {})
+
+    names = list(available()) if architectures == "all" else architectures.split(",")
+    unknown = [name for name in names if name not in available()]
+    if unknown:
+        typer.secho(
+            f"architecture(s) inconnue(s) : {', '.join(unknown)}. "
+            f"Enregistrees : {', '.join(available())}.",
+            fg=typer.colors.RED,
+            err=True,
+        )
+        raise typer.Exit(code=2)
+
+    for name in names:
+        # Seules les architectures a preselection acceptent ces reglages.
+        options = (
+            {
+                "encoder": retrieval["encoder"],
+                "strategy": retrieval["strategy"],
+                "top_k_prototypes": retrieval["top_k_prototypes"],
+            }
+            if name != "rules" and retrieval
+            else {}
+        )
+        if name in {"hybrid_needle_top2"} and "candidates" in retrieval:
+            options["candidates"] = retrieval["candidates"]
+        if name == "hybrid_adaptive":
+            options.pop("candidates", None)
+        if name == "needle_full":
+            options = {}
+
+        typer.echo(f"campagne {name}...")
+        directory = run_text_benchmark(
+            architecture=name,
+            router_options=options,
+            per_function=per_function or None,
+            seed=seed,
+            config_path=config_file,
+            command=f"ivr-bench benchmark text --architectures {name} --seed {seed}",
+        )
+        metrics = json.loads((directory / "metrics.json").read_text(encoding="utf-8"))
+        accuracy = metrics["tool_accuracy"]
+        safety = metrics["emergency_handoff_recall"]
+        typer.echo(
+            f"  tool accuracy {accuracy:.1%} | rappel urgence "
+            f"{safety:.1%} | {directory.relative_to(repo_root())}"
+        )
 
 
 @benchmark_app.command("audio")

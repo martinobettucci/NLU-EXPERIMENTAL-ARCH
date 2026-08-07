@@ -26,10 +26,30 @@ from ivr_bench.domain.paths import weights_dir
 NEEDLE_REPO = "Cactus-Compute/needle"
 
 
+# Fenetre d'encodage par defaut de Needle. Le catalogue complet du domaine pese
+# a lui seul plus que cela : le laisser a sa valeur d'origine tronquerait
+# silencieusement les dernieres fonctions, et A2 serait juge sur un catalogue
+# mutile plutot que sur ses merites.
+#
+# Verification faite avant d'elargir : sur un appel a deux fonctions (431
+# tokens), la sortie est identique a 1024 et a 2048. Elargir la fenetre ne
+# change donc pas le comportement du modele ; cela evite seulement la
+# troncature. Ce qui degrade A2 est le catalogue complet lui-meme, pas ce
+# reglage — et c'est precisement l'effet que la preselection supprime.
+DEFAULT_ENCODER_WINDOW = 1024
+
+# Marge pour l'enonce lui-meme, ajoute aux definitions d'outils.
+_QUERY_HEADROOM = 256
+
+
 @dataclass(frozen=True)
 class NeedleCall:
     raw: str
     latency_ms: float
+    #: Taille reelle de l'entree encodeur, mesuree et publiee : c'est le cout que
+    #: la preselection semantique fait justement baisser.
+    prompt_tokens: int
+    encoder_window: int
 
 
 def tools_payload(tools: list[ToolDefinition]) -> str:
@@ -86,11 +106,25 @@ def warmup() -> float:
     return (time.perf_counter() - started) * 1000.0
 
 
+def count_tokens(text: str) -> int:
+    """Longueur en tokens, telle que le modele la verra."""
+    _, _, tokenizer = _loaded()
+    return len(tokenizer.encode(text))
+
+
 def call(query: str, tools_json: str, max_gen_len: int = 128) -> NeedleCall:
     """Un appel d'outil, sur l'enonce original."""
     from needle import generate
 
     model, params, tokenizer = _loaded()
+    prompt_tokens = len(tokenizer.encode(tools_json)) + len(tokenizer.encode(query))
+    # La fenetre s'adapte a ce qu'on transmet reellement. Une troncature
+    # silencieuse ferait passer une limite de contexte pour une erreur de
+    # jugement du modele.
+    window = DEFAULT_ENCODER_WINDOW
+    while window < prompt_tokens + _QUERY_HEADROOM:
+        window *= 2
+
     started = time.perf_counter()
     raw = generate(
         model,
@@ -99,9 +133,12 @@ def call(query: str, tools_json: str, max_gen_len: int = 128) -> NeedleCall:
         query=query,
         tools=tools_json,
         max_gen_len=max_gen_len,
+        max_enc_len=window,
         stream=False,
     )
     return NeedleCall(
         raw=raw if isinstance(raw, str) else json.dumps(raw, ensure_ascii=False),
         latency_ms=(time.perf_counter() - started) * 1000.0,
+        prompt_tokens=prompt_tokens,
+        encoder_window=window,
     )

@@ -10,6 +10,7 @@ du §27.9, pas le comportement par defaut.
 
 from __future__ import annotations
 
+import json
 import time
 from typing import Any
 
@@ -19,6 +20,27 @@ from ivr_bench.domain.validation import OutputValidator
 from ivr_bench.routers.hybrid.backbone import RetrievalBackbone
 from ivr_bench.routers.needle import runtime
 from ivr_bench.routers.registry import register
+
+
+def _unwrap(raw: str) -> str:
+    """Deballe l'enveloppe de sortie documentee de Needle.
+
+    Le modele renvoie une liste d'appels : c'est son format officiel, pas une
+    sortie malformee. Extraire l'appel unique releve donc de l'adaptateur, pas
+    de la reparation du §24 — sans cela, chaque sortie correcte serait
+    comptabilisee comme « reparee » et le taux de validite native du modele
+    serait artificiellement nul.
+    """
+    text = raw.strip()
+    if not text.startswith("["):
+        return raw
+    try:
+        calls = json.loads(text)
+    except json.JSONDecodeError:
+        return raw
+    if isinstance(calls, list) and len(calls) == 1:
+        return json.dumps(calls[0], ensure_ascii=False)
+    return raw
 
 
 class NeedleRouter:
@@ -39,7 +61,7 @@ class NeedleRouter:
     ) -> RouterPrediction:
         started = time.perf_counter()
         selection = tools or list(self._catalog.functions)
-        outcome, raw, call_ms = self._call(utterance, selection)
+        outcome, raw, result = self._call(utterance, selection)
         return RouterPrediction(
             tool_name=outcome.tool_name if outcome.is_usable else None,
             arguments=outcome.arguments if outcome.is_usable else {},
@@ -49,7 +71,9 @@ class NeedleRouter:
             metadata={
                 "router": self.name,
                 "tools_offered": len(selection),
-                "decode_ms": round(call_ms, 2),
+                "decode_ms": round(result.latency_ms, 2),
+                "prompt_tokens": result.prompt_tokens,
+                "encoder_window": result.encoder_window,
                 # La validite est publiee separement des resultats principaux :
                 # une sortie reparee n'est pas une sortie native (§24).
                 "validity": outcome.validity,
@@ -57,11 +81,13 @@ class NeedleRouter:
             },
         )
 
-    def _call(self, utterance: str, tools: list[ToolDefinition]) -> tuple[Any, str, float]:
+    def _call(
+        self, utterance: str, tools: list[ToolDefinition]
+    ) -> tuple[Any, str, runtime.NeedleCall]:
         payload = runtime.tools_payload(tools)
         result = runtime.call(utterance, payload, max_gen_len=self._max_gen_len)
-        outcome = self._validator.validate(result.raw)
-        return outcome, result.raw, result.latency_ms
+        outcome = self._validator.validate(_unwrap(result.raw))
+        return outcome, result.raw, result
 
 
 class HybridNeedleRouter(NeedleRouter):
@@ -95,7 +121,7 @@ class HybridNeedleRouter(NeedleRouter):
         shortlist = self._shortlist(ordered, retrieval.ranking.uncertainty)
 
         selection = list(self._catalog.subset(shortlist))
-        outcome, raw, call_ms = self._call(utterance, selection)
+        outcome, raw, result = self._call(utterance, selection)
 
         uncertainty = retrieval.ranking.uncertainty
         return RouterPrediction(
@@ -114,7 +140,9 @@ class HybridNeedleRouter(NeedleRouter):
                 "tools_offered": len(selection),
                 "encode_ms": round(retrieval.encode_ms, 3),
                 "search_ms": round(retrieval.search_ms, 3),
-                "decode_ms": round(call_ms, 2),
+                "decode_ms": round(result.latency_ms, 2),
+                "prompt_tokens": result.prompt_tokens,
+                "encoder_window": result.encoder_window,
                 "validity": outcome.validity,
                 "repairs": list(outcome.repairs),
                 "margin": round(uncertainty.margin, 4),
