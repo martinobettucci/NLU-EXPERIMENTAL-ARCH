@@ -98,6 +98,13 @@ def _milliseconds(value: float | None) -> str:
     return NOT_RUN if value is None else f"{value:.0f} ms"
 
 
+def _startup(value: float | None) -> str:
+    """Cout de demarrage, en secondes : des millisecondes n'y ont aucun sens."""
+    if value is None:
+        return NOT_RUN
+    return "0 s" if value < 50 else f"{value / 1000:.0f} s"
+
+
 def render(summaries: dict[str, RunSummary]) -> str:
     """Construit la zone generee, cellule par cellule."""
     lines: list[str] = []
@@ -126,14 +133,14 @@ def render(summaries: dict[str, RunSummary]) -> str:
 
     lines.append(
         "| Architecture | Appel exact | Tool accuracy | Macro F1 | Rappel urgence "
-        "| Rappel no_tool | Argument EM | Hallucination | p95 | Cas |"
+        "| Rappel no_tool | Argument EM | Hallucination | p95 | Démarrage | Cas |"
     )
-    lines.append("|---|---|---|---|---|---|---|---|---|---|")
+    lines.append("|---|---|---|---|---|---|---|---|---|---|---|")
 
     for identifier, name in ARCHITECTURES:
         summary = summaries.get(name)
         if summary is None:
-            cells = [NOT_RUN] * 8
+            cells = [NOT_RUN] * 9
         else:
             metrics = summary.metrics
             cells = [
@@ -145,6 +152,7 @@ def render(summaries: dict[str, RunSummary]) -> str:
                 _percent(metrics.get("argument_exact_match")),
                 _percent(metrics.get("hallucinated_argument_rate")),
                 _milliseconds((metrics.get("latency_ms") or {}).get("p95")),
+                _startup(metrics.get("warmup_ms")),
             ]
             coverage = metrics.get("coverage", {})
             evaluated = coverage.get("evaluated")
@@ -156,7 +164,7 @@ def render(summaries: dict[str, RunSummary]) -> str:
                 if coverage.get("restricted")
                 else str(evaluated or NOT_RUN)
             )
-        if len(cells) == 8:
+        if len(cells) == 9:
             cells.append(NOT_RUN)
         lines.append(f"| {identifier} {name} | " + " | ".join(cells) + " |")
 
@@ -164,6 +172,13 @@ def render(summaries: dict[str, RunSummary]) -> str:
     lines.append(
         "Une cellule `non exécuté` signifie exactement cela : la mesure n'a pas été "
         "faite. Elle ne vaut pas zéro."
+    )
+    lines.append("")
+    lines.append(
+        "**Démarrage** : le premier appel charge les poids et compile ; ce coût est "
+        "mesuré hors chronomètre et publié à part, parce qu'il décide si une "
+        "architecture supporte une machine qui redémarre souvent. Il ne figure dans "
+        "aucune colonne de latence."
     )
     lines.append("")
     lines.append(

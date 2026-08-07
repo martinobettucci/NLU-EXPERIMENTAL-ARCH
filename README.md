@@ -82,30 +82,32 @@ reste avant tout un projet expérimental.
 
 <!-- BENCHMARK_RESULTS_START -->
 
-_Dernière campagne le 2026-08-07T11:35:53+00:00 — x86_64, 4 fils, 15.7 Go, accélérateur : aucun (comparaison CPU par construction). Les 17 lignes proviennent de campagnes distinctes, réparties sur 10 commits ; chacune est tracée dans `results/runs/`._
+_Dernière campagne le 2026-08-07T13:40:58+00:00 — x86_64, 4 fils, 15.7 Go, accélérateur : aucun (comparaison CPU par construction). Les 17 lignes proviennent de campagnes distinctes, réparties sur 3 commits ; chacune est tracée dans `results/runs/`._
 
-| Architecture | Appel exact | Tool accuracy | Macro F1 | Rappel urgence | Rappel no_tool | Argument EM | Hallucination | p95 | Cas |
-|---|---|---|---|---|---|---|---|---|---|
-| A0 rules | 46.3% | 62.4% | 63.7% | 35.3% | 100.0% | 84.4% | 0.0% | 0 ms | 2088 |
-| A1 diet | 27.4% | 65.9% | 62.0% | 80.7% | 14.7% | 76.3% | 0.6% | 18 ms | 2088 |
-| A2 needle_full | 0.0% | 11.9% | 4.1% | 0.0% | 0.0% | 58.0% | 8.0% | 8841 ms | 84 / 2088 |
-| A3 functiongemma_zero_shot | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | non exécuté | non exécuté | 2812 ms | 84 / 2088 |
-| A4 functiongemma_tuned | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
-| A5 embedding_only | 30.3% | 68.1% | 64.6% | 95.3% | 10.7% | 74.0% | 0.0% | 989 ms | 2088 |
-| A6 hybrid_needle_top2 | 3.6% | 20.2% | 19.5% | 0.0% | 25.0% | 53.0% | 15.2% | 9088 ms | 84 / 2088 |
-| A7 hybrid_functiongemma_top2 | 1.2% | 19.0% | 22.5% | 0.0% | 0.0% | 18.1% | 47.2% | 2926 ms | 84 / 2088 |
-| A8 hybrid_adaptive | 3.6% | 19.0% | 16.0% | 0.0% | 25.0% | 50.8% | 14.3% | 5834 ms | 84 / 2088 |
-| A9 embedding_classifier | 34.0% | 75.6% | 74.6% | 99.3% | 44.0% | 73.7% | 0.0% | 137 ms | 2088 |
-| A10 lexical_classifier | 21.6% | 50.4% | 44.7% | 24.7% | 5.0% | 77.8% | 0.0% | 1 ms | 2088 |
-| A11 nearest_neighbour | 33.4% | 74.9% | 72.4% | 90.7% | 20.0% | 74.1% | 0.0% | 90 ms | 2088 |
-| A12 hypothetical_delta_top2 | 3.6% | 19.0% | 18.4% | 0.0% | 25.0% | 55.7% | 13.1% | 8899 ms | 84 / 2088 |
-| A13 classifier_diet | 29.7% | 75.6% | 74.6% | 99.3% | 44.0% | 72.8% | 0.8% | 146 ms | 2088 |
-| A14 classifier_diet_rules | 31.8% | 75.6% | 74.6% | 99.3% | 44.0% | 75.3% | 0.8% | 157 ms | 2088 |
-| A15 classifier_diet_arbitrated | 32.2% | 75.6% | 74.6% | 99.3% | 44.0% | 75.5% | 0.8% | 156 ms | 2088 |
-| A16 classifier_diet_enum | 40.1% | 75.6% | 74.6% | 99.3% | 44.0% | 79.7% | 0.8% | 147 ms | 2088 |
-| A17 classifier_enum | 41.9% | 75.6% | 74.6% | 99.3% | 44.0% | 77.8% | 0.0% | 136 ms | 2088 |
+| Architecture | Appel exact | Tool accuracy | Macro F1 | Rappel urgence | Rappel no_tool | Argument EM | Hallucination | p95 | Démarrage | Cas |
+|---|---|---|---|---|---|---|---|---|---|---|
+| A0 rules | 46.3% | 62.4% | 63.7% | 35.3% | 100.0% | 84.4% | 0.0% | 0 ms | 0 s | 2088 |
+| A1 diet | 27.4% | 65.9% | 62.0% | 80.7% | 14.7% | 76.3% | 0.6% | 29 ms | 0 s | 2088 |
+| A2 needle_full | 0.0% | 11.9% | 4.1% | 0.0% | 0.0% | 58.0% | 8.0% | 7979 ms | 11 s | 84 / 2088 |
+| A3 functiongemma_zero_shot | 0.0% | 0.0% | 0.0% | 0.0% | 0.0% | non exécuté | non exécuté | 5264 ms | 21 s | 84 / 2088 |
+| A4 functiongemma_tuned | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
+| A5 embedding_only | 30.3% | 68.1% | 64.6% | 95.3% | 10.7% | 74.0% | 0.0% | 128 ms | 15 s | 2088 |
+| A6 hybrid_needle_top2 | 3.6% | 20.2% | 19.5% | 0.0% | 25.0% | 53.0% | 15.2% | 8125 ms | 26 s | 84 / 2088 |
+| A7 hybrid_functiongemma_top2 | 1.2% | 19.0% | 22.5% | 0.0% | 0.0% | 18.1% | 47.2% | 4780 ms | 29 s | 84 / 2088 |
+| A8 hybrid_adaptive | 3.6% | 19.0% | 16.0% | 0.0% | 25.0% | 50.8% | 14.3% | 7832 ms | 26 s | 84 / 2088 |
+| A9 embedding_classifier | 34.0% | 75.6% | 74.6% | 99.3% | 44.0% | 73.7% | 0.0% | 133 ms | 15 s | 2088 |
+| A10 lexical_classifier | 21.6% | 50.4% | 44.7% | 24.7% | 5.0% | 77.8% | 0.0% | 1 ms | 0 s | 2088 |
+| A11 nearest_neighbour | 33.4% | 74.9% | 72.4% | 90.7% | 20.0% | 74.1% | 0.0% | 129 ms | 10 s | 2088 |
+| A12 hypothetical_delta_top2 | 3.6% | 19.0% | 18.4% | 0.0% | 25.0% | 55.7% | 13.1% | 8096 ms | 23 s | 84 / 2088 |
+| A13 classifier_diet | 29.7% | 75.6% | 74.6% | 99.3% | 44.0% | 72.8% | 0.8% | 149 ms | 12 s | 2088 |
+| A14 classifier_diet_rules | 31.8% | 75.6% | 74.6% | 99.3% | 44.0% | 75.3% | 0.8% | 145 ms | 19 s | 2088 |
+| A15 classifier_diet_arbitrated | 32.2% | 75.6% | 74.6% | 99.3% | 44.0% | 75.5% | 0.8% | 152 ms | 26 s | 2088 |
+| A16 classifier_diet_enum | 40.1% | 75.6% | 74.6% | 99.3% | 44.0% | 79.7% | 0.8% | 147 ms | 7 s | 2088 |
+| A17 classifier_enum | 41.9% | 75.6% | 74.6% | 99.3% | 44.0% | 77.8% | 0.0% | 142 ms | 15 s | 2088 |
 
 Une cellule `non exécuté` signifie exactement cela : la mesure n'a pas été faite. Elle ne vaut pas zéro.
+
+**Démarrage** : le premier appel charge les poids et compile ; ce coût est mesuré hors chronomètre et publié à part, parce qu'il décide si une architecture supporte une machine qui redémarre souvent. Il ne figure dans aucune colonne de latence.
 
 **Appel exact** : la fonction et *tous* ses arguments sont corrects, compté sur l'ensemble du corpus. C'est ce qu'un serveur vocal peut exécuter sans reposer de question. **Argument EM** se compte clé par clé et seulement sur les cas où la fonction est correcte, donc sur un sous-ensemble différent pour chaque architecture : les deux colonnes ne classent pas dans le même ordre.
 
