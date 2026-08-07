@@ -1,0 +1,9 @@
+{
+  "0": "answer_general_information",
+  "1": "emergency_handoff",
+  "2": "human_handoff",
+  "3": "list_appointments",
+  "4": "no_tool",
+  "5": "request_appointment_reschedule",
+  "6": "request_new_appointment"
+}

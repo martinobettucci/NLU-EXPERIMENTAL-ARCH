@@ -11,7 +11,9 @@ from __future__ import annotations
 
 import contextlib
 import json
+import os
 import subprocess
+import tempfile
 import time
 from pathlib import Path
 from typing import Any
@@ -24,9 +26,17 @@ from ivr_bench.routers.registry import register
 
 SIDECAR_PYTHON = ".venv-diet/bin/python"
 
+# Prefixe du protocole, identique cote sidecar : toute ligne qui ne le porte pas
+# est une trace de Rasa, pas une reponse.
+RESPONSE_PREFIX = "@@DIET@@ "
+
 
 def sidecar_python() -> Path:
     return repo_root() / SIDECAR_PYTHON
+
+
+def sidecar_script() -> Path:
+    return Path(__file__).resolve().parent / "sidecar" / "serve.py"
 
 
 def latest_model() -> Path:
@@ -52,17 +62,23 @@ class DietRouter:
             )
 
         model = Path(model_path) if model_path else latest_model()
+        # Le script est lance par CHEMIN, pas comme module du paquet. L'importer
+        # en tant que `ivr_bench.routers.diet.sidecar.serve` declencherait le
+        # `__init__` du paquet, donc l'import de tous les routeurs et de leurs
+        # dependances — pydantic, numpy, torch — qui n'existent pas dans
+        # l'environnement du sidecar.
+        # La sortie d'erreur part dans un FICHIER, jamais dans un tuyau. Rasa
+        # journalise abondamment ; un tuyau que personne ne vide se remplit au
+        # bout de quelques dizaines de kilo-octets et le sidecar se bloque en
+        # ecriture, sans jamais repondre. La masquer serait pire encore : c'est
+        # ainsi qu'un import manquant s'etait presente comme un « silence ».
+        self._log_path = Path(tempfile.gettempdir()) / f"diet-sidecar-{os.getpid()}.log"
+        self._log = self._log_path.open("w")
         self._process = subprocess.Popen(
-            [
-                str(interpreter),
-                "-m",
-                "ivr_bench.routers.diet.sidecar.serve",
-                str(model),
-            ],
-            cwd=repo_root() / "src",
+            [str(interpreter), str(sidecar_script()), str(model)],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL,
+            stderr=self._log,
             text=True,
             bufsize=1,
         )
@@ -70,9 +86,16 @@ class DietRouter:
 
         # Le chargement du modele prend plusieurs dizaines de secondes : on
         # attend le signal de disponibilite avant toute mesure de latence.
-        ready = self._process.stdout.readline() if self._process.stdout else ""
+        ready = self._read_response(default="")
         if '"ready"' not in ready:
-            raise RuntimeError(f"le sidecar DIET n'a pas demarre : {ready.strip() or 'silence'}")
+            self._process.kill()
+            self._log.flush()
+            details = self._log_path.read_text(encoding="utf-8", errors="replace")[-800:].strip()
+            raise RuntimeError(
+                "le sidecar DIET n'a pas demarre.\n"
+                f"sortie : {ready.strip() or '(vide)'}\n"
+                f"erreur : {details or '(vide)'}"
+            )
 
     def predict(
         self,
@@ -106,13 +129,26 @@ class DietRouter:
             raise RuntimeError("sidecar DIET indisponible")
         self._process.stdin.write(json.dumps({"text": utterance}) + "\n")
         self._process.stdin.flush()
-        line = self._process.stdout.readline()
-        if not line:
-            raise RuntimeError("le sidecar DIET s'est arrete")
+        line = self._read_response()
         parsed: dict[str, Any] = json.loads(line)
         return parsed
 
+    def _read_response(self, default: str | None = None) -> str:
+        """Lit la prochaine ligne de protocole, en ignorant les traces de Rasa."""
+        if self._process.stdout is None:
+            raise RuntimeError("sidecar DIET indisponible")
+        while True:
+            line = self._process.stdout.readline()
+            if not line:
+                if default is not None:
+                    return default
+                raise RuntimeError("le sidecar DIET s'est arrete")
+            if line.startswith(RESPONSE_PREFIX):
+                return str(line[len(RESPONSE_PREFIX) :])
+
     def close(self) -> None:
+        with contextlib.suppress(Exception):
+            self._log.close()
         if self._process.poll() is None and self._process.stdin is not None:
             self._process.stdin.write(json.dumps({"stop": True}) + "\n")
             self._process.stdin.flush()
