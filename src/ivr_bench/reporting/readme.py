@@ -107,11 +107,18 @@ def render(summaries: dict[str, RunSummary]) -> str:
             "la main._\n"
         )
     else:
-        reference = next(iter(published)).environment
+        # Le run le plus recent sert de reference d'entete. Les lignes viennent
+        # de campagnes distinctes : afficher le commit de la premiere laisserait
+        # croire que tout le tableau a ete mesure d'un coup.
+        reference = max(published, key=lambda s: str(s.environment["timestamp"])).environment
+        commits = {s.environment["git_commit"][:12] for s in published}
         lines.append(
-            f"_Généré le {reference['timestamp']} — commit `{reference['git_commit'][:12]}` — "
+            f"_Dernière campagne le {reference['timestamp']} — "
             f"{reference['cpu']}, {reference['cpu_threads']} fils, "
-            f"{reference['ram_gb']} Go, accélérateur : {reference['gpu']}._\n"
+            f"{reference['ram_gb']} Go, accélérateur : {reference['gpu']}. "
+            f"Les {len(published)} lignes proviennent de campagnes distinctes, "
+            f"réparties sur {len(commits)} commits ; chacune est tracée dans "
+            f"`results/runs/`._\n"
         )
 
     lines.append(

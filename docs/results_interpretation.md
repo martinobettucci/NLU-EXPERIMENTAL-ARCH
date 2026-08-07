@@ -1,5 +1,74 @@
 # Lecture des résultats
 
+## Deux colonnes, deux classements
+
+**Appel exact** compte les énoncés dont la fonction *et* tous les arguments sont corrects, sur
+l'ensemble du corpus. **Argument EM** compte clé par clé, et seulement sur les cas où la
+fonction est correcte — donc sur un sous-ensemble différent pour chaque architecture.
+
+Les deux ne classent pas pareil, et l'écart est instructif : A14 gagne 1,6 point d'Argument EM
+sur A9 et lui perd 2,2 points d'appel exact. Une moyenne par clé absorbe une erreur qu'un
+appelant subit en entier. C'est aussi pourquoi les 84,4 % d'Argument EM de la baseline de
+règles ne signifient pas qu'elle extrait mieux : ils portent sur les 62,4 % de cas les plus
+simples, ceux qu'elle est la seule à ne pas manquer.
+
+## Séparer le choix de la fonction et l'extraction des arguments
+
+A13 à A16 confient la fonction au classifieur d'A9 et les arguments à DIET. Comme le
+classifieur est identique, ces architectures prédisent **exactement les mêmes fonctions** que
+A9 : l'écart mesuré porte sur l'extraction et sur rien d'autre. C'est la seule comparaison
+d'extracteurs du dépôt qui soit appariée.
+
+Argument par argument, sur les cas où la fonction est correcte :
+
+| argument | n | règles | DIET |
+|---|---|---|---|
+| practitioner_name | 716 | 75,4 % | **93,3 %** |
+| preferred_time | 292 | 69,2 % | **77,1 %** |
+| preferred_new_time | 269 | 21,6 % | **31,2 %** |
+| preferred_date | 292 | **81,8 %** | 43,8 % |
+| preferred_new_date | 269 | **94,8 %** | 74,3 % |
+| date_from | 155 | **88,4 %** | 68,4 % |
+| specialty | 292 | **100 %** | 96,9 % |
+
+DIET lit les noms propres nettement mieux que les règles, et les règles lisent les dates
+nettement mieux que DIET. Prendre une source en bloc — c'est ce que font A13 et A14 — laisse
+donc de la précision des deux côtés, et aucune des deux ne dépasse le classifieur seul sur
+l'appel exact.
+
+## L'arbitrage transfère mal, et c'est le dispositif anti-fuite qui le dit
+
+A15 choisit la source argument par argument, d'après ce qu'il mesure sur la **validation**.
+Le gain est réel mais faible (32,2 % contre 31,8 % pour A14), parce que la validation ne dit
+pas la même chose que le test : sur `preferred_date` l'arbitrage retient DIET, alors que le
+test donne les règles gagnantes de 38 points.
+
+Ce n'est pas un défaut de l'arbitrage, c'est le §10.3 qui produit son effet. Validation et test
+viennent de deux familles de gabarits disjointes : ce qu'on calibre sur l'une ne se transporte
+pas automatiquement sur l'autre. Un dépôt qui aurait tiré ses deux jeux du même générateur
+aurait vu l'arbitrage « marcher » — et aurait mesuré sa propre fuite.
+
+## Le plus gros levier n'était pas dans l'hybridation
+
+`topic` compte quatorze valeurs possibles et environ trois cents cas. L'extracteur partagé par
+A0, A5, A9, A10 et A11 y répond toujours `other`, et DIET ne peut pas mieux faire : un argument
+énuméré n'apparaît pas littéralement dans la phrase, il n'y a donc aucun segment à annoter.
+Résultat : **0 %** pour tout le monde, sur 11 % du corpus.
+
+A16 entraîne un petit classifieur lexical par argument énuméré, sur `train`, le même corpus que
+tout le monde. Le résultat est le plus grand écart mesuré dans ce dépôt :
+
+| argument | A15 | A16 |
+|---|---|---|
+| reason | 86,7 % | 99,2 % |
+| reason_category | 33,2 % | 48,0 % |
+| topic | 0 % | 26,1 % |
+
+L'appel exact passe de 32,2 % à **40,1 %**, soit 6,1 points au-dessus du classifieur seul, pour
+148 ms au p95. La leçon n'est pas « l'hybridation fonctionne » : elle est qu'un argument dont
+la valeur ne figure pas dans la phrase relève d'une classification, pas d'une extraction, et
+qu'aucune combinaison de deux extracteurs ne pouvait le trouver.
+
 ## Ce que le tableau principal ne dit pas
 
 Une exactitude de fonction élevée ne suffit pas. Un système qui choisit la bonne fonction mais
@@ -15,6 +84,14 @@ de clarification.
 Les latences Needle sont mesurées avec le runtime JAX sur CPU, pas avec le runtime natif de
 Cactus, qui n'est pas distribué pour cette plateforme. Le chiffre publié est donc un plancher
 pessimiste et n'est pas comparable aux débits annoncés par l'auteur du modèle.
+
+Les lignes du tableau viennent de campagnes lancées à des heures différentes, et la machine
+n'est pas également chargée d'une heure à l'autre : le même classifieur a mesuré 64 ms puis
+95 ms de médiane à quelques heures d'écart, sans qu'une ligne de son code ait changé. Chaque
+run enregistre la charge relevée avant et après (`machine_load` dans `metrics.json`), et les
+campagnes sont sérialisées par un verrou exclusif. Les comparaisons de latence n'ont de sens
+qu'entre architectures mesurées à la suite : c'est le cas d'A9, A13, A14, A15 et A16, lancées
+dans cet ordre sans rien d'autre sur la machine.
 
 ## Cellules `non exécuté`
 
