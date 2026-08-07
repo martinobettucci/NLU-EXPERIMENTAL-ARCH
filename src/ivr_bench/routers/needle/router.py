@@ -208,16 +208,10 @@ class AdaptiveHybridRouter(HybridNeedleRouter):
         return [name for name, _ in ordered[:2]]
 
 
-@register("needle_full")
-def _create_needle_router(**kwargs: Any) -> NeedleRouter:
-    return NeedleRouter(**kwargs)
+register("needle_full")(NeedleRouter)
 
 
-@register("hybrid_needle_top2")
-def _create_hybrid_needle_router(**kwargs: Any) -> HybridNeedleRouter:
-    return HybridNeedleRouter(**kwargs)
+register("hybrid_needle_top2")(HybridNeedleRouter)
 
 
-@register("hybrid_adaptive")
-def _create_adaptive_router(**kwargs: Any) -> AdaptiveHybridRouter:
-    return AdaptiveHybridRouter(**kwargs)
+register("hybrid_adaptive")(AdaptiveHybridRouter)

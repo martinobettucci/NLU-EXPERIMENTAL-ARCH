@@ -121,6 +121,4 @@ class EmbeddingOnlyRouter:
         return values
 
 
-@register("embedding_only")
-def _create_embedding_only_router(**kwargs: Any) -> EmbeddingOnlyRouter:
-    return EmbeddingOnlyRouter(**kwargs)
+register("embedding_only")(EmbeddingOnlyRouter)

@@ -126,11 +126,7 @@ class HybridFunctionGemmaRouter(FunctionGemmaRouter):
         )
 
 
-@register("functiongemma_zero_shot")
-def _create_functiongemma_router(**kwargs: Any) -> FunctionGemmaRouter:
-    return FunctionGemmaRouter(**kwargs)
+register("functiongemma_zero_shot")(FunctionGemmaRouter)
 
 
-@register("hybrid_functiongemma_top2")
-def _create_hybrid_functiongemma_router(**kwargs: Any) -> HybridFunctionGemmaRouter:
-    return HybridFunctionGemmaRouter(**kwargs)
+register("hybrid_functiongemma_top2")(HybridFunctionGemmaRouter)

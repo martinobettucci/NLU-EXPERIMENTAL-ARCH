@@ -283,24 +283,15 @@ def benchmark_text(
         )
         raise typer.Exit(code=2)
 
-    for name in names:
-        # Seules les architectures a preselection acceptent ces reglages.
-        options = (
-            {
-                "encoder": retrieval["encoder"],
-                "strategy": retrieval["strategy"],
-                "top_k_prototypes": retrieval["top_k_prototypes"],
-            }
-            if name != "rules" and retrieval
-            else {}
-        )
-        if name in {"hybrid_needle_top2"} and "candidates" in retrieval:
-            options["candidates"] = retrieval["candidates"]
-        if name == "hybrid_adaptive":
-            options.pop("candidates", None)
-        if name == "needle_full":
-            options = {}
+    # Toutes les options sont proposees ; le registre ne transmet a chaque
+    # architecture que celles que sa signature accepte.
+    options = {
+        key: retrieval[key]
+        for key in ("encoder", "strategy", "top_k_prototypes", "candidates")
+        if key in retrieval
+    }
 
+    for name in names:
         typer.echo(f"campagne {name}...")
         directory = run_text_benchmark(
             architecture=name,

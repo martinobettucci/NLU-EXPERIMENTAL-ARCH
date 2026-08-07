@@ -10,13 +10,14 @@ from ivr_bench.cli.main import app
 
 runner = CliRunner()
 
-# Commandes imposees par le paragraphe 20 de la specification.
+# Commandes du paragraphe 20 dont l'etape n'est pas encore implementee : elles
+# doivent echouer franchement. Une commande implementee ne figure pas ici, sinon
+# le test la lancerait pour de bon — « benchmark text » declencherait une
+# campagne complete au milieu de la suite unitaire.
 EXPECTED_COMMANDS = [
     ["diet", "train"],
-    ["benchmark", "text"],
     ["benchmark", "audio"],
     ["benchmark", "e2e"],
-    ["benchmark", "all"],
     ["report", "build"],
     ["reproduce"],
 ]
@@ -25,6 +26,8 @@ EXPECTED_COMMANDS = [
 # Commandes deja implementees : elles doivent apparaitre dans l'arbre et
 # repondre, pas echouer.
 IMPLEMENTED_COMMANDS = [
+    ["benchmark", "text"],
+    ["benchmark", "all"],
     ["readme", "update"],
     ["readme", "check"],
     ["doctors", "generate"],

@@ -216,6 +216,4 @@ class RulesRouter:
         return "no_tool", {}
 
 
-@register("rules")
-def _create_rules_router() -> RulesRouter:
-    return RulesRouter()
+register("rules")(RulesRouter)

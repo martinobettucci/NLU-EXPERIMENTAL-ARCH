@@ -8,6 +8,7 @@ d'acceptation 14 de la specification.
 
 from __future__ import annotations
 
+import inspect
 from collections.abc import Callable, Mapping
 from typing import Any
 
@@ -36,13 +37,30 @@ def available() -> tuple[str, ...]:
 
 
 def create(name: str, **kwargs: Any) -> Router:
-    """Instancie une architecture par son nom."""
+    """Instancie une architecture par son nom.
+
+    Les options de configuration sont filtrees sur la signature de la fabrique :
+    une campagne peut passer les reglages du retriever a toutes les
+    architectures sans que celles qui n'en ont pas l'usage n'echouent. C'est ce
+    qui evite d'enumerer dans l'appelant quelle architecture accepte quoi — une
+    liste qui devient fausse des qu'on en ajoute une.
+    """
     try:
         factory = _REGISTRY[name]
     except KeyError:
         known = ", ".join(available()) or "aucune"
         raise KeyError(f"architecture inconnue : {name}. Enregistrees : {known}") from None
-    return factory(**kwargs)
+
+    parameters = inspect.signature(factory).parameters
+    accepts_everything = any(
+        parameter.kind is inspect.Parameter.VAR_KEYWORD for parameter in parameters.values()
+    )
+    accepted = (
+        kwargs
+        if accepts_everything
+        else {key: value for key, value in kwargs.items() if key in parameters}
+    )
+    return factory(**accepted)
 
 
 def registry() -> Mapping[str, RouterFactory]:
