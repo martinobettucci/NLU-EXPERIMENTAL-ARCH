@@ -227,3 +227,5 @@ results/index/
 # results/runs/ EST versionne. Le README affirme que chaque chiffre publie se
 # retrace jusqu'a un run ; sur une machine ephemere, un run non commite disparait
 # avec la machine et l'affirmation devient fausse. Le cout est de quelques Mo.
+# Le verrou de campagne, lui, decrit l'etat d'une machine, pas un resultat.
+results/runs/.campaign.lock

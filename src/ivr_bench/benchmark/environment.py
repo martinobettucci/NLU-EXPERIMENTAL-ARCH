@@ -36,6 +36,19 @@ def _git(*arguments: str) -> str:
         return ""
 
 
+def working_tree_is_modified() -> bool:
+    """Le depot porte-t-il des modifications non commitees ?
+
+    Les resultats sont exclus du constat. Depuis qu'ils sont versionnes, une
+    campagne salit l'arbre en ecrivant son propre run : sans cette exclusion,
+    la premiere campagne d'une serie rendrait toutes les suivantes
+    « irreproductibles » alors que rien du code mesure n'aurait bouge. Ce que le
+    drapeau doit dire est precis — le code execute n'est pas celui du commit —
+    et un fichier de resultats ne change pas le code execute.
+    """
+    return bool(_git("status", "--porcelain", "--", ":!results/runs"))
+
+
 def _dependency_versions() -> dict[str, str]:
     from importlib.metadata import PackageNotFoundError, version
 
@@ -105,7 +118,7 @@ def capture(
     models: dict[str, str] | None = None,
 ) -> RunEnvironment:
     """Photographie l'environnement au demarrage d'une campagne."""
-    dirty = bool(_git("status", "--porcelain"))
+    dirty = working_tree_is_modified()
     config_hash = file_digest(config_path) if config_path and config_path.is_file() else ""
 
     hashes: dict[str, str] = {}
