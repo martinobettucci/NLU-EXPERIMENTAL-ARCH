@@ -229,3 +229,6 @@ results/index/
 # avec la machine et l'affirmation devient fausse. Le cout est de quelques Mo.
 # Le verrou de campagne, lui, decrit l'etat d'une machine, pas un resultat.
 results/runs/.campaign.lock
+
+# Journal de rejeu, regenere a chaque campagne.
+results/remeasure.log
