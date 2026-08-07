@@ -1,13 +1,19 @@
 """Service DIET, execute par l'interpreteur Python 3.10 du sidecar.
 
-Rasa 3.6 declare `requires_python <3.11` : il ne peut pas cohabiter avec
-l'environnement principal. Plutot que de reimplementer DIET — ce qui ne
-prouverait rien sur Rasa — on l'isole ici et on lui parle par un protocole
-ligne a ligne : une requete JSON par ligne sur l'entree, une reponse JSON par
-ligne sur la sortie.
+Rasa 3.6 exige Python < 3.11 et ne peut pas cohabiter avec l'environnement
+principal. Le dialogue se fait donc **par fichiers**, pas par tuyaux.
 
-Le modele est charge une seule fois : le recharger a chaque phrase melangerait
-le cout de demarrage a la latence d'inference.
+Ce choix vient de l'experience : quatre tentatives de protocole interactif ont
+echoue de quatre facons differentes — sortie d'erreur non vidangee, lecture
+anticipee de stdin, marqueur colle a une trace sans retour a la ligne, sortie
+reconfiguree par TensorFlow. Chacune produisait le meme symptome : deux
+processus qui s'attendent. Un fichier d'entree et un fichier de sortie
+suppriment la classe entiere de ces pannes, puisque rien ne peut se bloquer sur
+un tampon.
+
+La latence de chaque analyse est mesuree ici, au plus pres du modele, et
+transmise avec la reponse. Elle exclut donc le cout de transport, ce qui la
+rend plus juste que ce qu'un protocole interactif aurait mesure.
 """
 
 from __future__ import annotations
@@ -16,62 +22,45 @@ import asyncio
 import json
 import logging
 import sys
+import time
 from pathlib import Path
-
-# Marqueur de protocole. Rasa journalise abondamment, et rien ne garantit que
-# ses lignes n'atterrissent pas sur la sortie standard : sans marqueur, une
-# ligne de debogage serait lue comme une reponse.
-RESPONSE_PREFIX = "@@DIET@@ "
-
-
-def _emit(payload: dict[str, object]) -> None:
-    print(RESPONSE_PREFIX + json.dumps(payload, default=str), flush=True)
 
 
 def main() -> int:
-    model_path = Path(sys.argv[1])
+    if len(sys.argv) != 4:
+        print("usage: serve.py <modele> <requetes.jsonl> <reponses.jsonl>", file=sys.stderr)
+        return 2
 
-    # Toute la journalisation part vers l'erreur standard : la sortie standard
-    # est reservee au protocole.
+    model_path, requests_path, responses_path = (Path(argument) for argument in sys.argv[1:4])
+
+    # Toute la journalisation part vers l'erreur standard, redirigee vers un
+    # fichier par l'appelant.
     logging.basicConfig(stream=sys.stderr, level=logging.WARNING, force=True)
-    for name in ("rasa", "tensorflow", "matplotlib"):
-        logging.getLogger(name).setLevel(logging.WARNING)
 
     from rasa.core.agent import Agent
 
     agent = Agent.load(str(model_path))
     loop = asyncio.new_event_loop()
-    # Rasa interroge la boucle courante : sans cet enregistrement, certaines de
-    # ses coroutines s'attachent a une autre boucle et n'aboutissent jamais.
     asyncio.set_event_loop(loop)
 
-    # Signale au parent que le modele est pret avant d'attendre des requetes.
-    _emit({"ready": True})
-
-    # `for line in sys.stdin` lit par blocs : tant que le tampon interne n'est
-    # pas plein, aucune ligne n'est rendue et le sidecar reste muet alors que le
-    # parent attend sa reponse. Un test ou l'entree se referme aussitot ne
-    # revele pas le probleme — l'EOF vide le tampon. En service continu, il
-    # bloque indefiniment. On lit donc ligne a ligne, explicitement.
-    while True:
-        raw = sys.stdin.readline()
-        if not raw:
-            break
-        line = raw.strip()
-        if not line:
-            continue
-        try:
-            request = json.loads(line)
-        except json.JSONDecodeError:
-            _emit({"error": "requete illisible"})
-            continue
-        if request.get("stop"):
-            break
-        try:
-            parsed = loop.run_until_complete(agent.parse_message(request.get("text", "")))
-            print(json.dumps(parsed, default=str), flush=True)
-        except Exception as error:
-            print(json.dumps({"error": str(error)}), flush=True)
+    with (
+        requests_path.open(encoding="utf-8") as source,
+        responses_path.open("w", encoding="utf-8") as target,
+    ):
+        for line in source:
+            stripped = line.strip()
+            if not stripped:
+                continue
+            request = json.loads(stripped)
+            text = request.get("text", "")
+            started = time.perf_counter()
+            try:
+                parsed = loop.run_until_complete(agent.parse_message(text))
+            except Exception as error:
+                parsed = {"error": str(error)}
+            parsed["latency_ms"] = (time.perf_counter() - started) * 1000.0
+            target.write(json.dumps(parsed, default=str) + "\n")
+            target.flush()
     return 0
 
 

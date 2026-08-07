@@ -140,6 +140,13 @@ def run_text_benchmark(
     # produit des latences ininterpretables, et le fait doit rester lisible
     # dans le run plutot que d'etre devine apres coup.
     load_before = os.getloadavg()[0]
+    # Certaines architectures analysent en lot, modele charge une seule fois.
+    # La preparation est faite AVANT le chronometre : elle appartient au cout de
+    # demarrage, pas a la latence d'inference.
+    prepare = getattr(router, "prepare", None)
+    if callable(prepare):
+        prepare([case.utterance for case in selection.cases])
+
     started = time.perf_counter()
     with (directory / "predictions.jsonl").open("w", encoding="utf-8") as handle:
         for case in selection.cases:

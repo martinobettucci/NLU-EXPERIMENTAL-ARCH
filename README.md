@@ -92,6 +92,7 @@ _Généré le 2026-08-07T01:30:33+00:00 — commit `627775cfbbe5` — x86_64, 4 
 | A9 embedding_classifier | 75.6% | 74.6% | 99.3% | 44.0% | 73.7% | 0.0% | 75 ms | 2088 |
 | A10 lexical_classifier | 50.4% | 44.7% | 24.7% | 5.0% | 77.8% | 0.0% | 1 ms | 2088 |
 | A11 nearest_neighbour | 74.9% | 72.4% | 90.7% | 20.0% | 74.1% | 0.0% | 90 ms | 2088 |
+| A12 hypothetical_delta_top2 | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté | non exécuté |
 
 Une cellule `non exécuté` signifie exactement cela : la mesure n'a pas été faite. Elle ne vaut pas zéro.
 

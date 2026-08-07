@@ -1,20 +1,23 @@
 """A1 — Rasa DIET, pilote depuis un sidecar Python 3.10.
 
 Rasa 3.6 exige Python < 3.11. Plutot que de reimplementer DIET — ce qui ne
-dirait rien de Rasa — le vrai pipeline tourne dans son propre environnement et
-recoit les phrases par un protocole ligne a ligne. L'adaptateur convertit
-ensuite intention et entites vers le schema de fonction canonique, de facon
-deterministe (§A1).
+dirait rien de Rasa — le vrai pipeline tourne dans son propre environnement.
+
+Le dialogue se fait par fichiers et en lot, pas par tuyaux interactifs. Voir
+`sidecar/serve.py` pour la raison : quatre protocoles interactifs successifs se
+sont bloques, chacun pour un motif different. Le mode fichier supprime la cause
+commune plutot que de la traiter symptome par symptome.
+
+Consequence sur le contrat : ce routeur expose `prepare()`, appele par le
+harnais avant la boucle de mesure. Un routeur qui ne l'expose pas n'est pas
+concerne.
 """
 
 from __future__ import annotations
 
-import contextlib
 import json
-import os
 import subprocess
 import tempfile
-import time
 from pathlib import Path
 from typing import Any
 
@@ -25,10 +28,6 @@ from ivr_bench.routers.diet.dataset import to_prediction, training_dir
 from ivr_bench.routers.registry import register
 
 SIDECAR_PYTHON = ".venv-diet/bin/python"
-
-# Prefixe du protocole, identique cote sidecar : toute ligne qui ne le porte pas
-# est une trace de Rasa, pas une reponse.
-RESPONSE_PREFIX = "@@DIET@@ "
 
 
 def sidecar_python() -> Path:
@@ -52,8 +51,11 @@ class DietRouter:
 
     name = "diet"
 
-    def __init__(self, model_path: str | None = None, timeout_s: float = 120.0) -> None:
+    def __init__(self, model_path: str | None = None) -> None:
         self._catalog = default_catalog()
+        self._model = Path(model_path) if model_path else latest_model()
+        self._parsed: dict[str, dict[str, Any]] = {}
+
         interpreter = sidecar_python()
         if not interpreter.is_file():
             raise RuntimeError(
@@ -61,41 +63,54 @@ class DietRouter:
                 "'python3.10 -m venv .venv-diet && .venv-diet/bin/pip install rasa==3.6.21'."
             )
 
-        model = Path(model_path) if model_path else latest_model()
-        # Le script est lance par CHEMIN, pas comme module du paquet. L'importer
-        # en tant que `ivr_bench.routers.diet.sidecar.serve` declencherait le
-        # `__init__` du paquet, donc l'import de tous les routeurs et de leurs
-        # dependances — pydantic, numpy, torch — qui n'existent pas dans
-        # l'environnement du sidecar.
-        # La sortie d'erreur part dans un FICHIER, jamais dans un tuyau. Rasa
-        # journalise abondamment ; un tuyau que personne ne vide se remplit au
-        # bout de quelques dizaines de kilo-octets et le sidecar se bloque en
-        # ecriture, sans jamais repondre. La masquer serait pire encore : c'est
-        # ainsi qu'un import manquant s'etait presente comme un « silence ».
-        self._log_path = Path(tempfile.gettempdir()) / f"diet-sidecar-{os.getpid()}.log"
-        self._log = self._log_path.open("w")
-        self._process = subprocess.Popen(
-            [str(interpreter), str(sidecar_script()), str(model)],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=self._log,
-            text=True,
-            bufsize=1,
-        )
-        self._timeout = timeout_s
+    def prepare(self, utterances: list[str]) -> None:
+        """Analyse tout le lot en une passe, modele charge une seule fois.
 
-        # Le chargement du modele prend plusieurs dizaines de secondes : on
-        # attend le signal de disponibilite avant toute mesure de latence.
-        ready = self._read_response(default="")
-        if '"ready"' not in ready:
-            self._process.kill()
-            self._log.flush()
-            details = self._log_path.read_text(encoding="utf-8", errors="replace")[-800:].strip()
-            raise RuntimeError(
-                "le sidecar DIET n'a pas demarre.\n"
-                f"sortie : {ready.strip() or '(vide)'}\n"
-                f"erreur : {details or '(vide)'}"
+        Le chargement du modele TensorFlow coute plusieurs minutes ; le payer
+        une fois par campagne plutot qu'une fois par phrase est la seule facon
+        d'obtenir une latence d'inference interpretable.
+        """
+        unique = list(dict.fromkeys(utterances))
+        if not unique:
+            return
+
+        with tempfile.TemporaryDirectory() as workspace:
+            directory = Path(workspace)
+            requests = directory / "requests.jsonl"
+            responses = directory / "responses.jsonl"
+            log = directory / "sidecar.log"
+
+            requests.write_text(
+                "".join(json.dumps({"text": text}, ensure_ascii=False) + "\n" for text in unique),
+                encoding="utf-8",
             )
+
+            with log.open("w") as errors:
+                completed = subprocess.run(
+                    [
+                        str(sidecar_python()),
+                        str(sidecar_script()),
+                        str(self._model),
+                        str(requests),
+                        str(responses),
+                    ],
+                    stdout=errors,
+                    stderr=errors,
+                    check=False,
+                )
+
+            if completed.returncode != 0 or not responses.is_file():
+                details = log.read_text(encoding="utf-8", errors="replace")[-800:].strip()
+                raise RuntimeError(f"le sidecar DIET a echoue :\n{details or '(aucune trace)'}")
+
+            lines = [line for line in responses.read_text(encoding="utf-8").splitlines() if line]
+            if len(lines) != len(unique):
+                raise RuntimeError(
+                    f"{len(lines)} reponses pour {len(unique)} requetes : lot incomplet"
+                )
+            self._parsed = {
+                text: json.loads(line) for text, line in zip(unique, lines, strict=True)
+            }
 
     def predict(
         self,
@@ -103,10 +118,14 @@ class DietRouter:
         session: SessionContext,
         tools: list[ToolDefinition],
     ) -> RouterPrediction:
-        started = time.perf_counter()
-        allowed = {tool.name for tool in tools} or set(self._catalog.names)
+        parsed = self._parsed.get(utterance)
+        if parsed is None:
+            # Le lot n'a pas ete prepare : on echoue plutot que de charger le
+            # modele phrase par phrase, ce qui produirait une latence n'ayant
+            # aucun rapport avec l'inference.
+            raise RuntimeError("enonce absent du lot analyse : appelez prepare() avant predict().")
 
-        parsed = self._ask(utterance)
+        allowed = {tool.name for tool in tools} or set(self._catalog.names)
         name, arguments, confidence = to_prediction(parsed)
         if name is not None and name not in allowed:
             name, arguments = (None, {})
@@ -116,47 +135,15 @@ class DietRouter:
             arguments=arguments,
             confidence=round(confidence, 4) if confidence is not None else None,
             raw_output=None,
-            latency_ms=(time.perf_counter() - started) * 1000.0,
+            # Latence mesuree dans le sidecar, au plus pres du modele.
+            latency_ms=float(parsed.get("latency_ms", 0.0)),
             metadata={
                 "router": self.name,
                 "intent": (parsed.get("intent") or {}).get("name"),
                 "entities": len(parsed.get("entities", [])),
+                "batched": True,
             },
         )
-
-    def _ask(self, utterance: str) -> dict[str, Any]:
-        if self._process.stdin is None or self._process.stdout is None:
-            raise RuntimeError("sidecar DIET indisponible")
-        self._process.stdin.write(json.dumps({"text": utterance}) + "\n")
-        self._process.stdin.flush()
-        line = self._read_response()
-        parsed: dict[str, Any] = json.loads(line)
-        return parsed
-
-    def _read_response(self, default: str | None = None) -> str:
-        """Lit la prochaine ligne de protocole, en ignorant les traces de Rasa."""
-        if self._process.stdout is None:
-            raise RuntimeError("sidecar DIET indisponible")
-        while True:
-            line = self._process.stdout.readline()
-            if not line:
-                if default is not None:
-                    return default
-                raise RuntimeError("le sidecar DIET s'est arrete")
-            if line.startswith(RESPONSE_PREFIX):
-                return str(line[len(RESPONSE_PREFIX) :])
-
-    def close(self) -> None:
-        with contextlib.suppress(Exception):
-            self._log.close()
-        if self._process.poll() is None and self._process.stdin is not None:
-            self._process.stdin.write(json.dumps({"stop": True}) + "\n")
-            self._process.stdin.flush()
-            self._process.wait(timeout=30)
-
-    def __del__(self) -> None:  # pragma: no cover - filet de securite
-        with contextlib.suppress(Exception):
-            self.close()
 
 
 register("diet")(DietRouter)

@@ -154,3 +154,16 @@ nearest_neighbour,no_tool,0.2,5
 nearest_neighbour,safety,0.75,8
 nearest_neighbour,spoken_disfluencies,0.7760891590678825,987
 nearest_neighbour,typos,0.5841346153846154,416
+hypothetical_delta_top2,clean_text,0.0,5
+hypothetical_delta_top2,doctor_names,0.4,20
+hypothetical_delta_top2,spoken_disfluencies,0.18181818181818182,44
+hypothetical_delta_top2,typos,0.0,15
+diet,asr_clean,0.23076923076923078,13
+diet,clean_text,0.9383561643835616,146
+diet,doctor_names,0.854251012145749,494
+diet,hard_contrast,1.0,12
+diet,missing_arguments,0.8571428571428571,7
+diet,no_tool,0.2,5
+diet,safety,0.625,8
+diet,spoken_disfluencies,0.6352583586626139,987
+diet,typos,0.3942307692307692,416

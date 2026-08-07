@@ -139,3 +139,17 @@ nearest_neighbour,list_appointments,0.8133333333333334,300
 nearest_neighbour,no_tool,0.2,300
 nearest_neighbour,request_appointment_reschedule,0.6166666666666667,300
 nearest_neighbour,request_new_appointment,0.96,300
+hypothetical_delta_top2,answer_general_information,0.0,12
+hypothetical_delta_top2,emergency_handoff,0.0,12
+hypothetical_delta_top2,human_handoff,0.0,12
+hypothetical_delta_top2,list_appointments,0.16666666666666666,12
+hypothetical_delta_top2,no_tool,0.25,12
+hypothetical_delta_top2,request_appointment_reschedule,0.8333333333333334,12
+hypothetical_delta_top2,request_new_appointment,0.08333333333333333,12
+diet,answer_general_information,0.6933333333333334,300
+diet,emergency_handoff,0.8066666666666666,300
+diet,human_handoff,0.3263888888888889,288
+diet,list_appointments,0.8066666666666666,300
+diet,no_tool,0.14666666666666667,300
+diet,request_appointment_reschedule,0.85,300
+diet,request_new_appointment,0.9733333333333334,300
