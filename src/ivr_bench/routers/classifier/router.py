@@ -27,6 +27,7 @@ from ivr_bench.domain.catalog import default_catalog
 from ivr_bench.domain.models import RouterPrediction, SessionContext, ToolCandidate, ToolDefinition
 from ivr_bench.generators.corpus import load_split
 from ivr_bench.generators.practitioners import load_name_banks
+from ivr_bench.routers.classifier.enumerations import ENUMERATED, EnumerationLearner
 from ivr_bench.routers.hybrid.backbone import RetrievalBackbone
 from ivr_bench.routers.registry import register
 from ivr_bench.routers.rules import extraction
@@ -150,6 +151,48 @@ class EmbeddingClassifierRouter(RuleArgumentMixin):
                 "encode_ms": round(encode_ms, 3),
             },
         )
+
+
+class ClassifierEnumRouter(EmbeddingClassifierRouter):
+    """A17 — A9 dont les arguments enumeres sont classes, pas devines.
+
+    Ce routeur existe pour repondre a une question de mesure, pas de
+    conception : A16 combine trois choses — le classifieur, DIET, et
+    l'apprentissage des enumerations — et son gain ne dit pas laquelle est
+    responsable. A17 retire DIET et ne garde que la troisieme. L'ecart entre
+    A16 et A17 est donc exactement ce que DIET apporte, une fois les
+    enumerations traitees.
+    """
+
+    name = "classifier_enum"
+
+    def __init__(
+        self,
+        encoder: str = "embeddinggemma_128",
+        strategy: str = "kmeans",
+        top_k_prototypes: int = 30,
+        train_split: str = "train",
+        seed: int = 42,
+    ) -> None:
+        super().__init__(
+            encoder=encoder,
+            strategy=strategy,
+            top_k_prototypes=top_k_prototypes,
+            train_split=train_split,
+            seed=seed,
+        )
+        self._enumerations = EnumerationLearner()
+        self._enumerations.fit(train_split, seed)
+
+    def _arguments(self, function: str, utterance: str) -> dict[str, Any]:
+        values = super()._arguments(function, utterance)
+        if not values:
+            return values
+        definition = self._catalog.get(function)
+        for name in ENUMERATED:
+            if name in values:
+                values[name] = self._enumerations.value(definition, name, utterance)
+        return values
 
 
 class LexicalClassifierRouter(RuleArgumentMixin):
@@ -283,5 +326,6 @@ class NearestNeighbourRouter(RuleArgumentMixin):
 
 
 register("embedding_classifier")(EmbeddingClassifierRouter)
+register("classifier_enum")(ClassifierEnumRouter)
 register("lexical_classifier")(LexicalClassifierRouter)
 register("nearest_neighbour")(NearestNeighbourRouter)

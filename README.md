@@ -47,6 +47,7 @@ Le protocole complet est décrit dans
 | A14 | Classifieur, DIET, puis règles | idem, arguments manquants complétés par règles |
 | A15 | Arbitrage par argument | source choisie argument par argument sur la validation |
 | A16 | Arbitrage et énumérations apprises | idem, plus un classifieur par argument énuméré |
+| A17 | Classifieur et énumérations apprises | contrôle : A16 sans DIET |
 
 ## Démarrage
 

@@ -14,6 +14,7 @@ import pytest
 from ivr_bench.domain.catalog import default_catalog
 from ivr_bench.domain.models import ToolDefinition
 from ivr_bench.routers import available
+from ivr_bench.routers.classifier.enumerations import EnumerationLearner
 from ivr_bench.routers.composite.arbitration import DIET, RULES, ArbitratedRouter
 from ivr_bench.routers.composite.router import ClassifierDietRouter
 
@@ -35,7 +36,7 @@ class _Arbiter(ArbitratedRouter):
         self._catalog = default_catalog()
         self._specialties = []
         self._preference = preference
-        self._enumerations = {}
+        self._enumerations = EnumerationLearner()
         self._diet_values = diet
 
     def _diet_arguments(

@@ -52,6 +52,9 @@ ARCHITECTURES: tuple[tuple[str, str], ...] = (
     # arguments enumeres qu'aucune extraction de texte ne peut atteindre.
     ("A15", "classifier_diet_arbitrated"),
     ("A16", "classifier_diet_enum"),
+    # Controle : la meme chose sans DIET. L'ecart avec A16 mesure ce que
+    # DIET apporte une fois les enumerations traitees.
+    ("A17", "classifier_enum"),
 )
 
 
