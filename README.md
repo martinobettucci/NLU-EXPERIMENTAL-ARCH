@@ -23,6 +23,13 @@ déployables sur du matériel ordinaire ou embarqué, pas des modèles adossés 
 > précision comparable ou supérieure à un appel direct sur le catalogue complet, avec une
 > latence, une mémoire et un coût d'inférence inférieurs.
 
+**Verdict : réfutée.** Le mécanisme fonctionne — réduire le catalogue à deux fonctions fait
+passer Needle de 11,9 % à 20,2 % et FunctionGemma de 0 % à 19,0 %, l'un et l'autre
+significativement — mais le système qui en résulte plafonne à 20 % d'exactitude pour 8 100 ms
+par énoncé, là où une régression logistique sur les mêmes embeddings atteint 75,6 % en 133 ms.
+Le composant fautif n'est pas la préselection, c'est le micro-modèle. Voir
+[« Conclusions »](#conclusions).
+
 Le protocole complet est décrit dans
 [`docs/SPECIFICATION_IVR_ROUTING_BENCHMARK.md`](docs/SPECIFICATION_IVR_ROUTING_BENCHMARK.md).
 
@@ -116,6 +123,89 @@ Couverture partielle sur : functiongemma_zero_shot, hybrid_adaptive, hybrid_func
 Résultats bruts : `results/runs/`. Reproduction : `make reproduce`.
 
 <!-- BENCHMARK_RESULTS_END -->
+
+## Conclusions
+
+### La sécurité classe avant l'exactitude
+
+Aucune architecture adossée à un micro-modèle d'appel d'outils ne transfère **jamais** une
+urgence : rappel de 0 % sur les six variantes. Sur un serveur vocal médical, ce seul chiffre
+les élimine, quelle que soit leur exactitude par ailleurs. Il élimine aussi la baseline de
+règles, qui rate deux urgences sur trois.
+
+Restent les architectures à classifieur (99,3 %), le retriever seul (95,3 %), les k plus
+proches voisins (90,7 %) et DIET (80,7 %).
+
+### Rasa DIET n'est pas la meilleure approche, mais la réponse mérite une nuance
+
+C'est la question qui a motivé ce dépôt. **Non sur l'exactitude, oui sur le coût.**
+
+DIET choisit moins bien la fonction que le classifieur (65,9 % contre 75,6 %) et rate une
+urgence sur cinq. Mais il est cinq fois plus rapide (29 ms contre 133 ms au p95), **démarre en
+zéro seconde** là où toute architecture adossée à EmbeddingGemma paie quinze secondes de
+chargement, et extrait le mieux les arguments parmi les modèles appris (76,3 %). Son coût :
+7 min 35 d'entraînement, une fois.
+
+Sur une machine embarquée qui redémarre, DIET reste défendable. Sur la qualité du routage, non.
+
+### Hybrider le classifieur et DIET ne fonctionne pas
+
+L'idée était plausible : le classifieur attrape l'intention, DIET attrape les entités. Le
+contrôle la réfute. A17, qui ne contient aucune trace de DIET, fait **41,9 %** d'appels exacts
+contre **40,1 %** pour A16 qui l'utilise.
+
+DIET gagne 17,9 points sur les noms de praticien et en perd 11 à 15 sur chacune des quatre
+dates. Un appel exige *tous* ses arguments : les dates perdues coûtent plus d'appels complets
+que les noms gagnés n'en rapportent. Il ajoute en prime 0,8 % d'hallucination et dix
+millisecondes.
+
+### Le vrai gain n'était pas une architecture
+
+De 34,0 % à 41,9 % d'appels exacts — huit points, sans DIET, sans latence supplémentaire, sans
+hallucination — en voyant que `topic`, `reason` et `reason_category` posent une **question de
+classification déguisée en question d'extraction**. Leur valeur n'apparaît nulle part dans la
+phrase. Aucun extracteur de segments ne pouvait les trouver, et tout le monde était à 0 % sur
+`topic` : règles, retriever, classifieurs, DIET compris.
+
+### Le résultat inconfortable
+
+**La baseline de règles produit le plus d'appels directement exécutables : 46,3 %**, devant les
+41,9 % de la meilleure architecture apprise, pour 0 ms, aucun démarrage et aucun modèle.
+
+Elle gagne sur un sous-ensemble plus facile — 62,4 % de fonctions correctes seulement — et son
+rappel d'urgence l'interdit en production. Mais ce n'est pas un homme de paille : quelques
+centaines de lignes d'expressions régulières battent EmbeddingGemma sur la seule métrique qui
+décrive ce qu'un serveur peut exécuter sans reposer de question.
+
+### Le défaut opérationnel que le tableau révèle
+
+**Le refus d'appel.** Rappel `no_tool` : règles 100 %, classifieurs 44 %, DIET 14,7 %, retriever
+10,7 %, lexical 5 %. Tous les modèles appris répondent quelque chose plus d'une fois sur deux
+là où il faudrait décliner. En production, c'est plus grave qu'une erreur de fonction : le
+système agit au lieu de passer la main. Une porte de rejet issue des règles, en amont du
+classifieur, est l'expérience suivante la plus évidente.
+
+### Recommandation
+
+**A17** — classifieur sur embeddings pour la fonction, règles pour les arguments littéraux,
+classifieur lexical pour les arguments énumérés. 75,6 % de fonctions, 99,3 % de rappel
+d'urgence, 41,9 % d'appels exacts, 0 % d'hallucination, 142 ms au p95, quinze secondes de
+démarrage, quelques minutes d'entraînement. Aucun modèle génératif nulle part.
+
+### Ce que ces chiffres ne disent pas
+
+- **Une seule graine.** La spécification en demande cinq pour les composants entraînés. Les
+  écarts d'un ou deux points ne sont pas établis.
+- **84 cas** pour les six architectures à plusieurs secondes par énoncé : l'intervalle à 95 % y
+  fait ±8 à 9 points. L'écart 19,0 % / 20,2 % n'existe pas.
+- **A4 non exécuté.** « La spécialisation par LoRA sauve-t-elle un micro-modèle ? » reste
+  entière, et c'est la mesure manquante la plus importante du dépôt.
+- **Corpus synthétique, francophone, mono-tour, sans bruit de reconnaissance vocale.** Les jeux
+  publics ([`docs/public_benchmarks_plan.md`](docs/public_benchmarks_plan.md)) diront si ces
+  classements tiennent hors de nos propres gabarits.
+- **Latences sur 4 vCPU sans accélérateur.** Elles classent les architectures entre elles ;
+  elles ne se comparent à aucun chiffre publié ailleurs. Needle est mesuré en JAX, pas sur son
+  runtime natif.
 
 ## Documentation
 
